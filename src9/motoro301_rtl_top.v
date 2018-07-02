@@ -39,13 +39,13 @@ input   wire                clk50mhz;			// 50MHz
 input   wire                nReset;		// reset button on the core board
 
 wire                        clk_rs232_tx ;
-wire                        clk10mhz;			// 10MHz
+wire                        clkM3;			// 10MHz
 
 //assign {tp01 , tp02 } = { nReset , ~nReset };
 assign {tp01 , tp02 } = { clk_rs232_tx , ~clk_rs232_tx };
 
 led4
-led4x01(
+ledTop(
     .led        (   led4        ),
 
     .nrst       (   nReset      ),
@@ -53,7 +53,7 @@ led4x01(
 );
 
 uart_block_19_top
-uart_block_19_top__01(
+uartTop(
     .rs232_tx   (   rs232_tx    ),
     .clk_rs232_tx  (   clk_rs232_tx   ),
 
@@ -76,14 +76,14 @@ m3t
     .m3invOrStop    (   m3invOrStop     ),
 
     .nRst           (   nReset          ),
-    .clk            (   clk10mhz        )
+    .clk            (   clkM3           )
 );
 
-clk50mhz_to_clk10mhz
-ckGen10m
+clkGenForMotoro3
+cgM3
 (
     .nRst           (   nReset          ),
-    .clk10mhz       (   clk10mhz        ),
+    .clkM3          (   clkM3           ),
     .clk50mhz       (   clk50mhz        )
 );
 
