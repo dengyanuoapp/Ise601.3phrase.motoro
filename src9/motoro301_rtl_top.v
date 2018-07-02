@@ -1,4 +1,13 @@
-module motoro301_top(
+module motoro301_rtl_top(
+    aH,
+    aL,
+    bH,
+    bL,
+    cH,
+    cL,
+
+    m3start    ,
+    m3freq     ,
 
     tp01,
     tp02,
@@ -10,6 +19,13 @@ module motoro301_top(
 
 );
 
+output  wire                aH ;	
+output  wire                aL ;	
+output  wire                bH ;	
+output  wire                bL ;	
+output  wire                cH ;	
+output  wire                cL ;	
+
 output  wire                tp01;	
 output  wire                tp02;	
 output  wire                rs232_tx;	
@@ -17,7 +33,7 @@ output  wire                rs232_tx;
 output  wire    [3:0]       led4;	
 input   wire                clk50mhz;			// 50MHz
 input   wire                nReset;		// reset button on the core board
-                           
+
 wire                        clk_rs232_tx ;
 
 //assign {tp01 , tp02 } = { nReset , ~nReset };
@@ -38,6 +54,23 @@ uart_block_19_top__01(
 
     .nrst       (   nReset      ),
     .clk_in     (   clk50mhz    )
+);
+
+motoro3_top
+m3t
+(
+    .aH         (   aH          ),
+    .aL         (   aL          ),
+    .bH         (   bH          ),
+    .bL         (   bL          ),
+    .cH         (   cH          ),
+    .cL         (   cL          ),
+
+    .m3start    (   m3start     ),
+    .m3freq     (   m3freq      ),
+
+    .nRst       (   nReset      ),
+    .clk        (   clk10mhz    )
 );
 
 endmodule
