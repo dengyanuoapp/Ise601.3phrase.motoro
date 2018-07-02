@@ -34,6 +34,22 @@ input   wire    [9:0]       m3freq;
 input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
+wire            [3:0]       m3step;	
+wire            [16:0]      m3cnt;	
+
+
+motoro3_state_machine
+st
+(
+    .m3step                 ( m3step        ),
+    .m3cnt                  ( m3cnt         ),
+    .m3start                ( m3start       ),
+    .m3freq                 ( m3freq        ),
+
+    .nRst                   ( nRst ),
+    .clk                    ( clk )
+);
+
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         { aH , aL , bH , bL , cH , cL  } <= 6'd0 ;
@@ -41,5 +57,6 @@ always @ (negedge clk or negedge nRst) begin
     else begin
     end
 end
+
 
 endmodule

@@ -73,7 +73,7 @@ begin
     #100
     m3start = 1;	
 
-    #600
+    #60000
     $finish;
 end
 
