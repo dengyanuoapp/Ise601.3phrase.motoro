@@ -15,12 +15,12 @@ module motoro3_top(
 
 );
 
-output  wire                aH ;	
-output  wire                aL ;	
-output  wire                bH ;	
-output  wire                bL ;	
-output  wire                cH ;	
-output  wire                cL ;	
+output  reg                 aH ;	
+output  reg                 aL ;	
+output  reg                 bH ;	
+output  reg                 bL ;	
+output  reg                 cH ;	
+output  reg                 cL ;	
 
 input   wire                m3start;	
 
@@ -34,5 +34,12 @@ input   wire    [9:0]       m3freq;
 input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        { aH , aL , bH , bL , cH , cL  } <= 6'd0 ;
+    end
+    else begin
+    end
+end
 
 endmodule
