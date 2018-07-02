@@ -35,3 +35,7 @@ bkCDS/
 
 /cfgOpenOCD
 /openocd_run
+
+/csrc/
+/simv
+/simv.daidir/
