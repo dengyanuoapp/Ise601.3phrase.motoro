@@ -4,16 +4,37 @@
 module motoro301_tb(
 );
 
-wire                    tp01;	
-wire                    tp02;	
-wire                    rs232_tx;	
+output  wire                aH ;	
+output  wire                aL ;	
+output  wire                bH ;	
+output  wire                bL ;	
+output  wire                cH ;	
+output  wire                cL ;	
+input   wire                m3start;	
+input   wire                m3invOrStop;	 
+input   wire    [9:0]       m3freq;	
 
-wire    [3:0]           led4;	
-reg                     clk;			// 50MHz
-reg                     nRst;		// reset button on the core board
+wire                        tp01;	
+wire                        tp02;	
+wire                        rs232_tx;	
 
-motoro301_top
-rtl_top(
+wire            [3:0]       led4;	
+reg                         clk;			// 50MHz
+reg                         nRst;		// reset button on the core board
+
+motoro301_rtl_top
+rtl(
+    .aH             (   aH              ),
+    .aL             (   aL              ),
+    .bH             (   bH              ),
+    .bL             (   bL              ),
+    .cH             (   cH              ),
+    .cL             (   cL              ),
+                                       
+    .m3start        (   m3start         ),
+    .m3freq         (   m3freq          ),
+    .m3invOrStop    (   m3invOrStop     ),
+
     .tp01       (   tp01        ),
     .tp02       (   tp02        ),
     .rs232_tx   (   rs232_tx    ),

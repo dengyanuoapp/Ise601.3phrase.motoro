@@ -6,8 +6,9 @@ module motoro301_rtl_top(
     cH,
     cL,
 
-    m3start    ,
-    m3freq     ,
+    m3start         ,
+    m3invOrStop     ,
+    m3freq          ,
 
     tp01,
     tp02,
@@ -25,6 +26,9 @@ output  wire                bH ;
 output  wire                bL ;	
 output  wire                cH ;	
 output  wire                cL ;	
+input   wire                m3start;	
+input   wire                m3invOrStop;	 
+input   wire    [9:0]       m3freq;	
 
 output  wire                tp01;	
 output  wire                tp02;	
@@ -59,18 +63,19 @@ uart_block_19_top__01(
 motoro3_top
 m3t
 (
-    .aH         (   aH          ),
-    .aL         (   aL          ),
-    .bH         (   bH          ),
-    .bL         (   bL          ),
-    .cH         (   cH          ),
-    .cL         (   cL          ),
+    .aH             (   aH              ),
+    .aL             (   aL              ),
+    .bH             (   bH              ),
+    .bL             (   bL              ),
+    .cH             (   cH              ),
+    .cL             (   cL              ),
+                                       
+    .m3start        (   m3start         ),
+    .m3freq         (   m3freq          ),
+    .m3invOrStop    (   m3invOrStop     ),
 
-    .m3start    (   m3start     ),
-    .m3freq     (   m3freq      ),
-
-    .nRst       (   nReset      ),
-    .clk        (   clk10mhz    )
+    .nRst           (   nReset          ),
+    .clk            (   clk10mhz        )
 );
 
 endmodule
