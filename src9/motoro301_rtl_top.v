@@ -39,6 +39,7 @@ input   wire                clk50mhz;			// 50MHz
 input   wire                nReset;		// reset button on the core board
 
 wire                        clk_rs232_tx ;
+wire                        clk10mhz;			// 10MHz
 
 //assign {tp01 , tp02 } = { nReset , ~nReset };
 assign {tp01 , tp02 } = { clk_rs232_tx , ~clk_rs232_tx };
@@ -76,6 +77,14 @@ m3t
 
     .nRst           (   nReset          ),
     .clk            (   clk10mhz        )
+);
+
+clk50mhz_to_clk10mhz
+ckGen10m
+(
+    .nRst           (   nReset          ),
+    .clk10mhz       (   clk10mhz        )
+    .clk50mhz       (   clk50mhz        )
 );
 
 endmodule
