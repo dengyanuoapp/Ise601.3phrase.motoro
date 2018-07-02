@@ -43,8 +43,13 @@ always @ (negedge clkHI or negedge nRst) begin
     end
     else begin
         m3start_clked           <= m3start          ;
-        m3freq_clked            <= m3freq           ;
         m3invOrStop_clked       <= m3invOrStop      ;
+        if ( m3freq > 10'd1000) begin
+            m3freq_clked        <= m3freq           ;
+        end
+        else begin
+            m3freq_clked        <= 10'd1000         ;
+        end
     end
 end
 
