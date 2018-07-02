@@ -11,6 +11,7 @@ module motoro3_top(
     m3freq          ,
 
     nRst,
+    clkHI,
     clk
 
 );
@@ -26,6 +27,7 @@ input   wire                m3start;
 input   wire                m3invOrStop;	 
 input   wire    [9:0]       m3freq;	
 
+input   wire                clkHI;
 input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
@@ -33,7 +35,7 @@ reg                         m3start_clked       ;
 reg                         m3invOrStop_clked   ;	 
 reg             [9:0]       m3freq_clked        ;	
 
-always @ (negedge clk or negedge nRst) begin
+always @ (negedge clkHI or negedge nRst) begin
     if(!nRst) begin
         m3start_clked           <= 0                ;
         m3freq_clked            <= 0                ;
@@ -61,7 +63,7 @@ r
     .m3invOrStop            (   m3invOrStop_clked       ),
                            
     .nRst                   (   nRst                    ),
-    .clk                    (   clkM3                   )
+    .clk                    (   clk                     )
 );
 
 endmodule

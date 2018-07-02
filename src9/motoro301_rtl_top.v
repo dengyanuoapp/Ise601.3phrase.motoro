@@ -76,6 +76,7 @@ m3t
     .m3invOrStop    (   m3invOrStop     ),
 
     .nRst           (   nReset          ),
+    .clkHI          (   clk50mhz        ),
     .clk            (   clkM3           )
 );
 
