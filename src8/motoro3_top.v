@@ -31,25 +31,42 @@ input   wire                clkHI;
 input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
-reg                         m3start_clked       ;	
-reg                         m3invOrStop_clked   ;	 
-reg             [9:0]       m3freq_clked        ;	
+reg                         m3start_clked1       ;	
+reg                         m3invOrStop_clked1   ;	 
+reg             [9:0]       m3freq_clked1        ;	
 
-always @ (negedge clkHI or negedge nRst) begin
+reg                         m3start_clked2       ;	
+reg                         m3invOrStop_clked2   ;	 
+reg             [9:0]       m3freq_clked2        ;	
+
+always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
-        m3start_clked           <= 0                ;
-        m3freq_clked            <= 0                ;
-        m3invOrStop_clked       <= 0                ;
+        m3start_clked1              <= 0                ;
+        m3freq_clked1               <= 0                ;
+        m3invOrStop_clked1          <= 0                ;
     end
     else begin
-        m3start_clked           <= m3start          ;
-        m3invOrStop_clked       <= m3invOrStop      ;
+        m3start_clked1              <= m3start          ;
+        m3invOrStop_clked1          <= m3invOrStop      ;
         if ( m3freq > 10'd1000) begin
-            m3freq_clked        <= m3freq           ;
+            m3freq_clked1           <= m3freq           ;
         end
         else begin
-            m3freq_clked        <= 10'd1000         ;
+            m3freq_clked1           <= 10'd1000         ;
         end
+    end
+end
+
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        m3start_clked2              <= 0                   ;
+        m3freq_clked2               <= 0                   ;
+        m3invOrStop_clked2          <= 0                   ;
+    end
+    else begin
+        m3start_clked2              <= m3start_clked1      ;
+        m3invOrStop_clked2          <= m3invOrStop_clked1  ;
+        m3freq_clked2               <= m3freq_clked1       ;
     end
 end
 
@@ -63,9 +80,9 @@ r
     .cH                     (   cH                      ),
     .cL                     (   cL                      ),
                                                
-    .m3start                (   m3start_clked           ),
-    .m3freq                 (   m3freq_clked            ),
-    .m3invOrStop            (   m3invOrStop_clked       ),
+    .m3start                (   m3start_clked2           ),
+    .m3freq                 (   m3freq_clked2            ),
+    .m3invOrStop            (   m3invOrStop_clked2       ),
                            
     .nRst                   (   nRst                    ),
     .clk                    (   clk                     )
