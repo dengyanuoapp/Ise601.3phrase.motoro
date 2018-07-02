@@ -10,9 +10,9 @@ wire                        bH ;
 wire                        bL ;	
 wire                        cH ;	
 wire                        cL ;	
-wire                        m3start;	
-wire                        m3invOrStop;	 
-wire            [9:0]       m3freq;	
+reg                         m3start;	
+reg                         m3invOrStop;	 
+reg             [9:0]       m3freq;	
 
 wire                        tp01;	
 wire                        tp02;	
@@ -63,8 +63,15 @@ begin
     #10
     nRst = 0;
 
+    m3start = 0;	
+    m3invOrStop = 0 ;	 
+    m3freq  = 100 ;	
+
     #10
     nRst = 1;
+
+    #100
+    m3start = 1;	
 
     #600
     $finish;

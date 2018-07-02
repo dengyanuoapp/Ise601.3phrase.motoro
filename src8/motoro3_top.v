@@ -15,31 +15,53 @@ module motoro3_top(
 
 );
 
-output  reg                 aH ;	
-output  reg                 aL ;	
-output  reg                 bH ;	
-output  reg                 bL ;	
-output  reg                 cH ;	
-output  reg                 cL ;	
+output  wire                aH ;	
+output  wire                aL ;	
+output  wire                bH ;	
+output  wire                bL ;	
+output  wire                cH ;	
+output  wire                cL ;	
 
 input   wire                m3start;	
-
-// if 0 , normal . 
-// if 1 -> force stop ,according to the m3freq : 0 -> forceStop ; or , inverse. 
 input   wire                m3invOrStop;	 
-
-// freq 1 - 1000, ==> 60 - 60,000 rpm(round per minutes)
 input   wire    [9:0]       m3freq;	
 
 input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
+reg                         m3start_clked       ;	
+reg                         m3invOrStop_clked   ;	 
+reg             [9:0]       m3freq_clked        ;	
+
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        { aH , aL , bH , bL , cH , cL  } <= 6'd0 ;
+        m3start_clked           <= 0                ;
+        m3freq_clked            <= 0                ;
+        m3invOrStop_clked       <= 0                ;
     end
     else begin
+        m3start_clked           <= m3start          ;
+        m3freq_clked            <= m3freq           ;
+        m3invOrStop_clked       <= m3invOrStop      ;
     end
 end
+
+motoro3_real
+r
+(
+    .aH             (   aH              ),
+    .aL             (   aL              ),
+    .bH             (   bH              ),
+    .bL             (   bL              ),
+    .cH             (   cH              ),
+    .cL             (   cL              ),
+                                       
+    .m3start        (   m3start_clked         ),
+    .m3freq         (   m3freq_clked          ),
+    .m3invOrStop    (   m3invOrStop_clked     ),
+
+    .nRst           (   nReset          ),
+    .clk            (   clkM3           )
+);
 
 endmodule
