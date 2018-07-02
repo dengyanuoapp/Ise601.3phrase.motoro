@@ -1,4 +1,4 @@
-module ip2uart_top(
+module motoro301_top(
 
     tp01,
     tp02,
