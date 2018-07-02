@@ -1,5 +1,5 @@
 
-`timescale 1ns / 1ps
+`timescale 10ns / 1ns
 
 module motoro301_tb(
 );
@@ -36,10 +36,13 @@ begin
 //    $dumpvars(0, Counter_tb);
 
     #10
-    nRst = 0;
     clk = 0;
+    nRst = 1;
 
-    #40
+    #10
+    nRst = 0;
+
+    #10
     nRst = 1;
 
     #600
