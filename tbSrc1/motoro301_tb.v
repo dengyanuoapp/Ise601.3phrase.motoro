@@ -1,5 +1,5 @@
 
-`timescale 10ps / 1ps
+`timescale 1ns / 1ps
 
 module motoro301_tb(
 );
@@ -9,8 +9,8 @@ wire                    tp02;
 wire                    rs232_tx;	
 
 wire    [3:0]           led4;	
-wire                    clk50mhz;			// 50MHz
-wire                    nReset;		// reset button on the core board
+reg                     clk;			// 50MHz
+reg                     nRst;		// reset button on the core board
 
 motoro301_top
 motoro301_top_01(
@@ -20,13 +20,13 @@ motoro301_top_01(
 
     .led4       (   led4        ),
 
-    .nReset     (   nReset      ),
-    .clk50mhz   (   clk50mhz    )
+    .nReset     (   nRst      ),
+    .clk50mhz   (   clk         )
 );
 
 initial begin
     $fsdbDumpfile("verdi.fsdb") ;
-    $fsdbDumpvars(0,Counter_tb) ;
+    $fsdbDumpvars(0,motoro301_tb) ;
 end
 
 initial
@@ -35,11 +35,12 @@ begin
 //    $dumpfile("Counter.vcd");
 //    $dumpvars(0, Counter_tb);
 
-    rst = 1;
+    #10
+    nRst = 0;
     clk = 0;
 
     #40
-    rst = 0;
+    nRst = 1;
 
     #600
     $finish;

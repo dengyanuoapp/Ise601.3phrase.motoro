@@ -39,4 +39,9 @@ bkCDS/
 /csrc/
 /simv
 /simv.daidir/
+
 /ucli.key
+
+/novas_dump.log
+/verdi.fsdb
+
