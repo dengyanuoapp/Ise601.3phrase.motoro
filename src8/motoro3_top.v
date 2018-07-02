@@ -49,19 +49,19 @@ end
 motoro3_real
 r
 (
-    .aH             (   aH              ),
-    .aL             (   aL              ),
-    .bH             (   bH              ),
-    .bL             (   bL              ),
-    .cH             (   cH              ),
-    .cL             (   cL              ),
-                                       
-    .m3start        (   m3start_clked         ),
-    .m3freq         (   m3freq_clked          ),
-    .m3invOrStop    (   m3invOrStop_clked     ),
-
-    .nRst           (   nReset          ),
-    .clk            (   clkM3           )
+    .aH                     (   aH                      ),
+    .aL                     (   aL                      ),
+    .bH                     (   bH                      ),
+    .bL                     (   bL                      ),
+    .cH                     (   cH                      ),
+    .cL                     (   cL                      ),
+                                               
+    .m3start                (   m3start_clked           ),
+    .m3freq                 (   m3freq_clked            ),
+    .m3invOrStop            (   m3invOrStop_clked       ),
+                           
+    .nRst                   (   nRst                    ),
+    .clk                    (   clkM3                   )
 );
 
 endmodule
