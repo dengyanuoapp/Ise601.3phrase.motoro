@@ -13,7 +13,7 @@ reg                     clk;			// 50MHz
 reg                     nRst;		// reset button on the core board
 
 motoro301_top
-motoro301_top_01(
+rtl_top(
     .tp01       (   tp01        ),
     .tp02       (   tp02        ),
     .rs232_tx   (   rs232_tx    ),
