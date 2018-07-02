@@ -83,7 +83,7 @@ clk50mhz_to_clk10mhz
 ckGen10m
 (
     .nRst           (   nReset          ),
-    .clk10mhz       (   clk10mhz        )
+    .clk10mhz       (   clk10mhz        ),
     .clk50mhz       (   clk50mhz        )
 );
 

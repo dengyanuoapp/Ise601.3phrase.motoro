@@ -4,15 +4,15 @@
 module motoro301_tb(
 );
 
-output  wire                aH ;	
-output  wire                aL ;	
-output  wire                bH ;	
-output  wire                bL ;	
-output  wire                cH ;	
-output  wire                cL ;	
-input   wire                m3start;	
-input   wire                m3invOrStop;	 
-input   wire    [9:0]       m3freq;	
+wire                        aH ;	
+wire                        aL ;	
+wire                        bH ;	
+wire                        bL ;	
+wire                        cH ;	
+wire                        cL ;	
+wire                        m3start;	
+wire                        m3invOrStop;	 
+wire            [9:0]       m3freq;	
 
 wire                        tp01;	
 wire                        tp02;	
