@@ -45,3 +45,10 @@ bkCDS/
 /novas_dump.log
 /verdi.fsdb
 
+/novas.conf
+/novas.rc
+/verdiLog/
+/verdi.play01.txt
+/vericomLog/
+/work.lib++/
+
