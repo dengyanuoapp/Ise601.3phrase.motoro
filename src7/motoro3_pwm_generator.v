@@ -27,7 +27,7 @@ input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
 reg             [8:0]       pwmCNT                  ;	
-wire                        pwmCNTlast = pwmCNT[8]  ;
+wire                        pwmCNTlast = (pwmCNT[8:1] == 8'd0)? 1'd1 : 1'd0  ;
 wire            [8:0]       pwmCNTload1             ;	
 wire            [8:0]       pwmCNTload2             ;	
 wire            [8:0]       pwmCNTinput             ;	
@@ -58,17 +58,29 @@ always @ (negedge clk or negedge nRst) begin
     end
     else begin
         if ( pwmCNTreload == 1'd1 ) begin
-            pwm                  <= 1'b0 ;
-            pwmCNT               <= pwmCNTload2 ;
+            pwm                 <= 1'b0 ;
+            pwmCNT              <= pwmCNTload2 ;
             if ( pwmCNTinput == 9'hff ) begin
-                pwm              <= 1'b1 ;
+                pwm             <= 1'b1 ;
             end
         end
         else begin
             if ( pwmCNTinput_clked1 == 9'hff ) begin
-                pwm         <= 1'b1 ;
+                pwm             <= 1'b1 ;
             end
             else begin
+                if ( pwmCNTlast == 1'd1 ) begin
+                    if ( pwm == 1'b1 ) begin
+                        pwmCNT  <= pwmCNTload2 ;
+                    end
+                    else begin
+                        pwmCNT  <= pwmCNTload1 ;
+                    end
+                    pwm         <= ~pwm ;
+                end
+                else begin
+                    pwmCNT      <= pwmCNT  - 9'd1 ;
+                end
             end
         end
     end
