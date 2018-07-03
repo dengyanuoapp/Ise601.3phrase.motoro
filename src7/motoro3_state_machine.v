@@ -43,13 +43,15 @@ reg                         m3start_clked1;
 wire                        m3start_up1;	
 wire                        m3cntLast1 = m3cnt[24] ;
 
+reg             [64:0]      roundCNT            ;	
+
 assign  m3start_up1 = (m3start) && (~m3start_clked1) ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         m3start_clked1      <= 0 ;
     end
     else begin
-        m3start_clked1      <= m3start ;
+        m3start_clked1      <= m3start      ;
     end
 end
 
@@ -89,24 +91,39 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        m3step                  <= 0                    ;
+        m3step                  <= 4'd0             ;
     end
     else begin
         if ( m3start_up1 == 1 ) begin
-            m3step              <= 4'd1                 ;
+            m3step              <= 4'd1             ;
         end
         else begin
             if ( m3cntLast1 == 1'd1 ) begin
                 if ( m3step == 4'd6 ) begin
-                    m3step      <= 4'd1                 ;
+                    m3step      <= 4'd1             ;
                 end
                 else begin
-                    m3step      <= m3step + 4'd1        ;
+                    m3step      <= m3step + 4'd1    ;
                 end
             end
         end
     end
 end
 
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        roundCNT            <= 48'd0 ;
+    end
+    else begin
+        if ( m3start ) begin
+            if ( m3step == 4'd6 && m3cntLast1 == 1'd1 ) begin
+                roundCNT    <= roundCNT + 48'd1 ;
+            end
+        end
+        else begin
+            roundCNT        <= 48'd0 ;
+        end
+    end
+end
 
 endmodule
