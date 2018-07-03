@@ -27,7 +27,7 @@ input   wire                nRst;
 reg                         m3start_clked1;	
 wire                        m3start_up1;	
 
-assign  m3start_up1 = (!m3start) && m3start_clked1 ;
+assign  m3start_up1 = (m3start) && (~m3start_clked1) ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         m3start_clked1      <= 0 ;
