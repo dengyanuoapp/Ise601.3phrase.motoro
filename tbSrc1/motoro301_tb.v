@@ -1,5 +1,5 @@
 
-`timescale 10ns / 1ns
+`timescale 10ns / 10ns
 
 module motoro301_tb(
 );
@@ -56,24 +56,25 @@ begin
 //    $dumpfile("Counter.vcd");
 //    $dumpvars(0, Counter_tb);
 
-    #10
+    #1
     clk = 0;
     nRst = 1;
 
-    #10
+    #1
     nRst = 0;
 
     m3start = 0;	
     m3invOrStop = 0 ;	 
     m3freq  = 100 ;	
 
-    #10
+    #1
     nRst = 1;
 
-    #100
+    #10
     m3start = 1;	
 
-    #60000
+    #1_200_000
+    //#120_000_000
     $finish;
 end
 
