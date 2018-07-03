@@ -41,25 +41,21 @@ always @ (negedge clk or negedge nRst) begin
         mosL                    <= 1'b0 ;
     end
     else begin
-        if ( mosEnable_up1 ) begin
-            if ( h1_L0 == 1 ) begin
+        if ( mosEnable == 1'b1 ) begin
+            if ( h1_L0 == 1'b1 ) begin
                 mosH            <= 1'b1 ;
                 mosL            <= 1'b0 ;
+                if ( mosL == 1'b1 ) begin mosH <= 1'b0 ; end 
             end
             else begin
                 mosH            <= 1'b0 ;
                 mosL            <= 1'b1 ;
+                if ( mosH == 1'b1 ) begin mosL <= 1'b0 ; end 
             end
         end
-        if ( mosEnable_down1 ) begin
-            if ( h1_L0 == 1 ) begin
-                mosH            <= 1'b1 ;
-                mosL            <= 1'b0 ;
-            end
-            else begin
+        else begin
                 mosH            <= 1'b0 ;
-                mosL            <= 1'b1 ;
-            end
+                mosL            <= 1'b0 ;
         end
     end
 end
