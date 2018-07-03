@@ -34,7 +34,8 @@ wire            [12:0]       pwmCNTinput             ;
 reg             [12:0]       pwmCNTinput_clked1      ;	
 wire                        pwmCNTreload            ;
 
-`define pwmTest     12'h100
+//`define pwmTest     12'h100
+`define pwmTest     12'hf00
 
 assign pwmCNTinput = { 1'b0 , `pwmTest                        }   ;
 assign pwmCNTload1 = pwmCNTinput_clked1                          ; // MOS on  time
