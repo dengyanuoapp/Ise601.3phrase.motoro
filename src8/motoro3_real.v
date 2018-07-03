@@ -15,12 +15,12 @@ module motoro3_real(
 
 );
 
-output  reg                 aH ;	
-output  reg                 aL ;	
-output  reg                 bH ;	
-output  reg                 bL ;	
-output  reg                 cH ;	
-output  reg                 cL ;	
+output  wire                aH ;	
+output  wire                aL ;	
+output  wire                bH ;	
+output  wire                bL ;	
+output  wire                cH ;	
+output  wire                cL ;	
 
 input   wire                m3start;	
 
@@ -64,13 +64,38 @@ st
     .clk                    ( clk )
 );
 
-always @ (negedge clk or negedge nRst) begin
-    if(!nRst) begin
-        { aH , aL , bH , bL , cH , cL  } <= 6'd0 ;
-    end
-    else begin
-    end
-end
+motoro3_mos_driver
+mA
+(
+    .mosH                   ( aH            ),
+    .mosL                   ( aL            ),
+    .mosEnable              ( aE            ),
+    .h1_L0                  ( aH1_L0        ),
+    .nRst                   ( nRst          ),
+    .clk                    ( clk           )  
+);
+
+motoro3_mos_driver
+mB
+(
+    .mosH                   ( bH            ),
+    .mosL                   ( bL            ),
+    .mosEnable              ( bE            ),
+    .h1_L0                  ( bH1_L0        ),
+    .nRst                   ( nRst          ),
+    .clk                    ( clk           )  
+);
+
+motoro3_mos_driver
+mC
+(
+    .mosH                   ( cH            ),
+    .mosL                   ( cL            ),
+    .mosEnable              ( cE            ),
+    .h1_L0                  ( cH1_L0        ),
+    .nRst                   ( nRst          ),
+    .clk                    ( clk           )  
+);
 
 
 endmodule
