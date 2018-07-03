@@ -68,19 +68,25 @@ end
 always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
         aH                          <= 0                ;
-        aL                          <= 0                ;
         bH                          <= 0                ;
-        bL                          <= 0                ;
         cH                          <= 0                ;
-        cL                          <= 0                ;
+//        aL                          <= 0                ;
+//        bL                          <= 0                ;
+//        cL                          <= 0                ;
+        aL                          <= 1                ;
+        bL                          <= 1                ;
+        cL                          <= 1                ;
     end
     else begin
         aH                          <= pwm &    aH_ii            ;
-        aL                          <= pwm &    aL_ii            ;
         bH                          <= pwm &    bH_ii            ;
-        bL                          <= pwm &    bL_ii            ;
         cH                          <= pwm &    cH_ii            ;
-        cL                          <= pwm &    cL_ii            ;
+//        aL                          <= pwm &    aL_ii            ;
+//        bL                          <= pwm &    bL_ii            ;
+//        cL                          <= pwm &    cL_ii            ;
+        aL                          <= ~(pwm &    aL_ii)            ;
+        bL                          <= ~(pwm &    bL_ii)            ;
+        cL                          <= ~(pwm &    cL_ii)            ;
     end
 end
 
