@@ -37,10 +37,24 @@ input   wire                nRst;
 wire            [3:0]       m3step;	
 wire            [16:0]      m3cnt;	
 
+wire                        aE              ;		
+wire                        aH1_L0          ;		
+wire                        bE              ;		
+wire                        bH1_L0          ;		
+wire                        cE              ;		
+wire                        cH1_L0          ;		
+
 
 motoro3_state_machine
 st
 (
+    .aE                     ( aE            ),
+    .aH1_L0                 ( aH1_L0        ),
+    .bE                     ( bE            ),
+    .bH1_L0                 ( bH1_L0        ),
+    .cE                     ( cE            ),
+    .cH1_L0                 ( cH1_L0        ),
+
     .m3step                 ( m3step        ),
     .m3cnt                  ( m3cnt         ),
     .m3start                ( m3start       ),
