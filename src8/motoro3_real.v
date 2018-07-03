@@ -35,7 +35,7 @@ input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
 wire            [3:0]       m3step;	
-wire            [16:0]      m3cnt;	
+wire            [24:0]      m3cnt;	
 
 wire                        aE              ;		
 wire                        aH1_L0          ;		
