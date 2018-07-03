@@ -100,6 +100,7 @@ end
 motoro3_real
 r
 (
+    .pwm                    (   pwm                     ),
     .aH                     (   aH_ii                   ),
     .aL                     (   aL_ii                   ),
     .bH                     (   bH_ii                   ),
