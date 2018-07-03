@@ -35,7 +35,8 @@ NET "cL"            LOC = "P128" ;
 
 #### DRIVE range : 6,12,24 in LVCOMS33 can be set to , see https://www.xilinx.com/support/documentation/white_papers/wp217.pdf
 
-#  NET "tp01" IOSTANDARD = LVCMOS33;
+NET "*" IOSTANDARD = LVCMOS33;
+# NET "tp01" IOSTANDARD = LVCMOS33;
 #  #NET "tp01" SLEW = SLOW;
 #  NET "tp01" SLEW = FAST;
 #  #NET "tp01" DRIVE = 6;
