@@ -51,7 +51,7 @@ reg             [64:0]      roundCNT                ;
 
 
 motoro3_pwm_generator
-pwm
+pwm01
 (
     .pwm                ( pwm         ),
     .aE                 ( aE          ),
