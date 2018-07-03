@@ -1,5 +1,7 @@
 module motoro3_mos_driver(
 
+    pwm             ,
+
     mosH            ,
     mosL            ,
 
@@ -14,6 +16,7 @@ module motoro3_mos_driver(
 output  reg                 mosH            ;		
 output  reg                 mosL            ;		
 
+input   wire                pwm             ;		
 input   wire                mosEnable       ;		
 input   wire                h1_L0           ;		
 

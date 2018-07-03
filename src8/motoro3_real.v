@@ -37,6 +37,7 @@ input   wire                nRst;
 wire            [3:0]       m3step;	
 wire            [24:0]      m3cnt;	
 
+wire                        pwm             ;		
 wire                        aE              ;		
 wire                        aH1_L0          ;		
 wire                        bE              ;		
@@ -48,6 +49,7 @@ wire                        cH1_L0          ;
 motoro3_state_machine
 st
 (
+    .pwm                    ( pwm           ),
     .aE                     ( aE            ),
     .aH1_L0                 ( aH1_L0        ),
     .bE                     ( bE            ),
@@ -89,6 +91,7 @@ mB
 motoro3_mos_driver
 mC
 (
+    .pwm                    ( pwm           ),
     .mosH                   ( cH            ),
     .mosL                   ( cL            ),
     .mosEnable              ( cE            ),
