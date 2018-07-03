@@ -1,5 +1,7 @@
 module motoro3_state_machine(
 
+    pwm             ,		
+
     aE              ,		
     aH1_L0          ,		
     bE              ,		
@@ -17,6 +19,8 @@ module motoro3_state_machine(
     clk
 
 );
+
+output  wire                pwm             ;		
 
 output  reg                 aE              ;		
 output  reg                 aH1_L0          ;		
@@ -41,9 +45,24 @@ input   wire                nRst;
 wire            [24:0]      m3cnt_reload1;	
 reg                         m3start_clked1;	
 wire                        m3start_up1;	
-wire                        m3cntLast1 = m3cnt[24] ;
+wire                        m3cntLast1 = ( m3cnt == 25'd0 )? 1'd1:1'd0 ;
 
-reg             [64:0]      roundCNT            ;	
+reg             [64:0]      roundCNT                ;	
+
+
+motoro3_pwm_generator
+pwm
+(
+    .pwm                ( pwm         ),
+    .aE                 ( aE          ),
+    .bE                 ( bE          ),
+    .cE                 ( cE          ),
+    .m3cnt              ( m3cnt       ),
+    .m3cntLast1         ( m3cntLast1  ),
+    .nRst               ( nRst        ),
+    .clk                ( clk         ) 
+);
+
 
 assign  m3start_up1 = (m3start) && (~m3start_clked1) ;
 always @ (negedge clk or negedge nRst) begin

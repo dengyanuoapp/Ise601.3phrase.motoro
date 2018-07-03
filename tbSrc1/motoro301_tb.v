@@ -35,14 +35,14 @@ rtl(
     .m3freq         (   m3freq          ),
     .m3invOrStop    (   m3invOrStop     ),
 
-    .tp01       (   tp01        ),
-    .tp02       (   tp02        ),
-    .rs232_tx   (   rs232_tx    ),
-
-    .led4       (   led4        ),
-
-    .nReset     (   nRst      ),
-    .clk50mhz   (   clk         )
+    .tp01           (   tp01            ),
+    .tp02           (   tp02            ),
+    .rs232_tx       (   rs232_tx        ),
+                   
+    .led4           (   led4            ),
+                   
+    .nReset         (   nRst            ),
+    .clk50mhz       (   clk             )
 );
 
 initial begin
