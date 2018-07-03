@@ -16,13 +16,27 @@ module motoro3_state_machine(
 // 7:force stop
 output  reg     [3:0]       m3step;	
 
-output  reg     [16:0]       m3cnt;	
+output  reg     [16:0]      m3cnt;	
 
 input   wire                m3start;	
-input   wire    [9:0]      m3freq;	
+input   wire    [9:0]       m3freq;	
 
 input   wire                clk;			// 10MHz
 input   wire                nRst;		
+
+reg                         m3start_clked1;	
+wire                        m3start_up1;	
+
+assign  m3start_up1 = (!m3start) && m3start_clked1 ;
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        m3start_clked1      <= 0 ;
+    end
+    else begin
+        m3start_clked1      <= m3start ;
+    end
+end
+
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
@@ -30,7 +44,7 @@ always @ (negedge clk or negedge nRst) begin
         m3cnt               <= 17'd32;
     end
     else begin
-        if ( m3start == 0 ) begin
+        if ( m3start_up1 == 1 ) begin
             m3cnt           <= { 1'd0, m3freq , 6'd0 };
             m3cnt           <= 17'd32;
         end
@@ -44,19 +58,19 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        m3step               <= 0               ;
+        m3step                  <= 0                    ;
     end
     else begin
-        if ( m3start == 0 ) begin
-            m3step           <= 0               ;
+        if ( m3start_up1 == 1 ) begin
+            m3step              <= 4'd1                 ;
         end
         else begin
             if ( m3cnt == 0 ) begin
                 if ( m3step == 4'd6 ) begin
-                    m3step       <= 4'd1            ;
+                    m3step      <= 4'd1                 ;
                 end
                 else begin
-                    m3step       <= m3step + 4'd1   ;
+                    m3step      <= m3step + 4'd1        ;
                 end
             end
         end
