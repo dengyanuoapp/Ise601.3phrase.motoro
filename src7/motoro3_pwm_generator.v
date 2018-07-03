@@ -31,7 +31,8 @@ wire                        pwmCNTlast = pwmCNT[8]  ;
 wire            [8:0]       pwmCNTload1             ;	
 wire            [8:0]       pwmCNTload2             ;	
 wire            [8:0]       pwmCNTinput             ;	
-reg             [8:0]       pwmCNTinput_clked1       ;	
+reg             [8:0]       pwmCNTinput_clked1      ;	
+wire                        pwmCNTreload            ;
 
 `define pwmTest     8'h10
 
@@ -48,13 +49,15 @@ always @ (posedge clk or negedge nRst) begin
         end
     end
 end
+
+assign pwmCNTreload = ( m3cntLast1 == 1'd1 || { aE , bE , cE } == 3'b000 ) ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNT                  <= pwmCNTload2 ;
         pwm                     <= 1'b0 ;
     end
     else begin
-        if ( m3cntLast1 == 1'd1 || { aE , bE , cE } == 3'b000 ) begin
+        if ( pwmCNTreload == 1'd1 ) begin
             pwm                  <= 1'b0 ;
             pwmCNT               <= pwmCNTload2 ;
             if ( pwmCNTinput == 9'hff ) begin
