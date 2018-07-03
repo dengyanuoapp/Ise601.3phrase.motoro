@@ -45,7 +45,7 @@ input   wire                nRst;
 wire            [24:0]      m3cnt_reload1;	
 reg                         m3start_clked1;	
 wire                        m3start_up1;	
-wire                        m3cntLast1 = ( m3cnt == 25'd0 )? 1'd1:1'd0 ;
+wire                        m3cntLast1 = ( m3cnt[24:1] == 24'd0 )? 1'd1:1'd0 ;
 
 reg             [64:0]      roundCNT                ;	
 
