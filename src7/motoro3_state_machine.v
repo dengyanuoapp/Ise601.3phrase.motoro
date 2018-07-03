@@ -67,7 +67,10 @@ end
 
 
 //assign m3cnt_reload1 = { 1'd0, m3freq , 6'd0 };
-assign m3cnt_reload1 = 25'd10_000_000 ;
+assign m3cnt_reload1 = 25'd1_667      ; // 6*1_667        == 1,000.2 us       == 1000Hz
+//assign m3cnt_reload1 = 25'd16_667     ; // 6*16_667       == 10,000.2 us      == 100Hz
+//assign m3cnt_reload1 = 25'd166_667    ; // 6*166_667      == 100,000.2 us     == 10Hz
+//assign m3cnt_reload1 = 25'd1_666_667  ; // 6*1_666_667    == 1,000,000.2 us   == 1Hz
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         m3cnt               <= m3cnt_reload1            ;

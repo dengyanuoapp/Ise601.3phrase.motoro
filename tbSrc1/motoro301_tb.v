@@ -1,5 +1,5 @@
 
-`timescale 10ns / 10ns
+`timescale 10ns / 1ns
 
 module motoro301_tb(
 );
@@ -73,8 +73,8 @@ begin
     #10
     m3start = 1;	
 
-    #1_200_000
-    //#120_000_000
+    #1_200_000      // 12ms
+    //#100_000_000    // 1s
     $finish;
 end
 
