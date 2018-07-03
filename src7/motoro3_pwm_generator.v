@@ -26,19 +26,19 @@ input   wire    [24:0]      m3cnt;
 input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
-reg             [8:0]       pwmCNT                  ;	
-wire                        pwmCNTlast = (pwmCNT[8:1] == 8'd0)? 1'd1 : 1'd0  ;
-wire            [8:0]       pwmCNTload1             ;	
-wire            [8:0]       pwmCNTload2             ;	
-wire            [8:0]       pwmCNTinput             ;	
-reg             [8:0]       pwmCNTinput_clked1      ;	
+reg             [12:0]       pwmCNT                  ;	
+wire                        pwmCNTlast = (pwmCNT[12:1] == 12'd0)? 1'd1 : 1'd0  ;
+wire            [12:0]       pwmCNTload1             ;	
+wire            [12:0]       pwmCNTload2             ;	
+wire            [12:0]       pwmCNTinput             ;	
+reg             [12:0]       pwmCNTinput_clked1      ;	
 wire                        pwmCNTreload            ;
 
-`define pwmTest     8'h10
+`define pwmTest     12'h100
 
 assign pwmCNTinput = { 1'b0 , `pwmTest                        }   ;
 assign pwmCNTload1 = pwmCNTinput_clked1                          ; // MOS on  time
-assign pwmCNTload2 = { 1'b0 , pwmCNTinput_clked1[7:0] ^ 8'hff }  ; // MOS off time
+assign pwmCNTload2 = { 1'b0 , pwmCNTinput_clked1[11:0] ^ 12'hfff }  ; // MOS off time
 always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNTinput_clked1       <= pwmCNTinput ;
