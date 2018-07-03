@@ -39,6 +39,7 @@ reg             [9:0]       m3freq_clked1        ;
 //reg                         m3invOrStop_clked2   ;	 
 //reg             [9:0]       m3freq_clked2        ;	
 
+wire                        pwm         ;	
 wire                        aH_ii       ;	
 wire                        aL_ii       ;	
 wire                        bH_ii       ;	
@@ -74,12 +75,12 @@ always @ (posedge clk or negedge nRst) begin
         cL                          <= 0                ;
     end
     else begin
-        aH                          <= aH_ii            ;
-        aL                          <= aL_ii            ;
-        bH                          <= bH_ii            ;
-        bL                          <= bL_ii            ;
-        cH                          <= cH_ii            ;
-        cL                          <= cL_ii            ;
+        aH                          <= pwm &    aH_ii            ;
+        aL                          <= pwm &    aL_ii            ;
+        bH                          <= pwm &    bH_ii            ;
+        bL                          <= pwm &    bL_ii            ;
+        cH                          <= pwm &    cH_ii            ;
+        cL                          <= pwm &    cL_ii            ;
     end
 end
 
