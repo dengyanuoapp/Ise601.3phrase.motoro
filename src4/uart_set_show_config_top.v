@@ -24,7 +24,6 @@ uart_clkgen_10mhz_115200
 ucg01(	
     .clk10mhz(clk10mhz),	//
     .rst_n(nrst),
-    .bps_start(bps_start2),
     .clkUtx(clkUtx)
 );
 
