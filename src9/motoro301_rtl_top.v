@@ -46,19 +46,19 @@ assign {tp01 , tp02 } = { clk_rs232_tx , ~clk_rs232_tx };
 
 led4
 ledTop(
-    .led        (   led4        ),
+    .led            (   led4        ),
 
-    .nrst       (   nReset      ),
-    .clk        (   clk50mhz    )
+    .nrst           (   nReset      ),
+    .clk            (   clk50mhz    )
 );
 
 uart_block_19_top
 uartTop(
-    .uTx   (   uTx    ),
-    .clk_rs232_tx  (   clk_rs232_tx   ),
+    .uTx            (   uTx             ),
+    .clk_rs232_tx   (   clk_rs232_tx    ),
 
-    .nrst       (   nReset      ),
-    .clk_in     (   clk50mhz    )
+    .nrst           (   nReset          ),
+    .clk10mhz       (   clkM3           )
 );
 
 motoro3_top

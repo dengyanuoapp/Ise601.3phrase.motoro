@@ -7,10 +7,10 @@ module uart_tx(
     bps_start,
 
     rst_n,
-    clk_in
+    clk10mhz
 );
 
-input clk_in;			// 50MHz
+input clk10mhz;			// 50MHz
 input rst_n;		//
 input clk_rs232_tx;		// clk_bps_r,
 input[7:0] rx_data;	//
@@ -22,7 +22,7 @@ output bps_start;	//
 reg rx_int0,rx_int1,rx_int2;	//rx_int
 wire neg_rx_int;	// rx_int
 
-always @ (posedge clk_in or negedge rst_n) begin
+always @ (posedge clk10mhz or negedge rst_n) begin
     if(!rst_n) begin
         rx_int0 <= 1'b0;
         rx_int1 <= 1'b0;
@@ -44,7 +44,7 @@ reg bps_start_r;
 reg tx_en;	//
 reg[3:0] num;
 
-always @ (posedge clk_in or negedge rst_n) begin
+always @ (posedge clk10mhz or negedge rst_n) begin
     if(!rst_n) begin
         bps_start_r <= 1'bz;
         tx_en <= 1'b0;
@@ -66,7 +66,7 @@ assign bps_start = bps_start_r;
 //---------------------------------------------------------
 reg rs232_tx_r;
 
-always @ (posedge clk_in or negedge rst_n) begin
+always @ (posedge clk10mhz or negedge rst_n) begin
     if(!rst_n) begin
         num <= 4'd0;
         rs232_tx_r <= 1'b1;

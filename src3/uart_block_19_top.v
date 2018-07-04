@@ -3,11 +3,11 @@ module uart_block_19_top(
     clk_rs232_tx ,
 
     nrst,
-    clk_in
+    clk10mhz
 
 );
 
-input   wire                clk_in;			// 50MHz
+input   wire                clk10mhz;			// 50MHz
 input   wire                nrst;		// reset button on the core board
                            
 output  wire                clk_rs232_tx;	
@@ -22,7 +22,7 @@ assign rx_data = 'h08;
 
 uart_clkgen		
 uart_clkgen01(	
-    .clk_in(clk_in),	//
+    .clk10mhz(clk10mhz),	//
     .rst_n(nrst),
     .bps_start(bps_start2),
     .clk_rs232_tx(clk_rs232_tx)
@@ -30,7 +30,7 @@ uart_clkgen01(
 
 uart_tx			
 uart_tx01(		
-    .clk_in(clk_in),	//
+    .clk10mhz(clk10mhz),	//
     .rst_n(nrst),
     .rx_data(rx_data),
     .rx_int(rx_int),
