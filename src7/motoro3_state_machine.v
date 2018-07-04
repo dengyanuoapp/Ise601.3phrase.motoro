@@ -74,14 +74,25 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
+//always @( m3step ) begin
+//    case ( m3step )
+//        4'd1 :  begin { aE , bE, cE }  = 3'b101 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
+//        4'd2 :  begin { aE , bE, cE }  = 3'b011 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b010 ; end
+//        4'd3 :  begin { aE , bE, cE }  = 3'b110 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b010 ; end
+//        4'd4 :  begin { aE , bE, cE }  = 3'b101 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b001 ; end
+//        4'd5 :  begin { aE , bE, cE }  = 3'b011 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b001 ; end
+//        4'd6 :  begin { aE , bE, cE }  = 3'b110 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
+//        default:begin { aE , bE, cE }  = 3'b000 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b000 ; end
+//    endcase
+//end
 always @( m3step ) begin
     case ( m3step )
-        4'd1 :  begin { aE , bE, cE }  = 3'b101 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
-        4'd2 :  begin { aE , bE, cE }  = 3'b011 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b010 ; end
-        4'd3 :  begin { aE , bE, cE }  = 3'b110 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b010 ; end
-        4'd4 :  begin { aE , bE, cE }  = 3'b101 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b001 ; end
-        4'd5 :  begin { aE , bE, cE }  = 3'b011 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b001 ; end
-        4'd6 :  begin { aE , bE, cE }  = 3'b110 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
+        4'd1 :  begin { aE , bE, cE }  = 3'b100 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
+        4'd2 :  begin { aE , bE, cE }  = 3'b000 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b010 ; end
+        4'd3 :  begin { aE , bE, cE }  = 3'b100 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b010 ; end
+        4'd4 :  begin { aE , bE, cE }  = 3'b100 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b001 ; end
+        4'd5 :  begin { aE , bE, cE }  = 3'b000 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b001 ; end
+        4'd6 :  begin { aE , bE, cE }  = 3'b100 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
         default:begin { aE , bE, cE }  = 3'b000 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b000 ; end
     endcase
 end
