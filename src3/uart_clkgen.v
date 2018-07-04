@@ -1,5 +1,5 @@
 
-module uart_clkgen(
+module uart_clkgen_10mhz_115200(
     bps_start,
     clkUtx,
 

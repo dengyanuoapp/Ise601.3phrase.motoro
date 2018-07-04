@@ -20,8 +20,8 @@ wire rx_int;
 
 assign rx_data = 'h08;
 
-uart_clkgen		
-uart_clkgen01(	
+uart_clkgen_10mhz_115200		
+ucg01(	
     .clk10mhz(clk10mhz),	//
     .rst_n(nrst),
     .bps_start(bps_start2),
@@ -29,7 +29,7 @@ uart_clkgen01(
 );
 
 uart_tx			
-uart_tx01(		
+tx01(		
     .clk10mhz(clk10mhz),	//
     .rst_n(nrst),
     .rx_data(rx_data),
