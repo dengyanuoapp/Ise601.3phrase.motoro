@@ -35,17 +35,18 @@ reg             [12:0]       pwmCNTinput_clked1      ;
 wire                        pwmCNTreload            ;
 
 //`define pwmTest     12'hf00
-//`define pwmTest     12'h400
-//`define pwmTest     12'h200  // 50us
-//`define pwmTest     12'h100 // 25us
-//`define pwmTest     12'h80 // 12.5us
-//`define pwmTest     12'h40 // 6.25us
-`define pwmTest     12'h20 // 3.125us // and , when less than 3us , MOSFET lost
-//`define pwmTest     12'h10 // 1.56us // lost... the FPGA output lost... so, the MOSFET must be lost.
+//`define pwmTest     11'h400
+//`define pwmTest     10'h200  // 50us
+//`define pwmTest      9'h100 // 25us
+//`define pwmTest      8'h80 // 12.5us
+//`define pwmTest      7'h40 // 6.25us
+`define pwmTest      6'h20 // 3.125us // and , when less than 3us , MOSFET lost
+//`define pwmTest      5'h10 // 1.56us // lost... the FPGA output lost... so, the MOSFET must be lost.
 
 assign pwmCNTinput = { 1'b0 , `pwmTest                        }   ;
 assign pwmCNTload1 = pwmCNTinput_clked1                          ; // MOS on  time
-assign pwmCNTload2 = { 1'b0 , pwmCNTinput_clked1[11:0] ^ 12'hfff }  ; // MOS off time
+//assign pwmCNTload2 = { 1'b0 , pwmCNTinput_clked1[11:0] ^ 12'hfff }  ; // MOS off time
+assign pwmCNTload2 = { ( pwmCNTinput_clked1[11:0] ^ 12'hFFF ) & 12'h1ff }  ; // MOS off time
 always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNTinput_clked1       <= pwmCNTinput ;
