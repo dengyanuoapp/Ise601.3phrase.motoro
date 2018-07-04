@@ -36,8 +36,12 @@ wire                        pwmCNTreload            ;
 
 //`define pwmTest     12'hf00
 //`define pwmTest     12'h400
-//`define pwmTest     12'h100
-`define pwmTest     12'h10
+//`define pwmTest     12'h200  // 50us
+//`define pwmTest     12'h100 // 25us
+//`define pwmTest     12'h80 // 12.5us
+//`define pwmTest     12'h40 // 6.25us
+`define pwmTest     12'h20 // 3.125us // and , when less than 3us , MOSFET lost
+//`define pwmTest     12'h10 // 1.56us // lost... the FPGA output lost... so, the MOSFET must be lost.
 
 assign pwmCNTinput = { 1'b0 , `pwmTest                        }   ;
 assign pwmCNTload1 = pwmCNTinput_clked1                          ; // MOS on  time
