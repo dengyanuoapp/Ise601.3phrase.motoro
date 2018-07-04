@@ -2,7 +2,7 @@
 module uart_tx(
     rx_data,
     rx_int,
-    rs232_tx,
+    uTx,
     clk_rs232_tx,
     bps_start,
 
@@ -15,7 +15,7 @@ input rst_n;		//
 input clk_rs232_tx;		// clk_bps_r,
 input[7:0] rx_data;	//
 input rx_int;		//,,
-output rs232_tx;	// RS232
+output uTx;	// RS232
 output bps_start;	//
 
 //---------------------------------------------------------
@@ -92,6 +92,6 @@ always @ (posedge clk_in or negedge rst_n) begin
     end
 end
 
-assign rs232_tx = rs232_tx_r;
+assign uTx = rs232_tx_r;
 
 endmodule

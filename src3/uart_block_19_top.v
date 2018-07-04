@@ -1,5 +1,5 @@
 module uart_block_19_top(
-    rs232_tx,
+    uTx,
     clk_rs232_tx ,
 
     nrst,
@@ -11,7 +11,7 @@ input   wire                clk_in;			// 50MHz
 input   wire                nrst;		// reset button on the core board
                            
 output  wire                clk_rs232_tx;	
-output  wire                rs232_tx;	
+output  wire                uTx;	
 
 
 wire bps_start2;	
@@ -34,7 +34,7 @@ uart_tx01(
     .rst_n(nrst),
     .rx_data(rx_data),
     .rx_int(rx_int),
-    .rs232_tx(rs232_tx),
+    .uTx(uTx),
     .clk_rs232_tx(clk_rs232_tx),
     .bps_start(bps_start2)
 );

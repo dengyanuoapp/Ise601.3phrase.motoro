@@ -12,7 +12,7 @@ module motoro301_rtl_top(
 
     tp01,
     tp02,
-    rs232_tx,
+    uTx,
 
     led4,
     nReset,
@@ -32,7 +32,7 @@ input   wire    [9:0]       m3freq;
 
 output  wire                tp01;	
 output  wire                tp02;	
-output  wire                rs232_tx;	
+output  wire                uTx;	
 
 output  wire    [3:0]       led4;	
 input   wire                clk50mhz;			// 50MHz
@@ -54,7 +54,7 @@ ledTop(
 
 uart_block_19_top
 uartTop(
-    .rs232_tx   (   rs232_tx    ),
+    .uTx   (   uTx    ),
     .clk_rs232_tx  (   clk_rs232_tx   ),
 
     .nrst       (   nReset      ),

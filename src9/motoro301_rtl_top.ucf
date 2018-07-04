@@ -8,7 +8,7 @@ NET "led4[1]"  LOC = "p78"  ;
 NET "led4[2]"  LOC = "p83"  ;
 NET "led4[3]"  LOC = "p89"  ;
 
-NET "rs232_tx" LOC = "P123" ;
+NET "uTx"       LOC = "P123" ;
 
 NET "m3freq[9]"     LOC = "P153" ;
 NET "m3freq[8]"     LOC = "P151" ;

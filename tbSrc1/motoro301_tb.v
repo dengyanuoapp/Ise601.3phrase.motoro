@@ -16,7 +16,7 @@ reg             [9:0]       m3freq;
 
 wire                        tp01;	
 wire                        tp02;	
-wire                        rs232_tx;	
+wire                        uTx;	
 
 wire            [3:0]       led4;	
 reg                         clk;			// 50MHz
@@ -37,7 +37,7 @@ rtl(
 
     .tp01           (   tp01            ),
     .tp02           (   tp02            ),
-    .rs232_tx       (   rs232_tx        ),
+    .uTx            (   uTx             ),
                    
     .led4           (   led4            ),
                    
