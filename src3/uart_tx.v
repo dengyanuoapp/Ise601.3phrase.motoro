@@ -3,7 +3,7 @@ module uart_tx(
     rx_data,
     rx_int,
     uTx,
-    clk_rs232_tx,
+    clkUtx,
     bps_start,
 
     rst_n,
@@ -12,7 +12,7 @@ module uart_tx(
 
 input clk10mhz;			// 50MHz
 input rst_n;		//
-input clk_rs232_tx;		// clk_bps_r,
+input clkUtx;		// clk_bps_r,
 input[7:0] rx_data;	//
 input rx_int;		//,,
 output uTx;	// RS232
@@ -72,7 +72,7 @@ always @ (posedge clk10mhz or negedge rst_n) begin
         rs232_tx_r <= 1'b1;
     end
     else if(tx_en) begin
-        if(clk_rs232_tx)	begin
+        if(clkUtx)	begin
             num <= num+1'b1;
             case (num)
                 4'd0: rs232_tx_r <= 1'b0; 	//

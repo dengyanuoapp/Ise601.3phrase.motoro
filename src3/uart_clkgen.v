@@ -1,7 +1,7 @@
 
 module uart_clkgen(
     bps_start,
-    clk_rs232_tx,
+    clkUtx,
 
     rst_n,
     clk10mhz
@@ -10,7 +10,7 @@ module uart_clkgen(
 input   wire                clk10mhz;	// 50MHz
 input   wire                rst_n;	//
 input   wire                bps_start;	//
-output  wire                clk_rs232_tx;	// clk_rs232_tx 
+output  wire                clkUtx;	// clkUtx 
 
 /*
 parameter 		bps9600 	= 5207,	//9600bps
@@ -51,6 +51,6 @@ always @ (posedge clk10mhz or negedge rst_n) begin
 
 end
 
-assign clk_rs232_tx = clk_tx_reg;
+assign clkUtx = clk_tx_reg;
 
 endmodule

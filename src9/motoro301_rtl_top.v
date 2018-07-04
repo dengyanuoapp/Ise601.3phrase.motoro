@@ -38,11 +38,11 @@ output  wire    [3:0]       led4;
 input   wire                clk50mhz;			// 50MHz
 input   wire                nReset;		// reset button on the core board
 
-wire                        clk_rs232_tx ;
+wire                        clkUtx ;
 wire                        clkM3;			// 10MHz
 
 //assign {tp01 , tp02 } = { nReset , ~nReset };
-assign {tp01 , tp02 } = { clk_rs232_tx , ~clk_rs232_tx };
+assign {tp01 , tp02 } = { clkUtx , ~clkUtx };
 
 led4
 ledTop(
@@ -55,7 +55,7 @@ ledTop(
 uart_block_19_top
 uartTop(
     .uTx            (   uTx             ),
-    .clk_rs232_tx   (   clk_rs232_tx    ),
+    .clkUtx         (   clkUtx          ),
 
     .nrst           (   nReset          ),
     .clk10mhz       (   clkM3           )
