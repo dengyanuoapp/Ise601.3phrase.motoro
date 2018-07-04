@@ -52,8 +52,8 @@ ledTop(
     .clk            (   clk50mhz    )
 );
 
-uart_block_19_top
-uartTop(
+uart_set_show_config_top
+ussc(
     .uTx            (   uTx             ),
     .clkUtx         (   clkUtx          ),
 

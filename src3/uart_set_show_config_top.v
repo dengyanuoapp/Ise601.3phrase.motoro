@@ -1,4 +1,4 @@
-module uart_block_19_top(
+module uart_set_show_config_top(
     uTx,
     clkUtx ,
 
