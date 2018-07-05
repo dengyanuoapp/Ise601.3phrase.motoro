@@ -65,28 +65,29 @@ always @ (posedge clk or negedge nRst) begin
     end
 end
 
+`define LOWmosINV    ^ 1'b1
+
+`define Aenable     1'b1
+`define Benable     1'b1
+`define Cenable     1'b1
+
 always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
         aH                          <= 0                ;
         bH                          <= 0                ;
         cH                          <= 0                ;
-//        aL                          <= 0                ;
-//        bL                          <= 0                ;
-//        cL                          <= 0                ;
-        aL                          <= 1                ;
-        bL                          <= 1                ;
-        cL                          <= 1                ;
+        aL                          <= 0 `LOWmosINV     ;
+        bL                          <= 0 `LOWmosINV     ;
+        cL                          <= 0 `LOWmosINV     ;
     end
     else begin
-        aH                          <= pwm &    aH_ii            ;
-        bH                          <= pwm &    bH_ii            ;
-        cH                          <= pwm &    cH_ii            ;
-//        aL                          <= pwm &    aL_ii            ;
-//        bL                          <= pwm &    bL_ii            ;
-//        cL                          <= pwm &    cL_ii            ;
-        aL                          <= ~(pwm &    aL_ii)            ;
-        bL                          <= ~(pwm &    bL_ii)            ;
-        cL                          <= ~(pwm &    cL_ii)            ;
+        aH                          <= (pwm &    aH_ii & `Aenable )       ;
+        bH                          <= (pwm &    bH_ii & `Benable )       ;
+        cH                          <= (pwm &    cH_ii & `Cenable )       ;
+
+        aL                          <= (pwm &    aL_ii & `Aenable )  `LOWmosINV          ;
+        bL                          <= (pwm &    bL_ii & `Benable )  `LOWmosINV          ;
+        cL                          <= (pwm &    cL_ii & `Cenable )  `LOWmosINV          ;
     end
 end
 

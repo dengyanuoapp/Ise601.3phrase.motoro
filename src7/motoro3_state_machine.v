@@ -74,8 +74,6 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
-`define debugMOSdriv 1
-`ifdef debugMOSdriv
 always @( m3step ) begin
     case ( m3step )
         4'd1 :  begin { aE , bE, cE }  = 3'b101 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
@@ -87,26 +85,15 @@ always @( m3step ) begin
         default:begin { aE , bE, cE }  = 3'b000 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b000 ; end
     endcase
 end
-`else
-always @( m3step ) begin
-    case ( m3step )
-        4'd1 :  begin { aE , bE, cE }  = 3'b100 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
-        4'd2 :  begin { aE , bE, cE }  = 3'b000 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b010 ; end
-        4'd3 :  begin { aE , bE, cE }  = 3'b100 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b010 ; end
-        4'd4 :  begin { aE , bE, cE }  = 3'b100 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b001 ; end
-        4'd5 :  begin { aE , bE, cE }  = 3'b000 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b001 ; end
-        4'd6 :  begin { aE , bE, cE }  = 3'b100 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b100 ; end
-        default:begin { aE , bE, cE }  = 3'b000 ; { aH1_L0 , bH1_L0 , cH1_L0 } = 3'b000 ; end
-    endcase
-end
-`endif
 
 
 //assign m3cnt_reload1 = { 1'd0, m3freq , 6'd0 };
 //assign m3cnt_reload1 = 25'd1_667      ; // 6*1_667        == 1,000.2 us       == 1000Hz
 //assign m3cnt_reload1 = 25'd16_667     ; // 6*16_667       == 10,000.2 us      == 100Hz
 //assign m3cnt_reload1 = 25'd166_667    ; // 6*166_667      == 100,000.2 us     == 10Hz
-assign m3cnt_reload1 = 25'd1_666_667  ; // 6*1_666_667    == 1,000,000.2 us   == 1Hz
+//assign m3cnt_reload1 = 25'd333_333    ; // 6*333_333      == 200,000.4 us     == 5Hz
+assign m3cnt_reload1 = 25'd666_666    ; // 6*666_666      == 400,000.8 us     == 2.5Hz
+//assign m3cnt_reload1 = 25'd1_666_667  ; // 6*1_666_667    == 1,000,000.2 us   == 1Hz
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         m3cnt               <= m3cnt_reload1            ;
