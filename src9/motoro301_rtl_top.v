@@ -48,7 +48,7 @@ led4
 ledTop(
     .led            (   led4        ),
 
-    .nrst           (   nReset      ),
+    .nRst           (   nReset      ),
     .clk            (   clk50mhz    )
 );
 
@@ -57,7 +57,7 @@ ussc(
     .uTx            (   uTx             ),
     .clkUtx         (   clkUtx          ),
 
-    .nrst           (   nReset          ),
+    .nRst           (   nReset          ),
     .clk10mhz       (   clkM3           )
 );
 

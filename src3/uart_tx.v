@@ -6,9 +6,9 @@ module uart_tx(
     txData8,
     txStart,
 
-    clkUtx,
 
-    rst_n,
+    nRst,
+    clk
 );
 
 output                          uTx;	// RS232
@@ -17,8 +17,10 @@ output                          txBusy;	//
 input   [7:0]                   txData8;	//
 input                           txStart;		//,,
 
-input                           rst_n;		//
-input                           clkUtx;		// clk_bps_r,
+input                           nRst;		//
+input                           clk;		// clk_bps_r,
+
+assign uTx = 1'b0 ;
 
 
 endmodule

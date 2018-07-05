@@ -2,12 +2,12 @@
 module uart_clkgen_10mhz_115200(
     clkUtx,
 
-    rst_n,
+    nRst,
     clk10mhz
 );
 
 input   wire                clk10mhz;	// 50MHz
-input   wire                rst_n;	//
+input   wire                nRst;	//
 output  reg                 clkUtx;	// clkUtx 
 
 /*
@@ -24,8 +24,8 @@ reg         [7:0]                   cnt;
 reg[2:0] uart_ctrl;	// uart
 //----------------------------------------------------------
 
-always @ (posedge clk10mhz or negedge rst_n) begin
-    if(!rst_n) begin
+always @ (posedge clk10mhz or negedge nRst) begin
+    if(!nRst) begin
         cnt                 <= `uTxHalf1 ;
         clkUtx              <=  1'b0 ;
     end

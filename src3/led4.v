@@ -1,14 +1,14 @@
 `define time1S 32'd12500000
 module led4(
-    input nrst,
+    input nRst,
     input clk,
     output reg [3:0]led
 );
 reg clk2;
 reg [31:0] counter;    
     
-always@(posedge clk, negedge nrst) begin
-    if(!nrst) begin
+always@(posedge clk, negedge nRst) begin
+    if(!nRst) begin
         counter     <= `time1S ;
         clk2        <= 32'd0;
     end
@@ -23,8 +23,8 @@ always@(posedge clk, negedge nrst) begin
     end
 end
 
-always@(posedge clk2, negedge nrst) begin
-    if(!nrst) begin
+always@(posedge clk2, negedge nRst) begin
+    if(!nRst) begin
         led <= 4'd0;
     end
     //i<=0;
