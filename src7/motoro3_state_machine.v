@@ -96,8 +96,9 @@ end
 `endif
 
 `ifndef m3cnt_reload1_now 
-initial begin
+always begin
 $error( "you should define synthesising/simulatingVERIDI , or m3cnt_reload1_now, then run again" );
+$finish;
 end
 `endif
 
@@ -109,6 +110,7 @@ end
 //assign m3cnt_reload1 = 25'd666_666    ; // 6*666_666      == 400,000.8 us     == 2.5Hz
 //assign m3cnt_reload1 = 25'd1_666_667  ; // 6*1_666_667    == 1,000,000.2 us   == 1Hz
 assign m3cnt_reload1 = `m3cnt_reload1_now ;
+
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         m3cnt               <= m3cnt_reload1            ;
