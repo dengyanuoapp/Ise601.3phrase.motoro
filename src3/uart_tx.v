@@ -1,97 +1,24 @@
 
 module uart_tx(
-    rx_data,
-    rx_int,
     uTx,
+
+    txBusy,
+    txData8,
+    txStart,
+
     clkUtx,
-    bps_start,
 
     rst_n,
-    clk10mhz
 );
 
-input clk10mhz;			// 50MHz
-input rst_n;		//
-input clkUtx;		// clk_bps_r,
-input[7:0] rx_data;	//
-input rx_int;		//,,
-output uTx;	// RS232
-output bps_start;	//
+output                          uTx;	// RS232
 
-//---------------------------------------------------------
-reg rx_int0,rx_int1,rx_int2;	//rx_int
-wire neg_rx_int;	// rx_int
+output                          txBusy;	//
+input   [7:0]                   txData8;	//
+input                           txStart;		//,,
 
-always @ (posedge clk10mhz or negedge rst_n) begin
-    if(!rst_n) begin
-        rx_int0 <= 1'b0;
-        rx_int1 <= 1'b0;
-        rx_int2 <= 1'b0;
-    end
-    else begin
-        rx_int0 <= rx_int;
-        rx_int1 <= rx_int0;
-        rx_int2 <= rx_int1;
-    end
-end
+input                           rst_n;		//
+input                           clkUtx;		// clk_bps_r,
 
-assign neg_rx_int =  ~rx_int1 & rx_int2;	//neg_rx_int
-
-//---------------------------------------------------------
-reg[7:0] tx_data;	//
-//---------------------------------------------------------
-reg bps_start_r;
-reg tx_en;	//
-reg[3:0] num;
-
-always @ (posedge clk10mhz or negedge rst_n) begin
-    if(!rst_n) begin
-        bps_start_r <= 1'bz;
-        tx_en <= 1'b0;
-        tx_data <= 8'd0;
-    end
-    else if(neg_rx_int) begin	//
-        bps_start_r <= 1'b1;
-        tx_data <= rx_data;	//
-        tx_en <= 1'b1;		//
-    end
-    else if(num==4'd11) begin	//
-        bps_start_r <= 1'b0;
-        tx_en <= 1'b0;
-    end
-end
-
-assign bps_start = bps_start_r;
-
-//---------------------------------------------------------
-reg rs232_tx_r;
-
-always @ (posedge clk10mhz or negedge rst_n) begin
-    if(!rst_n) begin
-        num <= 4'd0;
-        rs232_tx_r <= 1'b1;
-    end
-    else if(tx_en) begin
-        if(clkUtx)	begin
-            num <= num+1'b1;
-            case (num)
-                4'd0: rs232_tx_r <= 1'b0; 	//
-                4'd1: rs232_tx_r <= tx_data[0];	//bit0
-                4'd2: rs232_tx_r <= tx_data[1];	//bit1
-                4'd3: rs232_tx_r <= tx_data[2];	//bit2
-                4'd4: rs232_tx_r <= tx_data[3];	//bit3
-                4'd5: rs232_tx_r <= tx_data[4];	//bit4
-                4'd6: rs232_tx_r <= tx_data[5];	//bit5
-                4'd7: rs232_tx_r <= tx_data[6];	//bit6
-                4'd8: rs232_tx_r <= tx_data[7];	//bit7
-                4'd9: rs232_tx_r <= 1'b1;	//
-                default: rs232_tx_r <= 1'b1;
-            endcase
-        end
-        else if(num==4'd11) num <= 4'd0;	//
-    end
-end
-
-assign uTx = rs232_tx_r;
 
 endmodule
