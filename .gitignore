@@ -52,3 +52,10 @@ bkCDS/
 /vericomLog/
 /work.lib++/
 
+/.synopsys_dc.setup
+/command.log
+/dc.script02.scr
+/dcWORK/
+/default.svf
+/log.dc.log02.txt
+
