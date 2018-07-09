@@ -54,6 +54,11 @@ ledTop(
 
 uart_set_show_config_top
 ussc(
+    .o32            (   o32             ),
+    .i32            (   i32             ),
+    .addr32         (   addr32          ),
+    .r1_w0          (   r1_w0           ),
+
     .uTx            (   uTx             ),
     .clkUtx         (   clkUtx          ),
 

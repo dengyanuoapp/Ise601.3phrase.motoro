@@ -1,4 +1,9 @@
 module uart_set_show_config_top(
+    o32,
+    i32,
+    addr32,
+    r1_w0,
+
     uTx,
     clkUtx ,
 
@@ -6,6 +11,11 @@ module uart_set_show_config_top(
     clk10mhz
 
 );
+
+output  wire    [31:0]      o32;
+input   wire    [31:0]      i32;
+output  wire                addr32;
+output  wire                r1_w0;
 
 input   wire                clk10mhz;			// 50MHz
 input   wire                nRst;		// reset button on the core board
