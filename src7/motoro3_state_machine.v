@@ -74,7 +74,7 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
-//`define m3mode01
+`define m3mode01
 `ifdef m3mode01
 always @( m3step ) begin
     case ( m3step )
@@ -106,7 +106,8 @@ end
 `define m3cnt_reload1_now    25'd666_666
 `endif
 `ifdef simulating
-`define m3cnt_reload1_now    25'd16_667
+//`define m3cnt_reload1_now    25'd16_667
+`define m3cnt_reload1_now    25'd166_667
 `endif
 `endif
 
