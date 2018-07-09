@@ -106,8 +106,8 @@ end
 `define m3cnt_reload1_now    25'd666_666
 `endif
 `ifdef simulating
-//`define m3cnt_reload1_now    25'd16_667
-`define m3cnt_reload1_now    25'd166_667
+`define m3cnt_reload1_now    25'd16_667
+//`define m3cnt_reload1_now    25'd166_667
 `endif
 `endif
 
