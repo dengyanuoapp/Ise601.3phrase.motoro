@@ -20,7 +20,7 @@ input                           txStart;		//,,
 input                           nRst;		//
 input                           clk;		// clk_bps_r,
 
-assign uTx = 1'b0 ;
+assign uTx = 1'b1 ;
 
 
 endmodule
