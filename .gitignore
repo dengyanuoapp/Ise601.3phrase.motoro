@@ -54,8 +54,8 @@ bkCDS/
 
 /.synopsys_dc.setup
 /command.log
-/dc.script02.scr
+/scr_dc.script??.scr
 /dcWORK/
 /default.svf
-/log.dc.log02.txt
+/log.dc.log??.txt
 
