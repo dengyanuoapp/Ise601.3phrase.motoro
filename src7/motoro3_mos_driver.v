@@ -1,6 +1,5 @@
 module motoro3_mos_driver(
 
-    pwm             ,
 
     mosH            ,
     mosL            ,
@@ -16,27 +15,11 @@ module motoro3_mos_driver(
 output  reg                 mosH            ;		
 output  reg                 mosL            ;		
 
-input   wire                pwm             ;		
 input   wire                mosEnable       ;		
 input   wire                h1_L0           ;		
 
 input   wire                clk             ;			// 10MHz
 input   wire                nRst            ;		
-
-reg                         mosEnable_clked1;	
-wire                        mosEnable_up1;	
-wire                        mosEnable_down1;	
-
-assign  mosEnable_up1       = (mosEnable) && (~mosEnable_clked1) ;
-assign  mosEnable_down1     = (~mosEnable) && (mosEnable_clked1) ;
-always @ (negedge clk or negedge nRst) begin
-    if(!nRst) begin
-        mosEnable_clked1      <= 0 ;
-    end
-    else begin
-        mosEnable_clked1      <= mosEnable ;
-    end
-end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin

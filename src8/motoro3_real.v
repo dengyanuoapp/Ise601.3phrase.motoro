@@ -93,7 +93,6 @@ mB
 motoro3_mos_driver
 mC
 (
-    .pwm                    ( pwm           ),
     .mosH                   ( cH            ),
     .mosL                   ( cL            ),
     .mosEnable              ( cE            ),
