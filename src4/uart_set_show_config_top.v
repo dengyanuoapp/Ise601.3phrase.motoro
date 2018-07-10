@@ -1,8 +1,5 @@
 module uart_set_show_config_top(
-    o32,
-    i32,
-    addr32,
-    r1_w0,
+    outBUS,
 
     uTx,
     clkUtx ,
@@ -12,23 +9,25 @@ module uart_set_show_config_top(
 
 );
 
-output  wire    [31:0]      o32;
-input   wire    [31:0]      i32;
-output  wire                addr32;
-output  wire                r1_w0;
-
+output  wire    [7:0]       outBUS ;
 input   wire                clk10mhz;			// 50MHz
 input   wire                nRst;		// reset button on the core board
                            
 output  wire                clkUtx;	
 output  wire                uTx;	
 
+wire            [7:0]       o8;
+wire            [7:0]       i8;
+wire            [7:0]       addr8;
+wire                        r1_w0;
 
-wire bps_start2;	
-wire[7:0] txData8;	
-wire txBusy;		
 
-assign txData8 = 'h08;
+wire                        bps_start2;	
+wire            [7:0]       txData8;	
+wire                        txBusy;		
+
+assign txData8  =   'h08;
+assign outBUS   =   0 ;
 
 uart_clkgen_10mhz_115200		
 ucg01(	
@@ -43,7 +42,7 @@ tx01(
 
     .txBusy(txBusy),
     .txData8(txData8),
-    .txStart(txStart),
+    .txStart(1'b0),
 
     .nRst(nRst),
     .clk(clkUtx)

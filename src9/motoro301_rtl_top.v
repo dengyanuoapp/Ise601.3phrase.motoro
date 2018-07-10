@@ -41,6 +41,7 @@ input   wire                nReset;		// reset button on the core board
 wire                        clkUtx ;
 wire                        clkM3;			// 10MHz
 
+
 //assign {tp01 , tp02 } = { nReset , ~nReset };
 assign {tp01 , tp02 } = { clkUtx , ~clkUtx };
 
@@ -54,10 +55,7 @@ ledTop(
 
 uart_set_show_config_top
 ussc(
-    .o32            (   o32             ),
-    .i32            (   i32             ),
-    .addr32         (   addr32          ),
-    .r1_w0          (   r1_w0           ),
+    .outBUS         (                   ),
 
     .uTx            (   uTx             ),
     .clkUtx         (   clkUtx          ),
