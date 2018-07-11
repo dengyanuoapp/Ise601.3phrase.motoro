@@ -46,6 +46,7 @@ wire                        clkM3;			// 10MHz
 assign {tp01 , tp02 } = { clkUtx , ~clkUtx };
 
 `ifndef m3speedRoundPerSecondL8 
+    `define busWIDTH                        24 
     `define m3pos1_neg0                     8'd1
     `define m3perCent                       8'd10
     `define m3speedRoundPerSecondH8         8'd0
@@ -81,6 +82,7 @@ usTop(
     .nRst           (   nReset          ),
     .clk10mhz       (   clkM3           )
 );
+defparam usTop.busWIDTH = `busWIDTH ;
 
 motoro3_top
 m3t

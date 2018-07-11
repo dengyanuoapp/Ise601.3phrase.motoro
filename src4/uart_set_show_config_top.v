@@ -9,17 +9,19 @@ module uart_set_show_config_top(
     clk10mhz
 
 );
+parameter busWIDTH      = 8;
+parameter busADDRwidth  = 1;
 
-input   wire    [7:0]       busDefault ;
-output  wire    [7:0]       busNow ;
-input   wire                clk10mhz;			// 50MHz
-input   wire                nRst;		// reset button on the core board
+input   wire    [busWIDTH:1]            busDefault ;
+output  wire    [busWIDTH:1]            busNow ;
+input   wire                            clk10mhz;	// 10MHz
+input   wire                            nRst;		// reset button on the core board
                            
-output  wire                clkUtx;	
-output  wire                uTx;	
+output  wire                            clkUtx;	
+output  wire                            uTx;	
 
-wire            [7:0]       txData8;	
-wire                        txBusy;		
+wire            [7:0]                   txData8;	
+wire                                    txBusy;		
 
 assign txData8  =   'h08;
 assign busNow   =   0 ;
