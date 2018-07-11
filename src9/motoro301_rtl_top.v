@@ -55,7 +55,8 @@ ledTop(
 
 uart_set_show_config_top
 ussc(
-    .outBUS         (                   ),
+    .busDefault     (                   ),
+    .busNow         (                   ),
 
     .uTx            (   uTx             ),
     .clkUtx         (   clkUtx          ),
