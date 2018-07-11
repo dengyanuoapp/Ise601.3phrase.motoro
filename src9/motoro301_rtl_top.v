@@ -45,17 +45,14 @@ wire                        clkM3;			// 10MHz
 //assign {tp01 , tp02 } = { nReset , ~nReset };
 assign {tp01 , tp02 } = { clkUtx , ~clkUtx };
 
-`ifndef m3perCent 
+`ifndef m3speedRoundPerSecondL8 
     `define m3pos1_neg0                     8'd1
     `define m3perCent                       8'd10
-`endif
-
-`ifndef m3speedRoundPerSecondL8 
     `define m3speedRoundPerSecondH8         8'd0
     `ifdef  synthesising 
         `define m3speedRoundPerSecondL8     8'd1
     `endif
-    `ifdef  synthesising 
+    `ifdef  simulating 
         `define m3speedRoundPerSecondL8     8'd100
     `endif
 `endif
