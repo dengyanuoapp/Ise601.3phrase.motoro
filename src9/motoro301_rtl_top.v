@@ -101,11 +101,11 @@ m3t
     .clk            (   clkM3           )
 );
 
-clkGenForMotoro3
+clkGen_50Mhz_to_10Mhz
 cgM3
 (
     .nRst           (   nReset          ),
-    .clkM3          (   clkM3           ),
+    .clk10mhz       (   clkM3           ),
     .clk50mhz       (   clk50mhz        )
 );
 
