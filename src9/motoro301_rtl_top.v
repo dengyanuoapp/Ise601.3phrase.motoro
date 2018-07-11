@@ -45,6 +45,21 @@ wire                        clkM3;			// 10MHz
 //assign {tp01 , tp02 } = { nReset , ~nReset };
 assign {tp01 , tp02 } = { clkUtx , ~clkUtx };
 
+`ifndef m3perCent 
+    `define m3pos1_neg0                     8'd1
+    `define m3perCent                       8'd10
+`endif
+
+`ifndef m3speedRoundPerSecondL8 
+    `define m3speedRoundPerSecondH8         8'd0
+    `ifdef  synthesising 
+        `define m3speedRoundPerSecondL8     8'd1
+    `endif
+    `ifdef  synthesising 
+        `define m3speedRoundPerSecondL8     8'd100
+    `endif
+`endif
+
 led4
 ledTop(
     .led            (   led4        ),
@@ -55,7 +70,12 @@ ledTop(
 
 uart_set_show_config_top
 ussc(
-    .busDefault     (                   ),
+    .busDefault     ( { 
+        `m3pos1_neg0 , 
+        `m3perCent , 
+        `m3speedRoundPerSecondH8 , 
+        `m3speedRoundPerSecondL8 
+    } ),
     .busNow         (                   ),
 
     .uTx            (   uTx             ),
