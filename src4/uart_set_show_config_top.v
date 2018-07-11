@@ -18,13 +18,6 @@ input   wire                nRst;		// reset button on the core board
 output  wire                clkUtx;	
 output  wire                uTx;	
 
-wire            [7:0]       o8;
-wire            [7:0]       i8;
-wire            [7:0]       addr8;
-wire                        r1_w0;
-
-
-wire                        bps_start2;	
 wire            [7:0]       txData8;	
 wire                        txBusy;		
 
