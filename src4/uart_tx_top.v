@@ -1,4 +1,4 @@
-module uart_tx(
+module uart_tx_top(
     busDefault,
     busNow,
 

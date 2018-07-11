@@ -1,5 +1,5 @@
 
-module uart_tx(
+module uart_tx_only(
     uTx,
 
     txBusy,

@@ -66,7 +66,7 @@ ledTop(
 );
 
 uart_set_show_config_top
-ussc(
+usTop(
     .busDefault     ( { 
         `m3pos1_neg0 , 
         `m3perCent , 
