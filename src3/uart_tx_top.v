@@ -31,7 +31,7 @@ ucg01(
     .clkUtx(clkUtx)
 );
 
-uart_tx			
+uart_tx_only			
 tx01(		
     .uTx(uTx),
 
