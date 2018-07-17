@@ -1,8 +1,9 @@
 module motoro3_mos_driver(
 
+    pwm             ,
 
-    mosHp            ,
-    mosLp            ,
+    mosHp           ,
+    mosLp           ,
 
     mosEnable       ,		
     h1_L0           ,		
@@ -12,9 +13,10 @@ module motoro3_mos_driver(
 
 );
 
-output  reg                 mosHp            ;		
-output  reg                 mosLp            ;		
+output  reg                 mosHp           ;		
+output  reg                 mosLp           ;		
 
+input   wire                pwm             ;		
 input   wire                mosEnable       ;		
 input   wire                h1_L0           ;		
 
@@ -23,25 +25,29 @@ input   wire                nRst            ;
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        mosHp                    <= 1'b0 ;
-        mosLp                    <= 1'b1 ;
+        mosHp                   <= 1'b0 ;
+        mosLp                   <= 1'b1 ;
     end
     else begin
         if ( mosEnable == 1'b1 ) begin
             if ( h1_L0 == 1'b1 ) begin
-                mosHp            <= 1'b1 ;
-                mosLp            <= 1'b0 ;
-                if ( mosLp == 1'b1 ) begin mosHp <= 1'b0 ; end 
+                mosLp           <= 1'b0 ;
+
+                mosHp           <= 1'b1 ;
+                if ( mosLp == 1'b1 )    begin mosHp <= 1'b0 ; end 
+                if ( pwm == 1'b0 )      begin mosHp <= 1'b0 ; end 
             end
             else begin
-                mosHp            <= 1'b0 ;
-                mosLp            <= 1'b1 ;
+                mosHp           <= 1'b0 ;
+
+                mosLp           <= 1'b1 ;
                 if ( mosHp == 1'b1 ) begin mosLp <= 1'b0 ; end 
+                //if ( pwm == 1'b0 )   begin mosLp <= 1'b0 ; end 
             end
         end
         else begin
-                mosHp            <= 1'b0 ;
-                mosLp            <= 1'b0 ;
+                mosHp           <= 1'b0 ;
+                mosLp           <= 1'b0 ;
         end
     end
 end
