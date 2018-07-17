@@ -39,12 +39,12 @@ input   wire                nRst;
 wire            [3:0]       m3step;	
 wire            [24:0]      m3cnt;	
 
-wire                        aE              ;		
-wire                        aH1_L0          ;		
-wire                        bE              ;		
-wire                        bH1_L0          ;		
-wire                        cE              ;		
-wire                        cH1_L0          ;		
+wire                        aStEE              ;		
+wire                        aStH1_L0          ;		
+wire                        bStEE              ;		
+wire                        bStH1_L0          ;		
+wire                        cStEE              ;		
+wire                        cStH1_L0          ;		
 
 
 motoro3_state_machine
@@ -52,12 +52,12 @@ st
 (
     .pwm                    ( pwm           ),
 
-    .aE                     ( aE            ),
-    .aH1_L0                 ( aH1_L0        ),
-    .bE                     ( bE            ),
-    .bH1_L0                 ( bH1_L0        ),
-    .cE                     ( cE            ),
-    .cH1_L0                 ( cH1_L0        ),
+    .aE                     ( aStEE            ),
+    .aH1_L0                 ( aStH1_L0        ),
+    .bE                     ( bStEE            ),
+    .bH1_L0                 ( bStH1_L0        ),
+    .cE                     ( cStEE            ),
+    .cH1_L0                 ( cStH1_L0        ),
 
     .m3step                 ( m3step        ),
     .m3cnt                  ( m3cnt         ),
@@ -73,8 +73,8 @@ mA
 (
     .mosHp                  ( aHp            ),
     .mosLp                  ( aLp            ),
-    .mosEnable              ( aE            ),
-    .h1_L0                  ( aH1_L0        ),
+    .mosEnable              ( aStEE            ),
+    .h1_L0                  ( aStH1_L0        ),
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
 );
@@ -84,8 +84,8 @@ mB
 (
     .mosHp                  ( bHp            ),
     .mosLp                  ( bLp            ),
-    .mosEnable              ( bE            ),
-    .h1_L0                  ( bH1_L0        ),
+    .mosEnable              ( bStEE            ),
+    .h1_L0                  ( bStH1_L0        ),
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
 );
@@ -95,8 +95,8 @@ mC
 (
     .mosHp                  ( cHp            ),
     .mosLp                  ( cLp            ),
-    .mosEnable              ( cE            ),
-    .h1_L0                  ( cH1_L0        ),
+    .mosEnable              ( cStEE            ),
+    .h1_L0                  ( cStH1_L0        ),
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
 );
