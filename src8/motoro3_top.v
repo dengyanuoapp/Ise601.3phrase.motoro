@@ -39,7 +39,6 @@ reg             [9:0]       m3freq_clked1        ;
 //reg                         m3invOrStop_clked2   ;	 
 //reg             [9:0]       m3freq_clked2        ;	
 
-wire                        pwm         ;	
 wire                        aH_ii       ;	
 wire                        aL_ii       ;	
 wire                        bH_ii       ;	
@@ -81,13 +80,13 @@ always @ (posedge clk or negedge nRst) begin
         cLN                         <= 0 `LOWmosINV     ;
     end
     else begin
-        aHP                         <= (pwm &    aH_ii & `Aenable )       ;
-        bHP                         <= (pwm &    bH_ii & `Benable )       ;
-        cHP                         <= (pwm &    cH_ii & `Cenable )       ;
+        aHP                         <= ( aH_ii & `Aenable )       ;
+        bHP                         <= ( bH_ii & `Benable )       ;
+        cHP                         <= ( cH_ii & `Cenable )       ;
 
-        aLN                         <= (pwm &    aL_ii & `Aenable )  `LOWmosINV          ;
-        bLN                         <= (pwm &    bL_ii & `Benable )  `LOWmosINV          ;
-        cLN                         <= (pwm &    cL_ii & `Cenable )  `LOWmosINV          ;
+        aLN                         <= ( aL_ii & `Aenable )  `LOWmosINV          ;
+        bLN                         <= ( bL_ii & `Benable )  `LOWmosINV          ;
+        cLN                         <= ( cL_ii & `Cenable )  `LOWmosINV          ;
     end
 end
 
@@ -95,7 +94,6 @@ end
 motoro3_real
 r
 (
-    .pwm                    (   pwm                     ),
     .aHp                    (   aH_ii                   ),
     .aLp                    (   aL_ii                   ),
     .bHp                    (   bH_ii                   ),

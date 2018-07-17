@@ -1,5 +1,4 @@
 module motoro3_real(
-    pwm,
     aHp,
     aLp,
     bHp,
@@ -16,7 +15,6 @@ module motoro3_real(
 
 );
 
-output  wire                pwm     ;	
 output  wire                aHp      ;	
 output  wire                aLp      ;	
 output  wire                bHp      ;	
@@ -46,6 +44,7 @@ wire                        bStH1_L0          ;
 wire                        cStEE              ;		
 wire                        cStH1_L0          ;		
 
+wire                        pwm     ;	
 
 motoro3_state_machine
 st
