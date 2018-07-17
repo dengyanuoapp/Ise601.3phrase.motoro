@@ -103,7 +103,8 @@ end
 
 `ifndef m3cnt_reload1_now 
 `ifdef synthesising
-`define m3cnt_reload1_now    25'd666_666
+//`define m3cnt_reload1_now    25'd666_666
+`define m3cnt_reload1_now    25'd1_666_667  
 `endif
 `ifdef simulating
 `define m3cnt_reload1_now    25'd16_667
