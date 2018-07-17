@@ -92,19 +92,6 @@ always @ (posedge clk or negedge nRst) begin
 end
 
 
-//always @ (negedge clk or negedge nRst) begin
-//    if(!nRst) begin
-//        m3start_clked2              <= 0                   ;
-//        m3freq_clked2               <= 0                   ;
-//        m3invOrStop_clked2          <= 0                   ;
-//    end
-//    else begin
-//        m3start_clked2              <= m3start_clked1      ;
-//        m3invOrStop_clked2          <= m3invOrStop_clked1  ;
-//        m3freq_clked2               <= m3freq_clked1       ;
-//    end
-//end
-
 motoro3_real
 r
 (
@@ -116,9 +103,6 @@ r
     .cH                     (   cH_ii                   ),
     .cL                     (   cL_ii                   ),
                                                
-//    .m3start                (   m3start_clked2           ),
-//    .m3freq                 (   m3freq_clked2            ),
-//    .m3invOrStop            (   m3invOrStop_clked2       ),
     .m3start                (   m3start_clked1           ),
     .m3freq                 (   m3freq_clked1            ),
     .m3invOrStop            (   m3invOrStop_clked1       ),
