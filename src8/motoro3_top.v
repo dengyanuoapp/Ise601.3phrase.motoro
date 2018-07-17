@@ -65,6 +65,7 @@ always @ (posedge clk or negedge nRst) begin
 end
 
 `define LOWmosINV    ^ 1'b1
+//`define LOWmosINV    
 
 `define Aenable     1'b1
 `define Benable     1'b1
