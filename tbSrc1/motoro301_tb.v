@@ -4,12 +4,12 @@
 module motoro301_tb(
 );
 
-wire                        aH ;	
-wire                        aL ;	
-wire                        bH ;	
-wire                        bL ;	
-wire                        cH ;	
-wire                        cL ;	
+wire                        aHp ;	
+wire                        aLn ;	
+wire                        bHp ;	
+wire                        bLn ;	
+wire                        cHp ;	
+wire                        cLn ;	
 reg                         m3start;	
 reg                         m3invOrStop;	 
 reg             [9:0]       m3freq;	
@@ -24,12 +24,12 @@ reg                         nRst;		// reset button on the core board
 
 motoro301_rtl_top
 rtl(
-    .aH             (   aH              ),
-    .aL             (   aL              ),
-    .bH             (   bH              ),
-    .bL             (   bL              ),
-    .cH             (   cH              ),
-    .cL             (   cL              ),
+    .aHp             (   aHp              ),
+    .aLn             (   aLn              ),
+    .bHp             (   bHp              ),
+    .bLn             (   bLn              ),
+    .cHp             (   cHp              ),
+    .cLn             (   cLn              ),
                                        
     .m3start        (   m3start         ),
     .m3freq         (   m3freq          ),

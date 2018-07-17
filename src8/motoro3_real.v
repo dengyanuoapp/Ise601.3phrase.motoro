@@ -1,11 +1,11 @@
 module motoro3_real(
     pwm,
-    aH,
-    aL,
-    bH,
-    bL,
-    cH,
-    cL,
+    aHp,
+    aLp,
+    bHp,
+    bLp,
+    cHp,
+    cLp,
 
     m3start         ,
     m3invOrStop     ,
@@ -17,12 +17,12 @@ module motoro3_real(
 );
 
 output  wire                pwm     ;	
-output  wire                aH      ;	
-output  wire                aL      ;	
-output  wire                bH      ;	
-output  wire                bL      ;	
-output  wire                cH      ;	
-output  wire                cL      ;	
+output  wire                aHp      ;	
+output  wire                aLp      ;	
+output  wire                bHp      ;	
+output  wire                bLp      ;	
+output  wire                cHp      ;	
+output  wire                cLp      ;	
 
 input   wire                m3start;	
 
@@ -71,8 +71,8 @@ st
 motoro3_mos_driver
 mA
 (
-    .mosH                   ( aH            ),
-    .mosL                   ( aL            ),
+    .mosHp                  ( aHp            ),
+    .mosLp                  ( aLp            ),
     .mosEnable              ( aE            ),
     .h1_L0                  ( aH1_L0        ),
     .nRst                   ( nRst          ),
@@ -82,8 +82,8 @@ mA
 motoro3_mos_driver
 mB
 (
-    .mosH                   ( bH            ),
-    .mosL                   ( bL            ),
+    .mosHp                  ( bHp            ),
+    .mosLp                  ( bLp            ),
     .mosEnable              ( bE            ),
     .h1_L0                  ( bH1_L0        ),
     .nRst                   ( nRst          ),
@@ -93,8 +93,8 @@ mB
 motoro3_mos_driver
 mC
 (
-    .mosH                   ( cH            ),
-    .mosL                   ( cL            ),
+    .mosHp                  ( cHp            ),
+    .mosLp                  ( cLp            ),
     .mosEnable              ( cE            ),
     .h1_L0                  ( cH1_L0        ),
     .nRst                   ( nRst          ),

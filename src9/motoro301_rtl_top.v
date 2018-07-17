@@ -1,10 +1,10 @@
 module motoro301_rtl_top(
-    aH,
-    aL,
-    bH,
-    bL,
-    cH,
-    cL,
+    aHp,
+    aLn,
+    bHp,
+    bLn,
+    cHp,
+    cLn,
 
     m3start         ,
     m3invOrStop     ,
@@ -20,12 +20,12 @@ module motoro301_rtl_top(
 
 );
 
-output  wire                aH ;	
-output  wire                aL ;	
-output  wire                bH ;	
-output  wire                bL ;	
-output  wire                cH ;	
-output  wire                cL ;	
+output  wire                aHp ;	
+output  wire                aLn ;	
+output  wire                bHp ;	
+output  wire                bLn ;	
+output  wire                cHp ;	
+output  wire                cLn ;	
 input   wire                m3start;	
 input   wire                m3invOrStop;	 
 input   wire    [9:0]       m3freq;	
@@ -87,12 +87,12 @@ defparam usTop.busWIDTH = `busWIDTH ;
 motoro3_top
 m3t
 (
-    .aH             (   aH              ),
-    .aL             (   aL              ),
-    .bH             (   bH              ),
-    .bL             (   bL              ),
-    .cH             (   cH              ),
-    .cL             (   cL              ),
+    .aHp            (   aHp              ),
+    .aLn            (   aLn              ),
+    .bHp            (   bHp              ),
+    .bLn            (   bLn              ),
+    .cHp            (   cHp              ),
+    .cLn            (   cLn              ),
                                        
     .m3start        (   m3start         ),
     .m3freq         (   m3freq          ),

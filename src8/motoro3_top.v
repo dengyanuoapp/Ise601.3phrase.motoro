@@ -1,10 +1,10 @@
 module motoro3_top(
-    aH,
-    aL,
-    bH,
-    bL,
-    cH,
-    cL,
+    aHp,
+    aLn,
+    bHp,
+    bLn,
+    cHp,
+    cLn,
 
     m3start         ,
     m3invOrStop     ,
@@ -16,12 +16,12 @@ module motoro3_top(
 
 );
 
-output  reg                 aH ;	
-output  reg                 aL ;	
-output  reg                 bH ;	
-output  reg                 bL ;	
-output  reg                 cH ;	
-output  reg                 cL ;	
+output  reg                 aHp ;	
+output  reg                 aLn ;	
+output  reg                 bHp ;	
+output  reg                 bLn ;	
+output  reg                 cHp ;	
+output  reg                 cLn ;	
 
 input   wire                m3start;	
 input   wire                m3invOrStop;	 
@@ -73,21 +73,21 @@ end
 
 always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
-        aH                          <= 0                ;
-        bH                          <= 0                ;
-        cH                          <= 0                ;
-        aL                          <= 0 `LOWmosINV     ;
-        bL                          <= 0 `LOWmosINV     ;
-        cL                          <= 0 `LOWmosINV     ;
+        aHp                         <= 0                ;
+        bHp                         <= 0                ;
+        cHp                         <= 0                ;
+        aLn                         <= 0 `LOWmosINV     ;
+        bLn                         <= 0 `LOWmosINV     ;
+        cLn                         <= 0 `LOWmosINV     ;
     end
     else begin
-        aH                          <= (pwm &    aH_ii & `Aenable )       ;
-        bH                          <= (pwm &    bH_ii & `Benable )       ;
-        cH                          <= (pwm &    cH_ii & `Cenable )       ;
+        aHp                         <= (pwm &    aH_ii & `Aenable )       ;
+        bHp                         <= (pwm &    bH_ii & `Benable )       ;
+        cHp                         <= (pwm &    cH_ii & `Cenable )       ;
 
-        aL                          <= (pwm &    aL_ii & `Aenable )  `LOWmosINV          ;
-        bL                          <= (pwm &    bL_ii & `Benable )  `LOWmosINV          ;
-        cL                          <= (pwm &    cL_ii & `Cenable )  `LOWmosINV          ;
+        aLn                         <= (pwm &    aL_ii & `Aenable )  `LOWmosINV          ;
+        bLn                         <= (pwm &    bL_ii & `Benable )  `LOWmosINV          ;
+        cLn                         <= (pwm &    cL_ii & `Cenable )  `LOWmosINV          ;
     end
 end
 
@@ -96,12 +96,12 @@ motoro3_real
 r
 (
     .pwm                    (   pwm                     ),
-    .aH                     (   aH_ii                   ),
-    .aL                     (   aL_ii                   ),
-    .bH                     (   bH_ii                   ),
-    .bL                     (   bL_ii                   ),
-    .cH                     (   cH_ii                   ),
-    .cL                     (   cL_ii                   ),
+    .aHp                    (   aH_ii                   ),
+    .aLp                    (   aL_ii                   ),
+    .bHp                    (   bH_ii                   ),
+    .bLp                    (   bL_ii                   ),
+    .cHp                    (   cH_ii                   ),
+    .cLp                    (   cL_ii                   ),
                                                
     .m3start                (   m3start_clked1           ),
     .m3freq                 (   m3freq_clked1            ),
