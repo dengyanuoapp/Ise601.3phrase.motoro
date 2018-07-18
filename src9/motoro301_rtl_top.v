@@ -7,7 +7,8 @@ module motoro301_rtl_top(
     cLN,
 
     m3start         ,
-    m3invOrStop     ,
+    m3forceStop     ,
+    m3invRotate     ,
     m3freq          ,
 
     tp01,
@@ -27,7 +28,8 @@ output  wire                bLN ;
 output  wire                cHP ;	
 output  wire                cLN ;	
 input   wire                m3start;	
-input   wire                m3invOrStop;	 
+input   wire                m3forceStop;	 
+input   wire                m3invRotate;	 
 input   wire    [9:0]       m3freq;	
 
 output  wire                tp01;	
@@ -96,7 +98,8 @@ m3t
                                        
     .m3start        (   m3start         ),
     .m3freq         (   m3freq          ),
-    .m3invOrStop    (   m3invOrStop     ),
+    .m3forceStop    (   m3forceStop     ),
+    .m3invRotate    (   m3invRotate     ),
 
     .nRst           (   nReset          ),
     .clkHI          (   clk50mhz        ),

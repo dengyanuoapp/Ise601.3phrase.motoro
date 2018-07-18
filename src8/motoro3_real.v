@@ -7,7 +7,8 @@ module motoro3_real(
     cLp,
 
     m3start         ,
-    m3invOrStop     ,
+    m3forceStop     ,
+    m3invRotate     ,
     m3freq          ,
 
     nRst,
@@ -26,7 +27,8 @@ input   wire                m3start         ;
 
 // if 0 , normal . 
 // if 1 -> force stop ,according to the m3freq : 0 -> forceStop ; or , inverse. 
-input   wire                m3invOrStop     ;	 
+input   wire                m3forceStop     ;	 
+input   wire                m3invRotate     ;	 
 
 // freq 1 - 1000, ==> 60 - 60,000 rpm(round per minutes)
 input   wire    [9:0]       m3freq          ;	

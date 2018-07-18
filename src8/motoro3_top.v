@@ -7,7 +7,8 @@ module motoro3_top(
     cLN,
 
     m3start         ,
-    m3invOrStop     ,
+    m3forceStop     ,
+    m3invRotate     ,
     m3freq          ,
 
     nRst,
@@ -24,7 +25,8 @@ output  reg                 cHP ;
 output  reg                 cLN ;	
 
 input   wire                m3start;	
-input   wire                m3invOrStop;	 
+input   wire                m3forceStop;	 
+input   wire                m3invRotate;	 
 input   wire    [9:0]       m3freq;	
 
 input   wire                clkHI;
@@ -32,12 +34,9 @@ input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
 reg                         m3start_clked1       ;	
-reg                         m3invOrStop_clked1   ;	 
+reg                         m3forceStop_clked1   ;	 
+reg                         m3invRotate_clked1   ;	 
 reg             [9:0]       m3freq_clked1        ;	
-
-//reg                         m3start_clked2       ;	
-//reg                         m3invOrStop_clked2   ;	 
-//reg             [9:0]       m3freq_clked2        ;	
 
 wire                        aH_ii       ;	
 wire                        aL_ii       ;	
@@ -50,11 +49,13 @@ always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
         m3start_clked1              <= 0                ;
         m3freq_clked1               <= 0                ;
-        m3invOrStop_clked1          <= 0                ;
+        m3forceStop_clked1          <= 0                ;
+        m3invRotate_clked1          <= 0                ;
     end
     else begin
         m3start_clked1              <= m3start          ;
-        m3invOrStop_clked1          <= m3invOrStop      ;
+        m3forceStop_clked1          <= m3forceStop      ;
+        m3invRotate_clked1          <= m3invRotate      ;
         if ( m3freq > 10'd1000) begin
             m3freq_clked1           <= m3freq           ;
         end
@@ -104,7 +105,8 @@ r
                                                
     .m3start                (   m3start_clked1           ),
     .m3freq                 (   m3freq_clked1            ),
-    .m3invOrStop            (   m3invOrStop_clked1       ),
+    .m3forceStop            (   m3forceStop_clked1     ),
+    .m3invRotate            (   m3invRotate_clked1     ),
                            
     .nRst                   (   nRst                    ),
     .clk                    (   clk                     )

@@ -22,9 +22,10 @@ NET "m3freq[1]"     LOC = "P129" ;
 NET "m3freq[0]"     LOC = "P127" ;
 
 NET "m3start"       LOC = "P160" ;
-NET "m3invOrStop"   LOC = "P152" ;
+NET "m3forceStop"   LOC = "P152" ;
 NET "tp01"          LOC = "P150" ;
 NET "tp02"          LOC = "P146" ;
+NET "m3invRotate"   LOC = "P144" ;
 
 NET "aHP"            LOC = "P49" ;
 NET "bHP"            LOC = "P55" ;
@@ -33,6 +34,7 @@ NET "cHP"            LOC = "P61" ;
 NET "aLN"            LOC = "P48" ;
 NET "bLN"            LOC = "P50" ;
 NET "cLN"            LOC = "P60" ;
+
 
 #### DRIVE range : 6,12,24 in LVCOMS33 can be set to , see https://www.xilinx.com/support/documentation/white_papers/wp217.pdf
 

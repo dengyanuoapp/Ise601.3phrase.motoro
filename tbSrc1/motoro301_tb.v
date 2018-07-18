@@ -11,7 +11,8 @@ wire                        bLN ;
 wire                        cHP ;	
 wire                        cLN ;	
 reg                         m3start;	
-reg                         m3invOrStop;	 
+reg                         m3forceStop;	 
+reg                         m3invRotate;	 
 reg             [9:0]       m3freq;	
 
 wire                        tp01;	
@@ -33,7 +34,8 @@ rtl(
                                        
     .m3start        (   m3start         ),
     .m3freq         (   m3freq          ),
-    .m3invOrStop    (   m3invOrStop     ),
+    .m3forceStop    (   m3forceStop     ),
+    .m3invRotate    (   m3invRotate     ),
 
     .tp01           (   tp01            ),
     .tp02           (   tp02            ),
@@ -64,7 +66,8 @@ begin
     nRst = 0;
 
     m3start = 0;	
-    m3invOrStop = 0 ;	 
+    m3forceStop = 0 ;	 
+    m3invRotate = 0 ;	 
     m3freq  = 100 ;	
 
     #1
