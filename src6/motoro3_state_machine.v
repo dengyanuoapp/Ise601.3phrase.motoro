@@ -1,12 +1,5 @@
 module motoro3_state_machine(
 
-    aE              ,		
-    aH1_L0          ,		
-    bE              ,		
-    bH1_L0          ,		
-    cE              ,		
-    cH1_L0          ,		
-
     m3stepA         ,
     m3stepB         ,
     m3stepC         ,
@@ -20,13 +13,6 @@ module motoro3_state_machine(
     clk
 
 );
-
-output  wire                aE              ;		
-output  wire                aH1_L0          ;		
-output  wire                bE              ;		
-output  wire                bH1_L0          ;		
-output  wire                cE              ;		
-output  wire                cH1_L0          ;		
 
 output  wire    [3:0]       m3stepA         ;	
 output  wire    [3:0]       m3stepB         ;	
@@ -58,18 +44,6 @@ stepgen
                                        
     .nRst               ( nRst          ),
     .clk                ( clk           ) 
-);
-
-motoro3_step_to_mosdriver
-step2mos
-(
-    .aE                 ( aE            ),
-    .bE                 ( bE            ),
-    .cE                 ( cE            ),
-    .aH1_L0             ( aH1_L0        ),
-    .bH1_L0             ( bH1_L0        ),
-    .cH1_L0             ( cH1_L0        ),
-    .m3step             ( m3stepA       ) 
 );
 
 endmodule

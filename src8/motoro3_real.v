@@ -88,17 +88,21 @@ pwm0C
     .clk                ( clk         ) 
 );// motoro3_pwm_generator C
 
+motoro3_step_to_mosdriver
+step2mos
+(
+    .aE                 ( aStEE         ),
+    .bE                 ( bStEE         ),
+    .cE                 ( cStEE         ),
+    .aH1_L0             ( aStH1_L0      ),
+    .bH1_L0             ( bStH1_L0      ),
+    .cH1_L0             ( cStH1_L0      ),
+    .m3step             ( m3stepA       ) 
+);
 
 motoro3_state_machine
 st
 (
-    .aE                     ( aStEE         ),
-    .aH1_L0                 ( aStH1_L0      ),
-    .bE                     ( bStEE         ),
-    .bH1_L0                 ( bStH1_L0      ),
-    .cE                     ( cStEE         ),
-    .cH1_L0                 ( cStH1_L0      ),
-
     .m3stepA                ( m3stepA       ),
     .m3stepB                ( m3stepB       ),
     .m3stepC                ( m3stepC       ),
