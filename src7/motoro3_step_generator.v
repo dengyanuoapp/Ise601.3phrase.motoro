@@ -53,7 +53,7 @@ end
 `define m3cnt_reload1_now    25'd1_666_667  
 `endif
 `ifdef simulating
-`define m3cnt_reload1_now    25'd16_667
+`define m3cnt_reload1_now    25'd16_667   // 1_666.7us * 12 == 20_000 us == 20ms == 50Hz , 16667/511==32pwmSTEP
 //`define m3cnt_reload1_now    25'd166_667
 `endif
 `endif
