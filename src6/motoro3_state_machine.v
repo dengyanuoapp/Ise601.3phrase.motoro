@@ -1,7 +1,5 @@
 module motoro3_state_machine(
 
-    pwm             ,		
-
     aE              ,		
     aH1_L0          ,		
     bE              ,		
@@ -19,8 +17,6 @@ module motoro3_state_machine(
     clk
 
 );
-
-output  wire                pwm             ;		
 
 output  wire                aE              ;		
 output  wire                aH1_L0          ;		
@@ -42,19 +38,6 @@ input   wire                nRst;
 wire                        m3cntLast1 ;
 
 
-
-motoro3_pwm_generator
-pwm01
-(
-    .pwm                ( pwm         ),
-    .aE                 ( aE          ),
-    .bE                 ( bE          ),
-    .cE                 ( cE          ),
-    .m3cnt              ( m3cnt       ),
-    .m3cntLast1         ( m3cntLast1  ),
-    .nRst               ( nRst        ),
-    .clk                ( clk         ) 
-);
 
 motoro3_step_generator
 stepgen

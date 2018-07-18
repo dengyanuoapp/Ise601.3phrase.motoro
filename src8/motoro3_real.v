@@ -44,13 +44,51 @@ wire                        bStH1_L0        ;
 wire                        cStEE           ;		
 wire                        cStH1_L0        ;		
 
-wire                        pwm             ;	
+wire                        pwmA            ;	
+wire                        pwmB            ;	
+wire                        pwmC            ;	
+
+motoro3_pwm_generator
+pwm0A
+(
+    .pwm                ( pwmA        ),
+    .aE                 ( aE          ),
+    .bE                 ( bE          ),
+    .cE                 ( cE          ),
+    .m3cnt              ( m3cnt       ),
+    .m3cntLast1         ( m3cntLast1  ),
+    .nRst               ( nRst        ),
+    .clk                ( clk         ) 
+);
+motoro3_pwm_generator
+pwm0B
+(
+    .pwm                ( pwmB        ),
+    .aE                 ( aE          ),
+    .bE                 ( bE          ),
+    .cE                 ( cE          ),
+    .m3cnt              ( m3cnt       ),
+    .m3cntLast1         ( m3cntLast1  ),
+    .nRst               ( nRst        ),
+    .clk                ( clk         ) 
+);
+motoro3_pwm_generator
+pwm0C
+(
+    .pwm                ( pwmC        ),
+    .aE                 ( aE          ),
+    .bE                 ( bE          ),
+    .cE                 ( cE          ),
+    .m3cnt              ( m3cnt       ),
+    .m3cntLast1         ( m3cntLast1  ),
+    .nRst               ( nRst        ),
+    .clk                ( clk         ) 
+);
+
 
 motoro3_state_machine
 st
 (
-    .pwm                    ( pwm           ),
-
     .aE                     ( aStEE         ),
     .aH1_L0                 ( aStH1_L0      ),
     .bE                     ( bStEE         ),
@@ -70,7 +108,7 @@ st
 motoro3_mos_driver
 mA
 (
-    .pwm                    ( pwm           ),
+    .pwm                    ( pwmA          ),
     .mosHp                  ( aHp           ),
     .mosLp                  ( aLp           ),
     .mosEnable              ( aStEE         ),
@@ -82,7 +120,7 @@ mA
 motoro3_mos_driver
 mB
 (
-    .pwm                    ( pwm           ),
+    .pwm                    ( pwmB          ),
     .mosHp                  ( bHp           ),
     .mosLp                  ( bLp           ),
     .mosEnable              ( bStEE         ),
@@ -94,7 +132,7 @@ mB
 motoro3_mos_driver
 mC
 (
-    .pwm                    ( pwm           ),
+    .pwm                    ( pwmC          ),
     .mosHp                  ( cHp           ),
     .mosLp                  ( cLp           ),
     .mosEnable              ( cStEE         ),
