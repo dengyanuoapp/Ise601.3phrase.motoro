@@ -36,6 +36,7 @@ input   wire                nRst            ;
 
 wire            [3:0]       m3step          ;	
 wire            [24:0]      m3cnt           ;	
+wire                        m3cntLast1      ;
 
 wire                        aStEE           ;		
 wire                        aStH1_L0        ;		
@@ -52,38 +53,38 @@ motoro3_pwm_generator
 pwm0A
 (
     .pwm                ( pwmA        ),
-    .aE                 ( aE          ),
-    .bE                 ( bE          ),
-    .cE                 ( cE          ),
+    .aE                 ( aStEE       ),
+    .bE                 ( bStEE       ),
+    .cE                 ( cStEE       ),
     .m3cnt              ( m3cnt       ),
     .m3cntLast1         ( m3cntLast1  ),
     .nRst               ( nRst        ),
     .clk                ( clk         ) 
-);
+);// motoro3_pwm_generator A
 motoro3_pwm_generator
 pwm0B
 (
     .pwm                ( pwmB        ),
-    .aE                 ( aE          ),
-    .bE                 ( bE          ),
-    .cE                 ( cE          ),
+    .aE                 ( aStEE       ),
+    .bE                 ( bStEE       ),
+    .cE                 ( cStEE       ),
     .m3cnt              ( m3cnt       ),
     .m3cntLast1         ( m3cntLast1  ),
     .nRst               ( nRst        ),
     .clk                ( clk         ) 
-);
+);// motoro3_pwm_generator B
 motoro3_pwm_generator
 pwm0C
 (
     .pwm                ( pwmC        ),
-    .aE                 ( aE          ),
-    .bE                 ( bE          ),
-    .cE                 ( cE          ),
+    .aE                 ( aStEE       ),
+    .bE                 ( bStEE       ),
+    .cE                 ( cStEE       ),
     .m3cnt              ( m3cnt       ),
     .m3cntLast1         ( m3cntLast1  ),
     .nRst               ( nRst        ),
     .clk                ( clk         ) 
-);
+);// motoro3_pwm_generator C
 
 
 motoro3_state_machine
@@ -98,12 +99,13 @@ st
 
     .m3step                 ( m3step        ),
     .m3cnt                  ( m3cnt         ),
+    .m3cntLast1             ( m3cntLast1    ),
     .m3start                ( m3start       ),
     .m3freq                 ( m3freq        ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )
-);
+);// motoro3_state_machine
 
 motoro3_mos_driver
 mA
@@ -115,7 +117,7 @@ mA
     .h1_L0                  ( aStH1_L0      ),
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
-);
+);// motoro3_mos_driver A
 
 motoro3_mos_driver
 mB
@@ -127,7 +129,7 @@ mB
     .h1_L0                  ( bStH1_L0      ),
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
-);
+);// motoro3_mos_driver B
 
 motoro3_mos_driver
 mC
@@ -139,7 +141,6 @@ mC
     .h1_L0                  ( cStH1_L0      ),
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
-);
-
+);// motoro3_mos_driver C
 
 endmodule

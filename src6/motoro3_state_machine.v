@@ -9,6 +9,7 @@ module motoro3_state_machine(
 
     m3step          ,
     m3cnt           ,
+    m3cntLast1      ,
 
     m3start         ,
     m3freq          ,
@@ -28,14 +29,14 @@ output  wire                cH1_L0          ;
 output  wire    [3:0]       m3step          ;	
 
 output  wire    [24:0]      m3cnt           ;	
+output  wire                m3cntLast1      ;
 
-input   wire                m3start;	
-input   wire    [9:0]       m3freq;	
+input   wire                m3start         ;	
+input   wire    [9:0]       m3freq          ;	
 
-input   wire                clk;			// 10MHz
-input   wire                nRst;		
+input   wire                clk             ;			// 10MHz
+input   wire                nRst            ;		
 
-wire                        m3cntLast1 ;
 
 
 
