@@ -17,8 +17,8 @@ module motoro3_step_generator(
 // 1,2,3,4,5,6:nomal
 // 7:force stop
 output  reg     [3:0]       m3stepA;	
-output  wire    [3:0]       m3stepB;	
-output  wire    [3:0]       m3stepC;	
+output  reg     [3:0]       m3stepB;	
+output  reg     [3:0]       m3stepC;	
 output  reg     [24:0]      m3cnt;	
 output  wire                m3cntLast1 ;
 
@@ -125,6 +125,28 @@ always @ (negedge clk or negedge nRst) begin
             roundCNT        <= 48'd0 ;
         end
     end
+end
+
+always @( m3stepA ) begin
+    case ( m3stepA )
+        4'd1  :  begin m3stepB = 4'd9  ; m3stepC = 4'd5  ; end
+        4'd2  :  begin m3stepB = 4'd10 ; m3stepC = 4'd6  ; end
+        4'd3  :  begin m3stepB = 4'd11 ; m3stepC = 4'd7  ; end
+        4'd4  :  begin m3stepB = 4'd12 ; m3stepC = 4'd8  ; end
+
+        4'd5  :  begin m3stepB = 4'd1  ; m3stepC = 4'd9   ; end
+        4'd6  :  begin m3stepB = 4'd2  ; m3stepC = 4'd10  ; end
+        4'd7  :  begin m3stepB = 4'd3  ; m3stepC = 4'd11  ; end
+        4'd8  :  begin m3stepB = 4'd4  ; m3stepC = 4'd12  ; end
+
+        4'd9  :  begin m3stepB = 4'd5  ; m3stepC = 4'd1   ; end
+        4'd10 :  begin m3stepB = 4'd6  ; m3stepC = 4'd2   ; end
+        4'd11 :  begin m3stepB = 4'd7  ; m3stepC = 4'd3   ; end
+        4'd12 :  begin m3stepB = 4'd8  ; m3stepC = 4'd4   ; end
+
+        default:begin m3stepB = 4'd0 ; m3stepC = 4'd0 ; end
+    endcase
+
 end
 
 endmodule
