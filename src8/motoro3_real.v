@@ -86,8 +86,8 @@ motoro3_sine_generator
 sgC
 (
     .sgStep                 ( m3stepC       ),
-    .sgHp                   ( bHp           ),
-    .sgLp                   ( bLp           ),
+    .sgHp                   ( cHp           ),
+    .sgLp                   ( cLp           ),
 
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
