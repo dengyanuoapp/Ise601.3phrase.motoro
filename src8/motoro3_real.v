@@ -89,15 +89,25 @@ pwm0C
 );// motoro3_pwm_generator C
 
 motoro3_step_to_mosdriver
-step2mos
+step2mosA
 (
-    .aE                 ( aStEE         ),
-    .bE                 ( bStEE         ),
-    .cE                 ( cStEE         ),
-    .aH1_L0             ( aStH1_L0      ),
-    .bH1_L0             ( bStH1_L0      ),
-    .cH1_L0             ( cStH1_L0      ),
+    .xE                 ( aStEE         ),
+    .xH1_L0             ( aStH1_L0      ),
     .m3step             ( m3stepA       ) 
+);
+motoro3_step_to_mosdriver
+step2mosB
+(
+    .xE                 ( bStEE         ),
+    .xH1_L0             ( bStH1_L0      ),
+    .m3step             ( m3stepB       ) 
+);
+motoro3_step_to_mosdriver
+step2mosC
+(
+    .xE                 ( cStEE         ),
+    .xH1_L0             ( cStH1_L0      ),
+    .m3step             ( m3stepC       ) 
 );
 
 motoro3_state_machine
