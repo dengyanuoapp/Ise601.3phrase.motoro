@@ -17,9 +17,9 @@ output  wire                sgLp            ;
 input   wire                clk             ;			// 10MHz
 input   wire                nRst            ;		
 
-wire            [3:0]       sgStep          ;	
-wire            [24:0]      m3cnt           ;	
-wire                        m3cntLast1      ;
+input   wire    [3:0]       sgStep          ;	
+input   wire    [24:0]      m3cnt           ;	
+input   wire                m3cntLast1      ;
 
 wire                        sgEE            ;		
 wire                        sgForceLow      ;		

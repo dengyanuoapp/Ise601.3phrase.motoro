@@ -59,7 +59,7 @@ st
 motoro3_sine_generator
 sgA
 (
-    .sgStep                 ( m3stepA       ) 
+    .sgStep                 ( m3stepA       ),
     .sgHp                   ( aHp           ),
     .sgLp                   ( aLp           ),
 
