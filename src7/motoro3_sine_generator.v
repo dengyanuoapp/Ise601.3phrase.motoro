@@ -28,7 +28,7 @@ wire                        sgH1_L0         ;
 wire                        sgPWM           ;	
 
 motoro3_pwm_generator
-pwm0A
+pwmSG
 (
     .pwm                ( sgPWM       ),
     .aE                 ( sgEE        ),
