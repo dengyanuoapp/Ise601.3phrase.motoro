@@ -129,22 +129,22 @@ end
 
 always @( m3stepA ) begin
     case ( m3stepA )
-        4'd1  :  begin m3stepB = 4'd9  ; m3stepC = 4'd5  ; end
-        4'd2  :  begin m3stepB = 4'd10 ; m3stepC = 4'd6  ; end
-        4'd3  :  begin m3stepB = 4'd11 ; m3stepC = 4'd7  ; end
-        4'd4  :  begin m3stepB = 4'd12 ; m3stepC = 4'd8  ; end
-
-        4'd5  :  begin m3stepB = 4'd1  ; m3stepC = 4'd9   ; end
-        4'd6  :  begin m3stepB = 4'd2  ; m3stepC = 4'd10  ; end
-        4'd7  :  begin m3stepB = 4'd3  ; m3stepC = 4'd11  ; end
-        4'd8  :  begin m3stepB = 4'd4  ; m3stepC = 4'd12  ; end
-
-        4'd9  :  begin m3stepB = 4'd5  ; m3stepC = 4'd1   ; end
-        4'd10 :  begin m3stepB = 4'd6  ; m3stepC = 4'd2   ; end
-        4'd11 :  begin m3stepB = 4'd7  ; m3stepC = 4'd3   ; end
-        4'd12 :  begin m3stepB = 4'd8  ; m3stepC = 4'd4   ; end
-
-        default:begin m3stepB = 4'd0 ; m3stepC = 4'd0 ; end
+        4'd1    :   begin   m3stepB = 4'd9  ;   m3stepC = 4'd5  ;   end
+        4'd2    :   begin   m3stepB = 4'd10 ;   m3stepC = 4'd6  ;   end
+        4'd3    :   begin   m3stepB = 4'd11 ;   m3stepC = 4'd7  ;   end
+        4'd4    :   begin   m3stepB = 4'd12 ;   m3stepC = 4'd8  ;   end
+                                                                   
+        4'd5    :   begin   m3stepB = 4'd1  ;   m3stepC = 4'd9  ;   end
+        4'd6    :   begin   m3stepB = 4'd2  ;   m3stepC = 4'd10 ;   end
+        4'd7    :   begin   m3stepB = 4'd3  ;   m3stepC = 4'd11 ;   end
+        4'd8    :   begin   m3stepB = 4'd4  ;   m3stepC = 4'd12 ;   end
+                                                                   
+        4'd9    :   begin   m3stepB = 4'd5  ;   m3stepC = 4'd1  ;   end
+        4'd10   :   begin   m3stepB = 4'd6  ;   m3stepC = 4'd2  ;   end
+        4'd11   :   begin   m3stepB = 4'd7  ;   m3stepC = 4'd3  ;   end
+        4'd12   :   begin   m3stepB = 4'd8  ;   m3stepC = 4'd4  ;   end
+                                                                   
+        default :   begin   m3stepB = 4'hF  ;   m3stepC = 4'hF  ;   end
     endcase
 
 end
