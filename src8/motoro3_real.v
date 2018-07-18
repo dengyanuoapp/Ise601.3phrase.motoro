@@ -40,8 +40,9 @@ wire            [3:0]       m3stepC         ;
 wire            [24:0]      m3cnt           ;	
 wire                        m3cntLast1      ;
 
-motoro3_state_machine
-st
+//motoro3_state_machine
+motoro3_step_generator
+sg
 (
     .m3stepA                ( m3stepA       ),
     .m3stepB                ( m3stepB       ),
