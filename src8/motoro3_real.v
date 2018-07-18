@@ -68,6 +68,32 @@ sgA
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
-);
+);// motoro3_sine_generator sgA
+motoro3_sine_generator
+sgB
+(
+    .sgStep                 ( m3stepB       ),
+    .sgHp                   ( bHp           ),
+    .sgLp                   ( bLp           ),
+
+    .m3cnt                  ( m3cnt         ),
+    .m3cntLast1             ( m3cntLast1    ),
+
+    .nRst                   ( nRst          ),
+    .clk                    ( clk           )  
+);// motoro3_sine_generator sgB
+motoro3_sine_generator
+sgC
+(
+    .sgStep                 ( m3stepC       ),
+    .sgHp                   ( bHp           ),
+    .sgLp                   ( bLp           ),
+
+    .m3cnt                  ( m3cnt         ),
+    .m3cntLast1             ( m3cntLast1    ),
+
+    .nRst                   ( nRst          ),
+    .clk                    ( clk           )  
+);// motoro3_sine_generator sgC
 
 endmodule
