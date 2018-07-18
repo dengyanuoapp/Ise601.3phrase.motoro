@@ -100,7 +100,7 @@ always @ (negedge clk or negedge nRst) begin
         end
         else begin
             if ( m3cntLast1 == 1'd1 ) begin
-                if ( m3stepA== 4'd6 ) begin
+                if ( m3stepA== 4'd12 ) begin
                     m3stepA     <= 4'd1             ;
                 end
                 else begin

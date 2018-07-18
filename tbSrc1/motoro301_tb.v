@@ -74,6 +74,7 @@ begin
     m3start = 1;	
 
     #1_200_000      // 12ms
+    #1_200_000      // 12ms
 `ifdef simulating
 `endif
     //#10_000_000      // 100ms
