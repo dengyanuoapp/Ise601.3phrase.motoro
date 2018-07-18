@@ -1,5 +1,7 @@
 module motoro3_step_generator(
-    m3step          ,
+    m3stepA         ,
+    m3stepB         ,
+    m3stepC         ,
     m3cnt           ,
 
     m3start         ,
@@ -14,7 +16,9 @@ module motoro3_step_generator(
 // 0: idle
 // 1,2,3,4,5,6:nomal
 // 7:force stop
-output  reg     [3:0]       m3step;	
+output  reg     [3:0]       m3stepA;	
+output  wire    [3:0]       m3stepB;	
+output  wire    [3:0]       m3stepC;	
 output  reg     [24:0]      m3cnt;	
 output  wire                m3cntLast1 ;
 
@@ -88,19 +92,19 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        m3step                  <= 4'd0             ;
+        m3stepA                 <= 4'd0             ;
     end
     else begin
         if ( m3start_up1 == 1 ) begin
-            m3step              <= 4'd1             ;
+            m3stepA             <= 4'd1             ;
         end
         else begin
             if ( m3cntLast1 == 1'd1 ) begin
-                if ( m3step == 4'd6 ) begin
-                    m3step      <= 4'd1             ;
+                if ( m3stepA== 4'd6 ) begin
+                    m3stepA     <= 4'd1             ;
                 end
                 else begin
-                    m3step      <= m3step + 4'd1    ;
+                    m3stepA     <= m3stepA+ 4'd1    ;
                 end
             end
         end
@@ -113,7 +117,7 @@ always @ (negedge clk or negedge nRst) begin
     end
     else begin
         if ( m3start ) begin
-            if ( m3step == 4'd6 && m3cntLast1 == 1'd1 ) begin
+            if ( m3stepA== 4'd6 && m3cntLast1 == 1'd1 ) begin
                 roundCNT    <= roundCNT + 48'd1 ;
             end
         end

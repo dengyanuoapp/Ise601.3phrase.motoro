@@ -7,7 +7,9 @@ module motoro3_state_machine(
     cE              ,		
     cH1_L0          ,		
 
-    m3step          ,
+    m3stepA         ,
+    m3stepB         ,
+    m3stepC         ,
     m3cnt           ,
     m3cntLast1      ,
 
@@ -26,7 +28,9 @@ output  wire                bH1_L0          ;
 output  wire                cE              ;		
 output  wire                cH1_L0          ;		
 
-output  wire    [3:0]       m3step          ;	
+output  wire    [3:0]       m3stepA         ;	
+output  wire    [3:0]       m3stepB         ;	
+output  wire    [3:0]       m3stepC         ;	
 
 output  wire    [24:0]      m3cnt           ;	
 output  wire                m3cntLast1      ;
@@ -46,7 +50,9 @@ stepgen
     .m3start            ( m3start       ),
     .m3freq             ( m3freq        ),
                                        
-    .m3step             ( m3step        ),
+    .m3stepA            ( m3stepA       ),
+    .m3stepB            ( m3stepB       ),
+    .m3stepC            ( m3stepC       ),
     .m3cnt              ( m3cnt         ),
     .m3cntLast1         ( m3cntLast1    ),
                                        
@@ -63,7 +69,7 @@ step2mos
     .aH1_L0             ( aH1_L0        ),
     .bH1_L0             ( bH1_L0        ),
     .cH1_L0             ( cH1_L0        ),
-    .m3step             ( m3step        ) 
+    .m3step             ( m3stepA       ) 
 );
 
 endmodule

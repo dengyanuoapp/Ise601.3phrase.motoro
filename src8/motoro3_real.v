@@ -34,7 +34,9 @@ input   wire    [9:0]       m3freq          ;
 input   wire                clk             ;			// 10MHz
 input   wire                nRst            ;		
 
-wire            [3:0]       m3step          ;	
+wire            [3:0]       m3stepA         ;	
+wire            [3:0]       m3stepB         ;	
+wire            [3:0]       m3stepC         ;	
 wire            [24:0]      m3cnt           ;	
 wire                        m3cntLast1      ;
 
@@ -97,7 +99,9 @@ st
     .cE                     ( cStEE         ),
     .cH1_L0                 ( cStH1_L0      ),
 
-    .m3step                 ( m3step        ),
+    .m3stepA                ( m3stepA       ),
+    .m3stepB                ( m3stepB       ),
+    .m3stepC                ( m3stepC       ),
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
     .m3start                ( m3start       ),
