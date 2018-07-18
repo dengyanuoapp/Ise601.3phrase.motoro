@@ -26,13 +26,18 @@ input   wire    [24:0]      m3cnt;
 input   wire                clk;			// 10MHz
 input   wire                nRst;		
 
-reg             [12:0]       pwmCNT                  ;	
+reg             [12:0]      pwmCNT                  ;	
 wire                        pwmCNTlast = (pwmCNT[12:1] == 12'd0)? 1'd1 : 1'd0  ;
-wire            [12:0]       pwmCNTload1             ;	
-wire            [12:0]       pwmCNTload2             ;	
-wire            [12:0]       pwmCNTinput             ;	
-reg             [12:0]       pwmCNTinput_clked1      ;	
+wire            [12:0]      pwmCNTload1             ;	
+wire            [12:0]      pwmCNTload2             ;	
+wire            [12:0]      pwmCNTinput             ;	
+reg             [12:0]      pwmCNTinput_clked1      ;	
 wire                        pwmCNTreload            ;
+
+// clk freq : 10Mhz , 100ns , 0.1us
+// max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
+// min MOS open : 0x10  : 16   * 0.1us == 1.6us  (min set to 16: mosDriver2003/2007 raise/failing time 150ns )
+// min MOS open : 0x20  : 32   * 0.1us == 3.2us  (min set to 32: mosDriver2003/2007 raise/failing time 150ns )
 
 //`define pwmTest     12'hf00
 //`define pwmTest     11'h400
@@ -41,7 +46,8 @@ wire                        pwmCNTreload            ;
 //`define pwmTest      8'h80 // 12.5us
 //`define pwmTest      7'h40 // 6.25us
 //`define pwmTest      6'h20 // 3.125us // and , when less than 3us , MOSFET lost
-`define pwmTest      12'h20 //   32(0x20) of 511(0x1ff) * 0.1us == 3.1us
+`define pwmTest      12'h10 //   16(0x10) of 511(0x1ff) * 0.1us == 1.6us
+//`define pwmTest      12'h20 //   32(0x20) of 511(0x1ff) * 0.1us == 3.1us
 //`define pwmTest      12'h40 //   64(0x40) of 511(0x1ff) * 0.1us == 6.4us
 //`define pwmTest      12'h80 // 
 //`define pwmTest      12'h100 // 
@@ -51,7 +57,7 @@ wire                        pwmCNTreload            ;
 assign pwmCNTinput = { 1'b0 , `pwmTest                        }   ;
 assign pwmCNTload1 = pwmCNTinput_clked1                          ; // MOS on  time
 //assign pwmCNTload2 = { 1'b0 , pwmCNTinput_clked1[11:0] ^ 12'hfff }  ; // MOS off time
-assign pwmCNTload2 = { ( pwmCNTinput_clked1[11:0] ^ 12'hFFF ) & 12'h1ff }  ; // MOS off time
+assign pwmCNTload2 = { 1'b0 , (( pwmCNTinput_clked1[11:0] ^ 12'hFFF ) & 12'h1ff) }  ; // MOS off time
 always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNTinput_clked1       <= pwmCNTinput ;
