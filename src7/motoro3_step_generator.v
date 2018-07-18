@@ -47,6 +47,7 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
+//( per pwmSTEP 511clk, 51us )
 `ifndef m3cnt_reload1_now 
 `ifdef synthesising
 //`define m3cnt_reload1_now    25'd666_666
