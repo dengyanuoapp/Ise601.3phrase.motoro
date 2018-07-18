@@ -9,7 +9,8 @@ module motoro3_real(
     m3start         ,
     m3forceStop     ,
     m3invRotate     ,
-    m3freq          ,
+    m3freqINC       ,
+    m3freqDEC       ,
 
     nRst,
     clk
@@ -31,7 +32,8 @@ input   wire                m3forceStop     ;
 input   wire                m3invRotate     ;	 
 
 // freq 1 - 1000, ==> 60 - 60,000 rpm(round per minutes)
-input   wire    [9:0]       m3freq          ;	
+input   wire                m3freqINC;	 
+input   wire                m3freqDEC;	 
 
 input   wire                clk             ;			// 10MHz
 input   wire                nRst            ;		
@@ -53,7 +55,8 @@ sg
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
     .m3start                ( m3start       ),
-    .m3freq                 ( m3freq        ),
+    .m3freqINC              ( m3freqINC     ),
+    .m3freqDEC              ( m3freqDEC     ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )

@@ -5,7 +5,8 @@ module motoro3_step_generator(
     m3cnt           ,
 
     m3start         ,
-    m3freq          ,
+    m3freqINC       ,
+    m3freqDEC       ,
 
     m3cntLast1      ,
 
@@ -23,7 +24,8 @@ output  reg     [24:0]      m3cnt;
 output  wire                m3cntLast1 ;
 
 input   wire                m3start;	
-input   wire    [9:0]       m3freq;	
+input   wire                m3freqINC;	 
+input   wire                m3freqDEC;	 
 
 input   wire                clk;			// 10MHz
 input   wire                nRst;		

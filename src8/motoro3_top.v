@@ -9,7 +9,8 @@ module motoro3_top(
     m3start         ,
     m3forceStop     ,
     m3invRotate     ,
-    m3freq          ,
+    m3freqINC       ,
+    m3freqDEC       ,
 
     nRst,
     clkHI,
@@ -27,7 +28,8 @@ output  reg                 cLN ;
 input   wire                m3start;	
 input   wire                m3forceStop;	 
 input   wire                m3invRotate;	 
-input   wire    [9:0]       m3freq;	
+input   wire                m3freqINC;	 
+input   wire                m3freqDEC;	 
 
 input   wire                clkHI;
 input   wire                clk;			// 10MHz
@@ -36,7 +38,8 @@ input   wire                nRst;
 reg                         m3start_clked1       ;	
 reg                         m3forceStop_clked1   ;	 
 reg                         m3invRotate_clked1   ;	 
-reg             [9:0]       m3freq_clked1        ;	
+reg                         m3freqINC_clked1;	 
+reg                         m3freqDEC_clked1;	 
 
 wire                        aH_ii       ;	
 wire                        aL_ii       ;	
@@ -48,7 +51,8 @@ wire                        cL_ii       ;
 always @ (posedge clk or negedge nRst) begin
     if(!nRst) begin
         m3start_clked1              <= 0                ;
-        m3freq_clked1               <= 0                ;
+        m3freqINC_clked1            <= 0                ;
+        m3freqDEC_clked1            <= 0                ;
         m3forceStop_clked1          <= 0                ;
         m3invRotate_clked1          <= 0                ;
     end
@@ -56,11 +60,11 @@ always @ (posedge clk or negedge nRst) begin
         m3start_clked1              <= m3start          ;
         m3forceStop_clked1          <= m3forceStop      ;
         m3invRotate_clked1          <= m3invRotate      ;
-        if ( m3freq > 10'd1000) begin
-            m3freq_clked1           <= m3freq           ;
-        end
-        else begin
-            m3freq_clked1           <= 10'd1000         ;
+        m3freqINC_clked1            <= m3freqINC        ;
+        m3freqDEC_clked1            <= m3freqDEC        ;
+
+        if ( m3freqINC == 1'b1 ) begin
+            m3freqDEC_clked1        <= 1'b0             ;
         end
     end
 end
@@ -103,10 +107,11 @@ r
     .cHp                    (   cH_ii                   ),
     .cLp                    (   cL_ii                   ),
                                                
-    .m3start                (   m3start_clked1           ),
-    .m3freq                 (   m3freq_clked1            ),
-    .m3forceStop            (   m3forceStop_clked1     ),
-    .m3invRotate            (   m3invRotate_clked1     ),
+    .m3start                (   m3start_clked1          ),
+    .m3freqINC              (   m3freqINC_clked1        ),
+    .m3freqDEC              (   m3freqDEC_clked1        ),
+    .m3forceStop            (   m3forceStop_clked1      ),
+    .m3invRotate            (   m3invRotate_clked1      ),
                            
     .nRst                   (   nRst                    ),
     .clk                    (   clk                     )
