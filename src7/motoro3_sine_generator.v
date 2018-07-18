@@ -50,13 +50,16 @@ step2mosA
 );
 
 motoro3_mos_driver
-mA
+mD
 (
-    .pwm                    ( sgPWM         ),
     .mosHp                  ( sgHp          ),
     .mosLp                  ( sgLp          ),
+
+    .pwm                    ( sgPWM         ),
     .mosEnable              ( sgEE          ),
     .h1_L0                  ( sgH1_L0       ),
+    .forceLow               ( sgForceLow    ),
+
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
 );// motoro3_mos_driver A

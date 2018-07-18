@@ -1,12 +1,13 @@
 module motoro3_mos_driver(
 
-    pwm             ,
 
     mosHp           ,
     mosLp           ,
 
+    pwm             ,
     mosEnable       ,		
     h1_L0           ,		
+    forceLow        ,
 
     nRst,
     clk
@@ -19,6 +20,7 @@ output  reg                 mosLp           ;
 input   wire                pwm             ;		
 input   wire                mosEnable       ;		
 input   wire                h1_L0           ;		
+input   wire                forceLow        ;		
 
 input   wire                clk             ;			// 10MHz
 input   wire                nRst            ;		
