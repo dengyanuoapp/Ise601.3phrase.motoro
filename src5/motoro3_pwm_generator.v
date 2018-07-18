@@ -39,15 +39,8 @@ wire                        pwmCNTreload            ;
 // min MOS open : 0x10  : 16   * 0.1us == 1.6us  (min set to 16: mosDriver2003/2007 raise/failing time 150ns )
 // min MOS open : 0x20  : 32   * 0.1us == 3.2us  (min set to 32: mosDriver2003/2007 raise/failing time 150ns )
 
-//`define pwmTest     12'hf00
-//`define pwmTest     11'h400
-//`define pwmTest     10'h200  // 50us
-//`define pwmTest      9'h100 // 25us
-//`define pwmTest      8'h80 // 12.5us
-//`define pwmTest      7'h40 // 6.25us
-//`define pwmTest      6'h20 // 3.125us // and , when less than 3us , MOSFET lost
-`define pwmTest      12'h10 //   16(0x10) of 511(0x1ff) * 0.1us == 1.6us
-//`define pwmTest      12'h20 //   32(0x20) of 511(0x1ff) * 0.1us == 3.1us
+//`define pwmTest      12'h10 //   16(0x10) of 511(0x1ff) * 0.1us == 1.6us // test , failed , MOS can not work. none wave in the MOSFET
+`define pwmTest      12'h20 //   32(0x20) of 511(0x1ff) * 0.1us == 3.1us // so , this is the min can be used.
 //`define pwmTest      12'h40 //   64(0x40) of 511(0x1ff) * 0.1us == 6.4us
 //`define pwmTest      12'h80 // 
 //`define pwmTest      12'h100 // 
