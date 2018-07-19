@@ -10,6 +10,7 @@ input   wire    [15:0]      slLen           ;
 
 output  wire    [15:0]      plLen           ;	
 
+/*
 always @( slStep ) begin
     case ( slStep )
                                          
@@ -19,5 +20,7 @@ always @( slStep ) begin
 end
 
 assign slLen    = pi24 ;
+*/
+assign plLen    = lcStep + slLen ;
 
 endmodule
