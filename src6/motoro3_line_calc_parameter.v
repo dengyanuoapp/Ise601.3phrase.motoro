@@ -9,20 +9,23 @@ input   wire    [7:0]       pwmMin          ;
 input   wire    [3:0]       lcStep          ;	
 
 
-wire            [15:0]      lcConst         ;	
+wire            [15:0]      slLen           ;	
+wire            [15:0]      plLen           ;	
 
 motoro3_calc_pwm_len
 lcPWMlen
 (
-    .slConst            ( lcConst           ) ,
-    .slStep             ( lcStep            ) 
+    .plLen              ( plLen             ) ,
+
+    .slLen              ( slLen             ) ,
+    .lcStep             ( lcStep            ) 
 );// motoro3_calc_pwm_len 
 
 motoro3_calc_sine_len_against_to_step
 lcSINEline
 (
-    .slConst            ( lcConst           ) ,
-    .slStep             ( lcStep            ) 
+    .slLen              ( slLen             ) ,
+    .lcStep             ( lcStep            ) 
 );// motoro3_calc_sine_len_against_to_step 
 
 endmodule
