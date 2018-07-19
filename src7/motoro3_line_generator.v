@@ -1,7 +1,7 @@
 module motoro3_line_generator(
-    sgStep                      ,
-    sgHp                        ,
-    sgLp                        ,
+    lgStep                      ,
+    lgHp                        ,
+    lgLp                        ,
 
     m3cnt                       ,
     m3cntLast1                  ,
@@ -14,28 +14,28 @@ module motoro3_line_generator(
 
 );
 
-output  wire                sgHp            ;	
-output  wire                sgLp            ;	
+output  wire                lgHp            ;	
+output  wire                lgLp            ;	
 
 input   wire                clk             ;			// 10MHz
 input   wire                nRst            ;		
 
-input   wire    [3:0]       sgStep          ;	
+input   wire    [3:0]       lgStep          ;	
 input   wire    [24:0]      m3cnt           ;	
 input   wire                m3cntLast1      ;
 input   wire    [7:0]       m3reg_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
 input   wire    [24:0]      m3reg_step_cnt_reload1  ;	 // to control the speed
 
-wire                        sgEE            ;		
-wire                        sgForceLow      ;		
-wire                        sgH1_L0         ;		
+wire                        lgEE            ;		
+wire                        lgForceLow      ;		
+wire                        lgH1_L0         ;		
 
-wire                        sgPWM           ;	
+wire                        lgPWM           ;	
 
 motoro3_pwm_generator
 pwmSG
 (
-    .pwm                ( sgPWM       ),
+    .pwm                ( lgPWM       ),
     .m3cnt              ( m3cnt       ),
     .m3cntLast1         ( m3cntLast1  ),
     .nRst               ( nRst        ),
@@ -45,22 +45,22 @@ pwmSG
 motoro3_step_to_mosdriver
 step2mosA
 (
-    .xE                 ( sgEE          ),
-    .xForceLow          ( sgForceLow    ),
-    .xH1_L0             ( sgH1_L0       ),
-    .m3step             ( sgStep        ) 
+    .xE                 ( lgEE          ),
+    .xForceLow          ( lgForceLow    ),
+    .xH1_L0             ( lgH1_L0       ),
+    .m3step             ( lgStep        ) 
 );
 
 motoro3_mos_driver
 mD
 (
-    .mosHp                  ( sgHp          ),
-    .mosLp                  ( sgLp          ),
+    .mosHp                  ( lgHp          ),
+    .mosLp                  ( lgLp          ),
 
-    .pwm                    ( sgPWM         ),
-    .mosEnable              ( sgEE          ),
-    .h1_L0                  ( sgH1_L0       ),
-    .forceLow               ( sgForceLow    ),
+    .pwm                    ( lgPWM         ),
+    .mosEnable              ( lgEE          ),
+    .h1_L0                  ( lgH1_L0       ),
+    .forceLow               ( lgForceLow    ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  

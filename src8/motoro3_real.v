@@ -38,9 +38,9 @@ input   wire                m3freqDEC               ;
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
                                                    
-wire            [3:0]       m3stepA                 ;	
-wire            [3:0]       m3stepB                 ;	
-wire            [3:0]       m3stepC                 ;	
+wire            [3:0]       m3LstepA                 ;	
+wire            [3:0]       m3LstepB                 ;	
+wire            [3:0]       m3LstepC                 ;	
 wire            [24:0]      m3cnt                   ;	
 wire                        m3cntLast1              ;
 wire            [24:0]      m3reg_step_cnt_reload1  ;	
@@ -59,9 +59,9 @@ m3reg
 motoro3_step_generator
 sg
 (
-    .m3stepA                ( m3stepA                   ),
-    .m3stepB                ( m3stepB                   ),
-    .m3stepC                ( m3stepC                   ),
+    .m3stepA                ( m3LstepA                   ),
+    .m3stepB                ( m3LstepB                   ),
+    .m3stepC                ( m3LstepC                   ),
                                                        
     .m3cnt                  ( m3cnt                     ),
     .m3cntLast1             ( m3cntLast1                ),
@@ -78,9 +78,9 @@ sg
 motoro3_line_generator
 lgA
 (
-    .sgStep                 ( m3stepA       ),
-    .sgHp                   ( aHp           ),
-    .sgLp                   ( aLp           ),
+    .lgStep                 ( m3LstepA       ),
+    .lgHp                   ( aHp           ),
+    .lgLp                   ( aLp           ),
 
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
@@ -94,9 +94,9 @@ lgA
 motoro3_line_generator
 lgB
 (
-    .sgStep                 ( m3stepB       ),
-    .sgHp                   ( bHp           ),
-    .sgLp                   ( bLp           ),
+    .lgStep                 ( m3LstepB       ),
+    .lgHp                   ( bHp           ),
+    .lgLp                   ( bLp           ),
 
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
@@ -110,9 +110,9 @@ lgB
 motoro3_line_generator
 lgC
 (
-    .sgStep                 ( m3stepC       ),
-    .sgHp                   ( cHp           ),
-    .sgLp                   ( cLp           ),
+    .lgStep                 ( m3LstepC       ),
+    .lgHp                   ( cHp           ),
+    .lgLp                   ( cLp           ),
 
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
