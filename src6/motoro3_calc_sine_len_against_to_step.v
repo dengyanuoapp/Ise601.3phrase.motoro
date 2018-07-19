@@ -1,16 +1,16 @@
 module motoro3_calc_sine_len_against_to_step(
-    scStep                  ,
-    scConst                
+    slStep                  ,
+    slConst                
 );
 
-input   wire    [3:0]       scStep          ;	
-output  wire    [15:0]      scConst         ;	
+input   wire    [3:0]       slStep          ;	
+output  wire    [15:0]      slConst         ;	
 reg             [15:0]      pi6             ;	
 reg             [15:0]      pi12            ;	
 reg             [15:0]      pi24            ;	
 
-always @( scStep ) begin
-    case ( scStep )
+always @( slStep ) begin
+    case ( slStep )
                                          
         4'd1    :   begin   pi6 = 16'd17560 ; pi12 = 16'd8628   ; pi24 = 16'd4295   ;   end
         4'd2    :   begin   pi6 = 16'd17560 ; pi12 = 16'd8628   ; pi24 = 16'd12813  ;   end
@@ -31,6 +31,6 @@ always @( scStep ) begin
     endcase
 end
 
-assign scConst  = pi24 ;
+assign slConst  = pi24 ;
 
 endmodule
