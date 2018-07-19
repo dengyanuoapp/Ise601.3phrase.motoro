@@ -44,7 +44,15 @@ wire            [3:0]       m3stepC         ;
 wire            [24:0]      m3cnt           ;	
 wire                        m3cntLast1      ;
 
-//motoro3_state_machine
+motoro3_regs
+m3reg
+(
+    .m3cnt_reload1          ( m3cnt_reload1 ),
+
+    .nRst                   ( nRst          ),
+    .clk                    ( clk           )
+);// motoro3_state_machine
+
 motoro3_step_generator
 sg
 (
@@ -57,6 +65,7 @@ sg
     .m3start                ( m3start       ),
     .m3freqINC              ( m3freqINC     ),
     .m3freqDEC              ( m3freqDEC     ),
+    .m3cnt_reload1          ( m3cnt_reload1 ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )
