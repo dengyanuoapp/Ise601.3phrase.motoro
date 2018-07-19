@@ -8,6 +8,8 @@ module motoro3_line_generator(
 
     m3reg_step_cnt_reload1      ,	
     m3reg_power_percent         ,	
+    pwmLen                      ,
+    pwmMin                      ,
 
     nRst                        ,
     clk
@@ -25,6 +27,8 @@ input   wire    [24:0]      m3cnt           ;
 input   wire                m3cntLast1      ;
 input   wire    [7:0]       m3reg_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
 input   wire    [24:0]      m3reg_step_cnt_reload1  ;	 // to control the speed
+input   wire    [7:0]       pwmLen          ;	
+input   wire    [7:0]       pwmMin          ;	
 
 wire                        lgEE            ;		
 wire                        lgForceLow      ;		
@@ -36,27 +40,31 @@ wire                        lgPWM           ;
 motoro3_line_calc_parameter
 lCalc
 (
-    .lcStep              ( lgStep        ) 
+    .pwmLen                 ( pwmLen        ),
+    .pwmMin                 ( pwmMin        ),
+    .lcStep                 ( lgStep        ) 
 );// motoro3_line_calc_parameter 
 
 
 motoro3_pwm_generator
 pwmSG
 (
-    .pwm                ( lgPWM         ),
-    .m3cnt              ( m3cnt         ),
-    .m3cntLast1         ( m3cntLast1    ),
-    .nRst               ( nRst          ),
-    .clk                ( clk           ) 
+    .pwmLen                 ( pwmLen        ),
+    .pwmMin                 ( pwmMin        ),
+    .pwm                    ( lgPWM         ),
+    .m3cnt                  ( m3cnt         ),
+    .m3cntLast1             ( m3cntLast1    ),
+    .nRst                   ( nRst          ),
+    .clk                    ( clk           ) 
 );// motoro3_pwm_generator 
 
 motoro3_step_to_mosdriver
 lMos
 (
-    .xE                 ( lgEE          ),
-    .xForceLow          ( lgForceLow    ),
-    .xH1_L0             ( lgH1_L0       ),
-    .m3step             ( lgStep        ) 
+    .xE                     ( lgEE          ),
+    .xForceLow              ( lgForceLow    ),
+    .xH1_L0                 ( lgH1_L0       ),
+    .m3step                 ( lgStep        ) 
 ); // motoro3_step_to_mosdriver lMos
 
 motoro3_mos_driver

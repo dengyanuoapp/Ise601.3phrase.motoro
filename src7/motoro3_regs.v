@@ -1,6 +1,8 @@
 module motoro3_regs(
     m3reg_step_cnt_reload1  ,	
     m3reg_power_percent     ,	
+    pwmLen                  ,	
+    pwmMin                  ,	
 
     nRst,
     clk
@@ -9,6 +11,8 @@ module motoro3_regs(
 
 output  wire    [24:0]      m3reg_step_cnt_reload1  ;	 // to control the speed
 output  wire    [7:0]       m3reg_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
+output  wire    [7:0]       pwmLen                  ;	
+output  wire    [7:0]       pwmMin                  ;	
 
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
@@ -43,6 +47,9 @@ end
 assign m3reg_step_cnt_reload1 = `m3cnt_reload1_now ;
 
 assign m3reg_power_percent      = 8'h10 ;
+
+assign pwmLen      = 8'd9 ;
+assign pwmMin      = 8'd9 ;
 
 
 endmodule

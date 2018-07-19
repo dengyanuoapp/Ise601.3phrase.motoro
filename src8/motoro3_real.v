@@ -38,19 +38,23 @@ input   wire                m3freqDEC               ;
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
                                                    
-wire            [3:0]       m3LstepA                 ;	
-wire            [3:0]       m3LstepB                 ;	
-wire            [3:0]       m3LstepC                 ;	
+wire            [3:0]       m3LstepA                ;	
+wire            [3:0]       m3LstepB                ;	
+wire            [3:0]       m3LstepC                ;	
 wire            [24:0]      m3cnt                   ;	
 wire                        m3cntLast1              ;
 wire            [24:0]      m3reg_step_cnt_reload1  ;	
 wire            [7:0]       m3reg_power_percent     ;	
+wire            [7:0]       pwmLen                  ;	
+wire            [7:0]       pwmMin                  ;	
 
 motoro3_regs
 m3reg
 (
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
     .m3reg_power_percent    ( m3reg_power_percent       ),
+    .pwmLen                 ( pwmLen                    ),
+    .pwmMin                 ( pwmMin                    ),
 
     .nRst                   ( nRst                      ),
     .clk                    ( clk                       )
@@ -87,6 +91,8 @@ lgA
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
+    .pwmLen                 ( pwmLen                    ),
+    .pwmMin                 ( pwmMin                    ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
@@ -103,6 +109,8 @@ lgB
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
+    .pwmLen                 ( pwmLen                    ),
+    .pwmMin                 ( pwmMin                    ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
@@ -119,6 +127,8 @@ lgC
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
+    .pwmLen                 ( pwmLen                    ),
+    .pwmMin                 ( pwmMin                    ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
