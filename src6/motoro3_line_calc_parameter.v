@@ -11,8 +11,15 @@ input   wire    [3:0]       lcStep          ;
 
 wire            [15:0]      lcConst         ;	
 
+motoro3_calc_pwm_len
+lcPWMlen
+(
+    .slConst            ( lcConst           ) ,
+    .slStep             ( lcStep            ) 
+);// motoro3_calc_pwm_len 
+
 motoro3_calc_sine_len_against_to_step
-lcSLen
+lcSINEline
 (
     .slConst            ( lcConst           ) ,
     .slStep             ( lcStep            ) 
