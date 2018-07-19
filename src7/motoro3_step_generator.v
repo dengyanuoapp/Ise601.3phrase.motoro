@@ -94,7 +94,7 @@ always @ (negedge clk or negedge nRst) begin
     end
     else begin
         if ( m3start ) begin
-            if ( m3stepA== 4'd6 && m3cntLast1 == 1'd1 ) begin
+            if ( m3stepA== 4'd12 && m3cntLast1 == 1'd1 ) begin
                 roundCNT    <= roundCNT + 48'd1 ;
             end
         end
