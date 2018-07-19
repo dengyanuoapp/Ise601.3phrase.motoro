@@ -17,57 +17,60 @@ module motoro3_real(
 
 );
 
-output  wire                aHp             ;	
-output  wire                aLp             ;	
-output  wire                bHp             ;	
-output  wire                bLp             ;	
-output  wire                cHp             ;	
-output  wire                cLp             ;	
+output  wire                aHp                     ;	
+output  wire                aLp                     ;	
+output  wire                bHp                     ;	
+output  wire                bLp                     ;	
+output  wire                cHp                     ;	
+output  wire                cLp                     ;	
 
-input   wire                m3start         ;	
+input   wire                m3start                 ;	
 
 // if 0 , normal . 
 // if 1 -> force stop ,according to the m3freq : 0 -> forceStop ; or , inverse. 
-input   wire                m3forceStop     ;	 
-input   wire                m3invRotate     ;	 
+input   wire                m3forceStop             ;	 
+input   wire                m3invRotate             ;	 
 
 // freq 1 - 1000, ==> 60 - 60,000 rpm(round per minutes)
-input   wire                m3freqINC;	 
-input   wire                m3freqDEC;	 
+input   wire                m3freqINC               ;	 
+input   wire                m3freqDEC               ;	 
 
-input   wire                clk             ;			// 10MHz
-input   wire                nRst            ;		
-
-wire            [3:0]       m3stepA         ;	
-wire            [3:0]       m3stepB         ;	
-wire            [3:0]       m3stepC         ;	
-wire            [24:0]      m3cnt           ;	
-wire                        m3cntLast1      ;
-wire            [24:0]      m3reg_step_cnt_reload1   ;	
+input   wire                clk                     ;			// 10MHz
+input   wire                nRst                    ;		
+                                                   
+wire            [3:0]       m3stepA                 ;	
+wire            [3:0]       m3stepB                 ;	
+wire            [3:0]       m3stepC                 ;	
+wire            [24:0]      m3cnt                   ;	
+wire                        m3cntLast1              ;
+wire            [24:0]      m3reg_step_cnt_reload1  ;	
+wire            [7:0]       m3reg_power_percent     ;	
 
 motoro3_regs
 m3reg
 (
-    .m3reg_step_cnt_reload1          ( m3reg_step_cnt_reload1 ),
-//    .m3percent          ( m3reg_step_cnt_reload1 ),
+    .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
+    .m3reg_power_percent    ( m3reg_power_percent       ),
 
-    .nRst                   ( nRst          ),
-    .clk                    ( clk           )
+    .nRst                   ( nRst                      ),
+    .clk                    ( clk                       )
 );// motoro3_state_machine
 
 motoro3_step_generator
 sg
 (
-    .m3stepA                ( m3stepA       ),
-    .m3stepB                ( m3stepB       ),
-    .m3stepC                ( m3stepC       ),
+    .m3stepA                ( m3stepA                   ),
+    .m3stepB                ( m3stepB                   ),
+    .m3stepC                ( m3stepC                   ),
+                                                       
+    .m3cnt                  ( m3cnt                     ),
+    .m3cntLast1             ( m3cntLast1                ),
+    .m3start                ( m3start                   ),
+    .m3freqINC              ( m3freqINC                 ),
+    .m3freqDEC              ( m3freqDEC                 ),
 
-    .m3cnt                  ( m3cnt         ),
-    .m3cntLast1             ( m3cntLast1    ),
-    .m3start                ( m3start       ),
-    .m3freqINC              ( m3freqINC     ),
-    .m3freqDEC              ( m3freqDEC     ),
-    .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1 ),
+    .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
+    .m3reg_power_percent    ( m3reg_power_percent       ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )
