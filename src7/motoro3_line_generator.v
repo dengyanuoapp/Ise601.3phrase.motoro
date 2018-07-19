@@ -32,13 +32,13 @@ wire                        lgH1_L0         ;
 
 wire                        lgPWM           ;	
 
-/*
+
 motoro3_line_calc_parameter
 lCalc
 (
-    .lSetp              ( lgStep        ) 
+    .lcStep              ( lgStep        ) 
 );// motoro3_line_calc_parameter 
-*/
+
 
 motoro3_pwm_generator
 pwmSG

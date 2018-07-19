@@ -1,8 +1,8 @@
 module motoro3_line_calc_parameter(
-    lSetp                   
+    lcStep                   
 );
 
-input   wire    [3:0]       lSetp           ;	
+input   wire    [3:0]       lcStep           ;	
 
 
 endmodule
