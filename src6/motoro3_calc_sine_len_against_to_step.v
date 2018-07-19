@@ -1,4 +1,4 @@
-module motoro3_const_gen_sine_len(
+module motoro3_calc_sine_len_against_to_step(
     scStep                  ,
     scConst                
 );

@@ -32,24 +32,32 @@ wire                        lgH1_L0         ;
 
 wire                        lgPWM           ;	
 
+/*
+motoro3_line_calc_parameter
+lCalc
+(
+    .lSetp              ( lgStep        ) 
+);// motoro3_line_calc_parameter 
+*/
+
 motoro3_pwm_generator
 pwmSG
 (
-    .pwm                ( lgPWM       ),
-    .m3cnt              ( m3cnt       ),
-    .m3cntLast1         ( m3cntLast1  ),
-    .nRst               ( nRst        ),
-    .clk                ( clk         ) 
-);// motoro3_pwm_generator A
+    .pwm                ( lgPWM         ),
+    .m3cnt              ( m3cnt         ),
+    .m3cntLast1         ( m3cntLast1    ),
+    .nRst               ( nRst          ),
+    .clk                ( clk           ) 
+);// motoro3_pwm_generator 
 
 motoro3_step_to_mosdriver
-step2mosA
+lMos
 (
     .xE                 ( lgEE          ),
     .xForceLow          ( lgForceLow    ),
     .xH1_L0             ( lgH1_L0       ),
     .m3step             ( lgStep        ) 
-);
+); // motoro3_step_to_mosdriver lMos
 
 motoro3_mos_driver
 mD
@@ -64,7 +72,7 @@ mD
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
-);// motoro3_mos_driver A
+); // motoro3_mos_driver mD
 
 
 endmodule
