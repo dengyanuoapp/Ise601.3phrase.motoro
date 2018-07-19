@@ -43,6 +43,7 @@ wire            [3:0]       m3stepB         ;
 wire            [3:0]       m3stepC         ;	
 wire            [24:0]      m3cnt           ;	
 wire                        m3cntLast1      ;
+wire            [24:0]      m3cnt_reload1   ;	
 
 motoro3_regs
 m3reg
