@@ -1,4 +1,4 @@
-module motoro3_sine_step_const(
+module motoro3_const_gen_sine_len(
     scStep                  ,
     scConst                
 );
@@ -22,10 +22,10 @@ always @( scStep ) begin
         4'd7    :   begin   pi6 = 16'd47976 ; pi12 = 16'd52442  ; pi24 = 16'd49378  ;   end
         4'd8    :   begin   pi6 = 16'd47976 ; pi12 = 16'd52442  ; pi24 = 16'd54608  ;   end
                                                                   
-        4'd9    :   begin   pi6 = 16'd65536 ; pi12 = 16'd61070  ; pi24 = 16'd58904  ;   end
-        4'd10   :   begin   pi6 = 16'd65536 ; pi12 = 16'd61070  ; pi24 = 16'd62191  ;   end
-        4'd11   :   begin   pi6 = 16'd65536 ; pi12 = 16'd65536  ; pi24 = 16'd64415  ;   end
-        4'd12   :   begin   pi6 = 16'd65536 ; pi12 = 16'd65536  ; pi24 = 16'd65536  ;   end
+        4'd9    :   begin   pi6 = 16'd65535 ; pi12 = 16'd61070  ; pi24 = 16'd58904  ;   end
+        4'd10   :   begin   pi6 = 16'd65535 ; pi12 = 16'd61070  ; pi24 = 16'd62191  ;   end
+        4'd11   :   begin   pi6 = 16'd65535 ; pi12 = 16'd65535  ; pi24 = 16'd64415  ;   end
+        4'd12   :   begin   pi6 = 16'd65535 ; pi12 = 16'd65535  ; pi24 = 16'd65535  ;   end
                                                                    
         default :   begin   pi6 = 16'd0     ; pi12 = 16'd0      ; pi24 = 16'd0      ;   end
     endcase
