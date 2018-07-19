@@ -2,10 +2,6 @@ module motoro3_pwm_generator(
 
     pwm             ,		
 
-    aE              ,		
-    bE              ,		
-    cE              ,		
-
     m3cnt           ,
     m3cntLast1      ,
 
@@ -15,10 +11,6 @@ module motoro3_pwm_generator(
 );
 
 output  reg                 pwm             ;		
-
-input   wire                aE              ;		
-input   wire                bE              ;		
-input   wire                cE              ;		
 
 input   wire                m3cntLast1      ;		
 input   wire    [24:0]      m3cnt;	
@@ -56,13 +48,13 @@ always @ (posedge clk or negedge nRst) begin
         pwmCNTinput_clked1       <= pwmCNTinput ;
     end
     else begin
-        if ( m3cntLast1 == 1'd1 || { aE , bE , cE } == 3'b000 ) begin
+        if ( m3cntLast1 == 1'd1 ) begin
             pwmCNTinput_clked1   <= pwmCNTinput ;
         end
     end
 end
 
-assign pwmCNTreload = ( m3cntLast1 == 1'd1 || { aE , bE , cE } == 3'b000 ) ;
+assign pwmCNTreload = ( m3cntLast1 == 1'd1 ) ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNT                  <= pwmCNTload2 ;

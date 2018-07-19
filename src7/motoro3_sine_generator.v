@@ -36,9 +36,6 @@ motoro3_pwm_generator
 pwmSG
 (
     .pwm                ( sgPWM       ),
-    .aE                 ( sgEE        ),
-    .bE                 ( 1'b1        ),
-    .cE                 ( 1'b1        ),
     .m3cnt              ( m3cnt       ),
     .m3cntLast1         ( m3cntLast1  ),
     .nRst               ( nRst        ),
