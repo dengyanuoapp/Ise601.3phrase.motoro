@@ -10,8 +10,7 @@ module motoro3_step_generator(
 
     m3cntLast1                  ,
 
-    m3reg_step_cnt_reload1      ,	
-    m3reg_power_percent         ,	
+    m3reg_step_cnt_reload1      ,
 
     nRst                        ,
     clk
@@ -25,13 +24,12 @@ output  reg     [3:0]       m3stepB;
 output  reg     [3:0]       m3stepC;	
 output  reg     [24:0]      m3cnt;	
 output  wire                m3cntLast1 ;
+input   wire    [24:0]      m3reg_step_cnt_reload1  ;	
 
 input   wire                m3start;	
 input   wire                m3freqINC;	 
 input   wire                m3freqDEC;	 
 
-input   wire    [24:0]      m3reg_step_cnt_reload1  ;	
-input   wire    [7:0]       m3reg_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
 
 input   wire                clk;			// 10MHz
 input   wire                nRst;		

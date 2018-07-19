@@ -70,7 +70,6 @@ sg
     .m3freqDEC              ( m3freqDEC                 ),
 
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
-    .m3reg_power_percent    ( m3reg_power_percent       ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )
@@ -86,6 +85,9 @@ sgA
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
 
+    .m3reg_power_percent    ( m3reg_power_percent       ),
+    .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
+
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
 );// motoro3_sine_generator sgA
@@ -99,6 +101,9 @@ sgB
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
 
+    .m3reg_power_percent    ( m3reg_power_percent       ),
+    .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
+
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
 );// motoro3_sine_generator sgB
@@ -111,6 +116,9 @@ sgC
 
     .m3cnt                  ( m3cnt         ),
     .m3cntLast1             ( m3cntLast1    ),
+
+    .m3reg_power_percent    ( m3reg_power_percent       ),
+    .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  

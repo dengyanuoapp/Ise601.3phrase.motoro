@@ -1,12 +1,15 @@
 module motoro3_sine_generator(
-    sgStep                  ,
-    sgHp                    ,
-    sgLp                    ,
+    sgStep                      ,
+    sgHp                        ,
+    sgLp                        ,
 
-    m3cnt                   ,
-    m3cntLast1              ,
+    m3cnt                       ,
+    m3cntLast1                  ,
 
-    nRst                    ,
+    m3reg_step_cnt_reload1      ,	
+    m3reg_power_percent         ,	
+
+    nRst                        ,
     clk
 
 );
@@ -20,6 +23,8 @@ input   wire                nRst            ;
 input   wire    [3:0]       sgStep          ;	
 input   wire    [24:0]      m3cnt           ;	
 input   wire                m3cntLast1      ;
+input   wire    [7:0]       m3reg_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
+input   wire    [24:0]      m3reg_step_cnt_reload1  ;	 // to control the speed
 
 wire                        sgEE            ;		
 wire                        sgForceLow      ;		
