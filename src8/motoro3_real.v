@@ -75,8 +75,8 @@ sg
     .clk                    ( clk           )
 );// motoro3_state_machine
 
-motoro3_sine_generator
-sgA
+motoro3_line_generator
+lgA
 (
     .sgStep                 ( m3stepA       ),
     .sgHp                   ( aHp           ),
@@ -90,9 +90,9 @@ sgA
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
-);// motoro3_sine_generator sgA
-motoro3_sine_generator
-sgB
+);// motoro3_line_generator lgA
+motoro3_line_generator
+lgB
 (
     .sgStep                 ( m3stepB       ),
     .sgHp                   ( bHp           ),
@@ -106,9 +106,9 @@ sgB
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
-);// motoro3_sine_generator sgB
-motoro3_sine_generator
-sgC
+);// motoro3_line_generator lgB
+motoro3_line_generator
+lgC
 (
     .sgStep                 ( m3stepC       ),
     .sgHp                   ( cHp           ),
@@ -122,6 +122,6 @@ sgC
 
     .nRst                   ( nRst          ),
     .clk                    ( clk           )  
-);// motoro3_sine_generator sgC
+);// motoro3_line_generator lgC
 
 endmodule

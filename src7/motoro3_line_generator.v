@@ -1,4 +1,4 @@
-module motoro3_sine_generator(
+module motoro3_line_generator(
     sgStep                      ,
     sgHp                        ,
     sgLp                        ,
