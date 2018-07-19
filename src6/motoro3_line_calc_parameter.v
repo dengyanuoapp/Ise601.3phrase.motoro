@@ -15,9 +15,11 @@ wire            [15:0]      plLen           ;
 motoro3_calc_pwm_len
 lcPWMlen
 (
-    .plLen              ( plLen             ) ,
+    .plLen              ( plLen             ),
+    .pwmLen             ( pwmLen            ),
+    .pwmMin             ( pwmMin            ),
+    .slLen              ( slLen             ),
 
-    .slLen              ( slLen             ) ,
     .lcStep             ( lcStep            ) 
 );// motoro3_calc_pwm_len 
 
