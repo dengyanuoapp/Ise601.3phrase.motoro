@@ -43,7 +43,7 @@ wire            [3:0]       m3LstepB                ;
 wire            [3:0]       m3LstepC                ;	
 wire            [24:0]      m3cnt                   ;	
 wire                        m3cntLast1              ;
-wire            [24:0]      m3r_step_cnt_reload1    ;	
+wire            [24:0]      m3r_stepCNT_speedSET    ;	
 wire            [7:0]       m3r_power_percent       ;	
 wire            [11:0]      m3r_pwmLenWant          ;	
 wire            [11:0]      m3r_pwmMinMask          ;	
@@ -51,7 +51,7 @@ wire            [11:0]      m3r_pwmMinMask          ;
 motoro3_regs
 m3reg
 (
-    .m3r_step_cnt_reload1   ( m3r_step_cnt_reload1      ),
+    .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
@@ -73,7 +73,7 @@ sg
     .m3freqINC              ( m3freqINC                 ),
     .m3freqDEC              ( m3freqDEC                 ),
 
-    .m3r_step_cnt_reload1   ( m3r_step_cnt_reload1      ),
+    .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
 
     .nRst                   ( nRst                      ),
     .clk                    ( clk                       )
@@ -90,7 +90,7 @@ lgA
     .m3cntLast1             ( m3cntLast1                ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
-    .m3r_step_cnt_reload1   ( m3r_step_cnt_reload1      ),
+    .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
 
@@ -108,7 +108,7 @@ lgB
     .m3cntLast1             ( m3cntLast1                ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
-    .m3r_step_cnt_reload1   ( m3r_step_cnt_reload1      ),
+    .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
 
@@ -126,7 +126,7 @@ lgC
     .m3cntLast1             ( m3cntLast1                ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
-    .m3r_step_cnt_reload1   ( m3r_step_cnt_reload1      ),
+    .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
 

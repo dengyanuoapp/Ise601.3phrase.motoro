@@ -6,7 +6,7 @@ module motoro3_line_generator(
     m3cnt                       ,
     m3cntLast1                  ,
 
-    m3r_step_cnt_reload1        ,	
+    m3r_stepCNT_speedSET        ,	
     m3r_power_percent           ,	
     m3r_pwmLenWant              ,
     m3r_pwmMinMask              ,
@@ -26,7 +26,7 @@ input   wire    [3:0]       lgStep                  ;
 input   wire    [24:0]      m3cnt                   ;	
 input   wire                m3cntLast1              ;
 input   wire    [7:0]       m3r_power_percent       ;	// to control the percent of power , max 255 % , min 1 %.
-input   wire    [24:0]      m3r_step_cnt_reload1    ;	 // to control the speed
+input   wire    [24:0]      m3r_stepCNT_speedSET    ;	 // to control the speed
 input   wire    [11:0]      m3r_pwmLenWant          ;	
 input   wire    [11:0]      m3r_pwmMinMask          ;	
 

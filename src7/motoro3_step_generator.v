@@ -10,7 +10,7 @@ module motoro3_step_generator(
 
     m3cntLast1                  ,
 
-    m3r_step_cnt_reload1        ,
+    m3r_stepCNT_speedSET        ,
 
     nRst                        ,
     clk
@@ -24,7 +24,7 @@ output  reg     [3:0]       m3stepB;
 output  reg     [3:0]       m3stepC;	
 output  reg     [24:0]      m3cnt;	
 output  wire                m3cntLast1 ;
-input   wire    [24:0]      m3r_step_cnt_reload1    ;	
+input   wire    [24:0]      m3r_stepCNT_speedSET    ;	
 
 input   wire                m3start;	
 input   wire                m3freqINC;	 
@@ -54,11 +54,11 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        m3cnt               <= m3r_step_cnt_reload1            ;
+        m3cnt               <= m3r_stepCNT_speedSET            ;
     end
     else begin
         if ( m3start_up1 == 1 || m3cntLast1 == 1) begin
-            m3cnt           <= m3r_step_cnt_reload1            ;
+            m3cnt           <= m3r_stepCNT_speedSET            ;
         end
         else begin
             if ( m3start == 1 ) begin
