@@ -1,18 +1,18 @@
 module motoro3_regs(
-    m3r_step_cnt_reload1  ,	
-    m3r_power_percent     ,	
-    m3r_pwmLenWant              ,	
-    m3r_pwmMinMask              ,	
+    m3r_step_cnt_reload1    ,	
+    m3r_power_percent       ,	
+    m3r_pwmLenWant          ,	
+    m3r_pwmMinMask          ,	
 
     nRst,
     clk
 );
 
 
-output  wire    [24:0]      m3r_step_cnt_reload1  ;	 // to control the speed
-output  wire    [7:0]       m3r_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
-output  wire    [11:0]      m3r_pwmLenWant              ;	
-output  wire    [11:0]      m3r_pwmMinMask              ;	
+output  wire    [24:0]      m3r_step_cnt_reload1    ;	 // to control the speed
+output  wire    [7:0]       m3r_power_percent       ;	// to control the percent of power , max 255 % , min 1 %.
+output  wire    [11:0]      m3r_pwmLenWant          ;	
+output  wire    [11:0]      m3r_pwmMinMask          ;	
 
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
@@ -46,7 +46,7 @@ end
 //assign m3r_step_cnt_reload1 = 25'd1_666_667  ; // 6*1_666_667    == 1,000,000.2 us   == 1Hz
 assign m3r_step_cnt_reload1 = `m3cnt_reload1_now ;
 
-assign m3r_power_percent      = 8'h10 ;
+assign m3r_power_percent    = 8'h10 ;
 
 
 

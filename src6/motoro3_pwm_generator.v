@@ -2,25 +2,25 @@ module motoro3_pwm_generator(
 
     m3r_pwmLenWant          ,
     m3r_pwmMinMask          ,
-    pwm             ,		
+    pwm                     ,		
 
-    m3cnt           ,
-    m3cntLast1      ,
+    m3cnt                   ,
+    m3cntLast1              ,
 
-    nRst,
+    nRst                    ,
     clk
 
 );
 
 input   wire    [11:0]      m3r_pwmLenWant          ;	
 input   wire    [11:0]      m3r_pwmMinMask          ;	
-output  reg                 pwm             ;		
+output  reg                 pwm                     ;		
 
-input   wire                m3cntLast1      ;		
-input   wire    [24:0]      m3cnt;	
+input   wire                m3cntLast1              ;		
+input   wire    [24:0]      m3cnt                   ;	
 
-input   wire                clk;			// 10MHz
-input   wire                nRst;		
+input   wire                clk                     ;			// 10MHz
+input   wire                nRst                    ;		
 
 reg             [12:0]      pwmCNT                  ;	
 wire                        pwmCNTlast = (pwmCNT[12:1] == 12'd0)? 1'd1 : 1'd0  ;

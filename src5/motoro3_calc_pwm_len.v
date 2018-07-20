@@ -1,18 +1,18 @@
 module motoro3_calc_pwm_len(
-    plLen                   ,
+    plLen                       ,
     m3r_pwmLenWant              ,
     m3r_pwmMinMask              ,
-    lcStep                  ,
+    lcStep                      ,
 
     slLen                 
 );
 
 input   wire    [11:0]      m3r_pwmLenWant      ;	
 input   wire    [11:0]      m3r_pwmMinMask      ;	
-input   wire    [3:0]       lcStep          ;	
-input   wire    [15:0]      slLen           ;	
+input   wire    [3:0]       lcStep              ;	
+input   wire    [15:0]      slLen               ;	
 
-output  wire    [15:0]      plLen           ;	
+output  wire    [15:0]      plLen               ;	
 
 /*
 always @( slStep ) begin
