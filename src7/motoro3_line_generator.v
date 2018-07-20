@@ -10,6 +10,7 @@ module motoro3_line_generator(
     m3r_stepCNT_speedSET        ,	
     m3r_pwmLenWant              ,
     m3r_pwmMinMask              ,
+    m3r_stepSplitMax            ,	
 
     nRst                        ,
     clk
@@ -29,6 +30,7 @@ input   wire    [7:0]       m3r_power_percent       ;	// to control the percent 
 input   wire    [24:0]      m3r_stepCNT_speedSET    ;	 // to control the speed
 input   wire    [11:0]      m3r_pwmLenWant          ;	
 input   wire    [11:0]      m3r_pwmMinMask          ;	
+input   wire    [1:0]       m3r_stepSplitMax        ;	
 
 wire                        lgEE                    ;		
 wire                        lgForceLow              ;		
@@ -44,6 +46,7 @@ lCalc
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
+    .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
     .lcStep                 ( lgStep                    ) 
 );// motoro3_line_calc_parameter 
 
@@ -51,22 +54,23 @@ lCalc
 motoro3_pwm_generator
 pwmSG
 (
-    .m3r_pwmLenWant         ( m3r_pwmLenWant    ),
-    .m3r_pwmMinMask         ( m3r_pwmMinMask    ),
-    .pwm                    ( lgPWM             ),
-    .m3cnt                  ( m3cnt             ),
-    .m3cntLast1             ( m3cntLast1        ),
-    .nRst                   ( nRst              ),
-    .clk                    ( clk               ) 
-);// motoro3_pwm_generator 
-
-motoro3_step_to_mosdriver
-lMos
-(
-    .xE                     ( lgEE              ),
-    .xForceLow              ( lgForceLow        ),
-    .xH1_L0                 ( lgH1_L0           ),
-    .m3step                 ( lgStep            ) 
+    .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
+    .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
+    .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
+    .pwm                    ( lgPWM                     ),
+    .m3cnt                  ( m3cnt                     ),
+    .m3cntLast1             ( m3cntLast1                ),
+    .nRst                   ( nRst                      ),
+    .clk                    ( clk                       ) 
+);// motoro3_pwm_generator                             
+                                                       
+motoro3_step_to_mosdriver                              
+lMos                                                   
+(                                                      
+    .xE                     ( lgEE                      ),
+    .xForceLow              ( lgForceLow                ),
+    .xH1_L0                 ( lgH1_L0                   ),
+    .m3step                 ( lgStep                    ) 
 ); // motoro3_step_to_mosdriver lMos           
                                                
 motoro3_mos_driver                             

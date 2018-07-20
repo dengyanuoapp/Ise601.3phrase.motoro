@@ -47,6 +47,7 @@ wire            [24:0]      m3r_stepCNT_speedSET    ;
 wire            [7:0]       m3r_power_percent       ;	
 wire            [11:0]      m3r_pwmLenWant          ;	
 wire            [11:0]      m3r_pwmMinMask          ;	
+wire            [1:0]       m3r_stepSplitMax        ;	
 
 motoro3_regs
 m3reg
@@ -55,6 +56,7 @@ m3reg
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
+    .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
 
     .nRst                   ( nRst                      ),
     .clk                    ( clk                       )
@@ -93,6 +95,7 @@ lgA
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
+    .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
 
     .nRst                   ( nRst                      ),
     .clk                    ( clk                       )  
@@ -111,6 +114,7 @@ lgB
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
+    .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
 
     .nRst                   ( nRst                      ),
     .clk                    ( clk                       )  
@@ -129,6 +133,7 @@ lgC
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
+    .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
 
     .nRst                   ( nRst                      ),
     .clk                    ( clk                       )  

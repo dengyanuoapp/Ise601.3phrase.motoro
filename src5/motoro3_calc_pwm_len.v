@@ -4,6 +4,7 @@ module motoro3_calc_pwm_len(
     m3r_stepCNT_speedSET        ,	
     m3r_pwmLenWant              ,
     m3r_pwmMinMask              ,
+    m3r_stepSplitMax            ,	
     lcStep                      ,
 
     slLen                 
@@ -13,6 +14,7 @@ input   wire    [7:0]       m3r_power_percent       ;	// to control the percent 
 input   wire    [24:0]      m3r_stepCNT_speedSET    ;	 // to control the speed
 input   wire    [11:0]      m3r_pwmLenWant          ;	
 input   wire    [11:0]      m3r_pwmMinMask          ;	
+input   wire    [1:0]       m3r_stepSplitMax        ;	
 input   wire    [3:0]       lcStep                  ;	
 input   wire    [15:0]      slLen                   ;	
 
