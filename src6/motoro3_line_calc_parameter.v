@@ -4,8 +4,8 @@ module motoro3_line_calc_parameter(
     lcStep                   
 );
 
-input   wire    [7:0]       pwmLenWant          ;	
-input   wire    [7:0]       pwmMinMask          ;	
+input   wire    [11:0]      pwmLenWant          ;	
+input   wire    [11:0]      pwmMinMask          ;	
 input   wire    [3:0]       lcStep          ;	
 
 

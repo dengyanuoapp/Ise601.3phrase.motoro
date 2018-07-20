@@ -27,8 +27,8 @@ input   wire    [24:0]      m3cnt                   ;
 input   wire                m3cntLast1              ;
 input   wire    [7:0]       m3reg_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
 input   wire    [24:0]      m3reg_step_cnt_reload1  ;	 // to control the speed
-input   wire    [7:0]       pwmLenWant              ;	
-input   wire    [7:0]       pwmMinMask              ;	
+input   wire    [11:0]      pwmLenWant              ;	
+input   wire    [11:0]      pwmMinMask              ;	
 
 wire                        lgEE                    ;		
 wire                        lgForceLow              ;		
