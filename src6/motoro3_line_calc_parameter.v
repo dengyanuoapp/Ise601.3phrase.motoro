@@ -16,8 +16,8 @@ motoro3_calc_pwm_len
 lcPWMlen
 (
     .plLen              ( plLen             ),
-    .pwmLenMask             ( pwmLenMask            ),
-    .pwmMinMask             ( pwmMinMask            ),
+    .pwmLenMask         ( pwmLenMask        ),
+    .pwmMinMask         ( pwmMinMask        ),
     .slLen              ( slLen             ),
 
     .lcStep             ( lcStep            ) 

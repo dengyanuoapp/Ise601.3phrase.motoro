@@ -45,16 +45,16 @@ wire            [24:0]      m3cnt                   ;
 wire                        m3cntLast1              ;
 wire            [24:0]      m3reg_step_cnt_reload1  ;	
 wire            [7:0]       m3reg_power_percent     ;	
-wire            [7:0]       pwmLenMask                  ;	
-wire            [7:0]       pwmMinMask                  ;	
+wire            [7:0]       pwmLenMask              ;	
+wire            [7:0]       pwmMinMask              ;	
 
 motoro3_regs
 m3reg
 (
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
     .m3reg_power_percent    ( m3reg_power_percent       ),
-    .pwmLenMask                 ( pwmLenMask                    ),
-    .pwmMinMask                 ( pwmMinMask                    ),
+    .pwmLenMask             ( pwmLenMask                ),
+    .pwmMinMask             ( pwmMinMask                ),
 
     .nRst                   ( nRst                      ),
     .clk                    ( clk                       )
@@ -63,9 +63,9 @@ m3reg
 motoro3_step_generator
 sg
 (
-    .m3stepA                ( m3LstepA                   ),
-    .m3stepB                ( m3LstepB                   ),
-    .m3stepC                ( m3LstepC                   ),
+    .m3stepA                ( m3LstepA                  ),
+    .m3stepB                ( m3LstepB                  ),
+    .m3stepC                ( m3LstepC                  ),
                                                        
     .m3cnt                  ( m3cnt                     ),
     .m3cntLast1             ( m3cntLast1                ),
@@ -75,63 +75,63 @@ sg
 
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
 
-    .nRst                   ( nRst          ),
-    .clk                    ( clk           )
+    .nRst                   ( nRst                      ),
+    .clk                    ( clk                       )
 );// motoro3_state_machine
 
 motoro3_line_generator
 lgA
 (
-    .lgStep                 ( m3LstepA       ),
-    .lgHp                   ( aHp           ),
-    .lgLp                   ( aLp           ),
+    .lgStep                 ( m3LstepA                  ),
+    .lgHp                   ( aHp                       ),
+    .lgLp                   ( aLp                       ),
 
-    .m3cnt                  ( m3cnt         ),
-    .m3cntLast1             ( m3cntLast1    ),
+    .m3cnt                  ( m3cnt                     ),
+    .m3cntLast1             ( m3cntLast1                ),
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
-    .pwmLenMask                 ( pwmLenMask                    ),
-    .pwmMinMask                 ( pwmMinMask                    ),
+    .pwmLenMask             ( pwmLenMask                ),
+    .pwmMinMask             ( pwmMinMask                ),
 
-    .nRst                   ( nRst          ),
-    .clk                    ( clk           )  
+    .nRst                   ( nRst                      ),
+    .clk                    ( clk                       )  
 );// motoro3_line_generator lgA
 motoro3_line_generator
 lgB
 (
-    .lgStep                 ( m3LstepB       ),
-    .lgHp                   ( bHp           ),
-    .lgLp                   ( bLp           ),
+    .lgStep                 ( m3LstepB                  ),
+    .lgHp                   ( bHp                       ),
+    .lgLp                   ( bLp                       ),
 
-    .m3cnt                  ( m3cnt         ),
-    .m3cntLast1             ( m3cntLast1    ),
+    .m3cnt                  ( m3cnt                     ),
+    .m3cntLast1             ( m3cntLast1                ),
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
-    .pwmLenMask                 ( pwmLenMask                    ),
-    .pwmMinMask                 ( pwmMinMask                    ),
+    .pwmLenMask             ( pwmLenMask                ),
+    .pwmMinMask             ( pwmMinMask                ),
 
-    .nRst                   ( nRst          ),
-    .clk                    ( clk           )  
+    .nRst                   ( nRst                      ),
+    .clk                    ( clk                       )  
 );// motoro3_line_generator lgB
 motoro3_line_generator
 lgC
 (
-    .lgStep                 ( m3LstepC       ),
-    .lgHp                   ( cHp           ),
-    .lgLp                   ( cLp           ),
+    .lgStep                 ( m3LstepC                  ),
+    .lgHp                   ( cHp                       ),
+    .lgLp                   ( cLp                       ),
 
-    .m3cnt                  ( m3cnt         ),
-    .m3cntLast1             ( m3cntLast1    ),
+    .m3cnt                  ( m3cnt                     ),
+    .m3cntLast1             ( m3cntLast1                ),
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
-    .pwmLenMask                 ( pwmLenMask                    ),
-    .pwmMinMask                 ( pwmMinMask                    ),
+    .pwmLenMask             ( pwmLenMask                ),
+    .pwmMinMask             ( pwmMinMask                ),
 
-    .nRst                   ( nRst          ),
-    .clk                    ( clk           )  
+    .nRst                   ( nRst                      ),
+    .clk                    ( clk                       )  
 );// motoro3_line_generator lgC
 
 endmodule

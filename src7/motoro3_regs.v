@@ -1,8 +1,8 @@
 module motoro3_regs(
     m3reg_step_cnt_reload1  ,	
     m3reg_power_percent     ,	
-    pwmLenMask                  ,	
-    pwmMinMask                  ,	
+    pwmLenMask              ,	
+    pwmMinMask              ,	
 
     nRst,
     clk
@@ -11,8 +11,8 @@ module motoro3_regs(
 
 output  wire    [24:0]      m3reg_step_cnt_reload1  ;	 // to control the speed
 output  wire    [7:0]       m3reg_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
-output  wire    [7:0]       pwmLenMask                  ;	
-output  wire    [7:0]       pwmMinMask                  ;	
+output  wire    [7:0]       pwmLenMask              ;	
+output  wire    [7:0]       pwmMinMask              ;	
 
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
@@ -65,8 +65,8 @@ assign m3reg_power_percent      = 8'h10 ;
 //`define pwmTest      12'h110 //  half of 511(0x1ff) * 0.1us == 26us
 //`define pwmTest      5'h10 // 1.56us // lost... the FPGA output lost... so, the MOSFET must be lost.
 
-assign pwmLenMask      = 8'd9 ;
-assign pwmMinMask      = 8'd5 ;
+assign pwmLenMask       = 8'd9 ;
+assign pwmMinMask       = 8'd5 ;
 
 
 endmodule
