@@ -38,6 +38,7 @@ input   wire                m3freqDEC               ;
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
                                                    
+wire            [1:0]       m3LpwmStep              ;	
 wire            [3:0]       m3LstepA                ;	
 wire            [3:0]       m3LstepB                ;	
 wire            [3:0]       m3LstepC                ;	
@@ -65,6 +66,7 @@ m3reg
 motoro3_step_generator
 sg
 (
+    .m3LpwmStep             ( m3LpwmStep                ),
     .m3stepA                ( m3LstepA                  ),
     .m3stepB                ( m3LstepB                  ),
     .m3stepC                ( m3LstepC                  ),
@@ -84,6 +86,7 @@ sg
 motoro3_line_generator
 lgA
 (
+    .m3LpwmStep             ( m3LpwmStep                ),
     .lgStep                 ( m3LstepA                  ),
     .lgHp                   ( aHp                       ),
     .lgLp                   ( aLp                       ),
@@ -103,6 +106,7 @@ lgA
 motoro3_line_generator
 lgB
 (
+    .m3LpwmStep             ( m3LpwmStep                ),
     .lgStep                 ( m3LstepB                  ),
     .lgHp                   ( bHp                       ),
     .lgLp                   ( bLp                       ),
@@ -122,6 +126,7 @@ lgB
 motoro3_line_generator
 lgC
 (
+    .m3LpwmStep             ( m3LpwmStep                ),
     .lgStep                 ( m3LstepC                  ),
     .lgHp                   ( cHp                       ),
     .lgLp                   ( cLp                       ),

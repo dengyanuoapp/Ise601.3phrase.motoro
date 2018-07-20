@@ -1,4 +1,5 @@
 module motoro3_line_calc_parameter(
+    m3LpwmStep                  ,
     m3r_power_percent           ,	
     m3r_stepCNT_speedSET        ,	
     m3r_pwmLenWant              ,
@@ -7,6 +8,7 @@ module motoro3_line_calc_parameter(
     lcStep                   
 );
 
+input   wire    [1:0]       m3LpwmStep              ;	
 input   wire    [7:0]       m3r_power_percent       ;	// to control the percent of power , max 255 % , min 1 %.
 input   wire    [24:0]      m3r_stepCNT_speedSET    ;	 // to control the speed
 input   wire    [11:0]      m3r_pwmLenWant          ;	
@@ -21,6 +23,7 @@ wire            [15:0]      plLen                   ;
 motoro3_calc_pwm_len
 lcPWMlen
 (
+    .m3LpwmStep             ( m3LpwmStep                ),
     .plLen                  ( plLen                     ),
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
