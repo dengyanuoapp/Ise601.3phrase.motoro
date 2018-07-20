@@ -45,7 +45,7 @@ wire            [24:0]      m3cnt                   ;
 wire                        m3cntLast1              ;
 wire            [24:0]      m3reg_step_cnt_reload1  ;	
 wire            [7:0]       m3reg_power_percent     ;	
-wire            [7:0]       pwmLenMask              ;	
+wire            [7:0]       pwmLenWant              ;	
 wire            [7:0]       pwmMinMask              ;	
 
 motoro3_regs
@@ -53,7 +53,7 @@ m3reg
 (
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
     .m3reg_power_percent    ( m3reg_power_percent       ),
-    .pwmLenMask             ( pwmLenMask                ),
+    .pwmLenWant             ( pwmLenWant                ),
     .pwmMinMask             ( pwmMinMask                ),
 
     .nRst                   ( nRst                      ),
@@ -91,7 +91,7 @@ lgA
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
-    .pwmLenMask             ( pwmLenMask                ),
+    .pwmLenWant             ( pwmLenWant                ),
     .pwmMinMask             ( pwmMinMask                ),
 
     .nRst                   ( nRst                      ),
@@ -109,7 +109,7 @@ lgB
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
-    .pwmLenMask             ( pwmLenMask                ),
+    .pwmLenWant             ( pwmLenWant                ),
     .pwmMinMask             ( pwmMinMask                ),
 
     .nRst                   ( nRst                      ),
@@ -127,7 +127,7 @@ lgC
 
     .m3reg_power_percent    ( m3reg_power_percent       ),
     .m3reg_step_cnt_reload1 ( m3reg_step_cnt_reload1    ),
-    .pwmLenMask             ( pwmLenMask                ),
+    .pwmLenWant             ( pwmLenWant                ),
     .pwmMinMask             ( pwmMinMask                ),
 
     .nRst                   ( nRst                      ),
