@@ -18,9 +18,12 @@ input   wire    [15:0]      slLen                   ;
 
 output  wire    [15:0]      plLen                   ;	
 
-wire            [19:0]      pwmPOS1                 ;	
+wire            [19:0]      pwmPOS1                 ;	// 8 + 12 == 20
 wire            [11:0]      pwmPOS2                 ;	
 wire            [11:0]      pwmPOS9                 ;	
+
+wire            [27:0]      pwmNow1                 ;	// 12 + 16 == 28
+wire            [27:0]      pwmNow9                 ;	
 
 /*
 always @( slStep ) begin
@@ -35,9 +38,11 @@ assign slLen    = pi24 ;
 */
 assign plLen    = lcStep + slLen ;
 
-assign  pwmPOS1 =   m3r_power_percent * m3r_pwmLenWant ;
+assign  pwmPOS1 =   m3r_power_percent * m3r_pwmLenWant ; // 8 + 12 == 20
 assign  pwmPOS2 =   pwmPOS1[19:8] ;
 assign  pwmPOS9 =   (pwmPOS2 < m3r_pwmMinMask) ? m3r_pwmMinMask : pwmPOS2 ;
 
+assign  pwmNow1 =   pwmPOS9 * slLen ;// 12 + 16 == 28
+assign  pwmNow9 =   pwmNow1[27:16]  ;
 
 endmodule
