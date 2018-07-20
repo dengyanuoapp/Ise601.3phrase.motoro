@@ -6,8 +6,8 @@ module motoro3_line_generator(
     m3cnt                       ,
     m3cntLast1                  ,
 
-    m3r_stepCNT_speedSET        ,	
     m3r_power_percent           ,	
+    m3r_stepCNT_speedSET        ,	
     m3r_pwmLenWant              ,
     m3r_pwmMinMask              ,
 
@@ -40,9 +40,11 @@ wire                        lgPWM                   ;
 motoro3_line_calc_parameter
 lCalc
 (
-    .m3r_pwmLenWant         ( m3r_pwmLenWant    ),
-    .m3r_pwmMinMask         ( m3r_pwmMinMask    ),
-    .lcStep                 ( lgStep            ) 
+    .m3r_power_percent      ( m3r_power_percent         ),
+    .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
+    .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
+    .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
+    .lcStep                 ( lgStep                    ) 
 );// motoro3_line_calc_parameter 
 
 
