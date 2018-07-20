@@ -1,11 +1,11 @@
 module motoro3_line_calc_parameter(
-    pwmLenWant                      ,
-    pwmMinMask                      ,
+    m3r_pwmLenWant                      ,
+    m3r_pwmMinMask                      ,
     lcStep                   
 );
 
-input   wire    [11:0]      pwmLenWant          ;	
-input   wire    [11:0]      pwmMinMask          ;	
+input   wire    [11:0]      m3r_pwmLenWant          ;	
+input   wire    [11:0]      m3r_pwmMinMask          ;	
 input   wire    [3:0]       lcStep          ;	
 
 
@@ -16,8 +16,8 @@ motoro3_calc_pwm_len
 lcPWMlen
 (
     .plLen              ( plLen             ),
-    .pwmLenWant         ( pwmLenWant        ),
-    .pwmMinMask         ( pwmMinMask        ),
+    .m3r_pwmLenWant         ( m3r_pwmLenWant        ),
+    .m3r_pwmMinMask         ( m3r_pwmMinMask        ),
     .slLen              ( slLen             ),
 
     .lcStep             ( lcStep            ) 

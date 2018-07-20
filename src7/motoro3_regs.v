@@ -1,18 +1,18 @@
 module motoro3_regs(
-    m3reg_step_cnt_reload1  ,	
-    m3reg_power_percent     ,	
-    pwmLenWant              ,	
-    pwmMinMask              ,	
+    m3r_step_cnt_reload1  ,	
+    m3r_power_percent     ,	
+    m3r_pwmLenWant              ,	
+    m3r_pwmMinMask              ,	
 
     nRst,
     clk
 );
 
 
-output  wire    [24:0]      m3reg_step_cnt_reload1  ;	 // to control the speed
-output  wire    [7:0]       m3reg_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
-output  wire    [11:0]      pwmLenWant              ;	
-output  wire    [11:0]      pwmMinMask              ;	
+output  wire    [24:0]      m3r_step_cnt_reload1  ;	 // to control the speed
+output  wire    [7:0]       m3r_power_percent     ;	// to control the percent of power , max 255 % , min 1 %.
+output  wire    [11:0]      m3r_pwmLenWant              ;	
+output  wire    [11:0]      m3r_pwmMinMask              ;	
 
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
@@ -37,16 +37,16 @@ $finish;
 end
 `endif
 
-//assign m3reg_step_cnt_reload1 = { 1'd0, m3freq , 6'd0 };
-//assign m3reg_step_cnt_reload1 = 25'd1_667      ; // 6*1_667        == 1,000.2 us       == 1000Hz
-//assign m3reg_step_cnt_reload1 = 25'd16_667     ; // 6*16_667       == 10,000.2 us      == 100Hz
-//assign m3reg_step_cnt_reload1 = 25'd166_667    ; // 6*166_667      == 100,000.2 us     == 10Hz
-//assign m3reg_step_cnt_reload1 = 25'd333_333    ; // 6*333_333      == 200,000.4 us     == 5Hz
-//assign m3reg_step_cnt_reload1 = 25'd666_666    ; // 6*666_666      == 400,000.8 us     == 2.5Hz
-//assign m3reg_step_cnt_reload1 = 25'd1_666_667  ; // 6*1_666_667    == 1,000,000.2 us   == 1Hz
-assign m3reg_step_cnt_reload1 = `m3cnt_reload1_now ;
+//assign m3r_step_cnt_reload1 = { 1'd0, m3freq , 6'd0 };
+//assign m3r_step_cnt_reload1 = 25'd1_667      ; // 6*1_667        == 1,000.2 us       == 1000Hz
+//assign m3r_step_cnt_reload1 = 25'd16_667     ; // 6*16_667       == 10,000.2 us      == 100Hz
+//assign m3r_step_cnt_reload1 = 25'd166_667    ; // 6*166_667      == 100,000.2 us     == 10Hz
+//assign m3r_step_cnt_reload1 = 25'd333_333    ; // 6*333_333      == 200,000.4 us     == 5Hz
+//assign m3r_step_cnt_reload1 = 25'd666_666    ; // 6*666_666      == 400,000.8 us     == 2.5Hz
+//assign m3r_step_cnt_reload1 = 25'd1_666_667  ; // 6*1_666_667    == 1,000,000.2 us   == 1Hz
+assign m3r_step_cnt_reload1 = `m3cnt_reload1_now ;
 
-assign m3reg_power_percent      = 8'h10 ;
+assign m3r_power_percent      = 8'h10 ;
 
 
 
@@ -65,8 +65,8 @@ assign m3reg_power_percent      = 8'h10 ;
 //`define pwmTest      12'h110 //  half of 511(0x1ff) * 0.1us == 26us
 //`define pwmTest      5'h10 // 1.56us // lost... the FPGA output lost... so, the MOSFET must be lost.
 
-assign pwmLenWant       = 12'd512   ;
-assign pwmMinMask       = 12'd32    ;
+assign m3r_pwmLenWant       = 12'd512   ;
+assign m3r_pwmMinMask       = 12'd32    ;
 
 
 endmodule

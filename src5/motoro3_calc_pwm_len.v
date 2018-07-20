@@ -1,14 +1,14 @@
 module motoro3_calc_pwm_len(
     plLen                   ,
-    pwmLenWant              ,
-    pwmMinMask              ,
+    m3r_pwmLenWant              ,
+    m3r_pwmMinMask              ,
     lcStep                  ,
 
     slLen                 
 );
 
-input   wire    [11:0]      pwmLenWant      ;	
-input   wire    [11:0]      pwmMinMask      ;	
+input   wire    [11:0]      m3r_pwmLenWant      ;	
+input   wire    [11:0]      m3r_pwmMinMask      ;	
 input   wire    [3:0]       lcStep          ;	
 input   wire    [15:0]      slLen           ;	
 

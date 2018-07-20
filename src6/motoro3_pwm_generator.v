@@ -1,7 +1,7 @@
 module motoro3_pwm_generator(
 
-    pwmLenWant          ,
-    pwmMinMask          ,
+    m3r_pwmLenWant          ,
+    m3r_pwmMinMask          ,
     pwm             ,		
 
     m3cnt           ,
@@ -12,8 +12,8 @@ module motoro3_pwm_generator(
 
 );
 
-input   wire    [11:0]      pwmLenWant          ;	
-input   wire    [11:0]      pwmMinMask          ;	
+input   wire    [11:0]      m3r_pwmLenWant          ;	
+input   wire    [11:0]      m3r_pwmMinMask          ;	
 output  reg                 pwm             ;		
 
 input   wire                m3cntLast1      ;		
