@@ -76,20 +76,35 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        m3stepA                 <= 4'hF             ;
-        m3LpwmSplitStep         <= 2'd0             ;
+        m3LpwmSplitStep                 <= m3r_stepSplitMax ;
     end
     else begin
         if ( m3start_up1 == 1 ) begin
-            m3stepA             <= 4'd0             ;
+            m3LpwmSplitStep             <= m3r_stepSplitMax ;
         end
         else begin
             if ( m3cntLast1 == 1'd1 ) begin
+                m3LpwmSplitStep         <= m3LpwmSplitStep - 2'd1 ;
+            end
+        end
+    end
+end
+
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        m3stepA                         <= 4'hF             ;
+    end
+    else begin
+        if ( m3start_up1 == 1 ) begin
+            m3stepA                     <= 4'd0             ;
+        end
+        else begin
+            if ( m3cntLast1 == 1'd1 && m3LpwmSplitStep == 2'd0 ) begin
                 if ( m3stepA== 4'd11 ) begin
-                    m3stepA     <= 4'd0             ;
+                    m3stepA             <= 4'd0             ;
                 end
                 else begin
-                    m3stepA     <= m3stepA+ 4'd1    ;
+                    m3stepA             <= m3stepA+ 4'd1    ;
                 end
             end
         end
