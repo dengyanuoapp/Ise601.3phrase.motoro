@@ -1,5 +1,5 @@
 module motoro3_step_generator(
-    m3LpwmStep                  ,
+    m3LpwmSplitStep                  ,
     m3stepA                     ,
     m3stepB                     ,
     m3stepC                     ,
@@ -20,7 +20,7 @@ module motoro3_step_generator(
 // 0: idle
 // 1,2,3,4,5,6:nomal
 // 7:force stop
-output  reg     [1:0]       m3LpwmStep              ;	
+output  reg     [1:0]       m3LpwmSplitStep              ;	
 output  reg     [3:0]       m3stepA;	
 output  reg     [3:0]       m3stepB;	
 output  reg     [3:0]       m3stepC;	
@@ -72,8 +72,8 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        m3stepA                 <= 2'd0             ;
-        m3LpwmStep              <= 4'hF             ;
+        m3stepA                 <= 4'hF             ;
+        m3LpwmSplitStep              <= 2'd0             ;
     end
     else begin
         if ( m3start_up1 == 1 ) begin
