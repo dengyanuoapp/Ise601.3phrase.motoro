@@ -23,7 +23,7 @@ wire            [15:0]      plLen                   ;
 motoro3_calc_pwm_len
 lcPWMlen
 (
-    .m3LpwmSplitStep             ( m3LpwmSplitStep                ),
+    .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .plLen                  ( plLen                     ),
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
@@ -38,6 +38,7 @@ lcPWMlen
 motoro3_calc_sine_len_against_to_step
 lcSINEline
 (
+    .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .slLen                  ( slLen                     ),
     .lcStep                 ( lcStep                    ) 
 );// motoro3_calc_sine_len_against_to_step 
