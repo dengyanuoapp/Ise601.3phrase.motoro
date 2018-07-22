@@ -1,4 +1,5 @@
 module motoro3_pwm_generator(
+    plLen                   ,
 
     m3r_pwmLenWant          ,
     m3r_pwmMinMask          ,
@@ -12,6 +13,8 @@ module motoro3_pwm_generator(
     clk
 
 );
+
+input   wire    [15:0]      plLen                   ;	
 
 input   wire    [11:0]      m3r_pwmLenWant          ;	
 input   wire    [11:0]      m3r_pwmMinMask          ;	

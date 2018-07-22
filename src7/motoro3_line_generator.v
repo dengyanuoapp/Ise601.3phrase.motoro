@@ -39,11 +39,13 @@ wire                        lgForceLow              ;
 wire                        lgH1_L0                 ;		
                                                    
 wire                        lgPWM                   ;	
+wire            [15:0]      plLen                   ;	
 
 
 motoro3_line_calc_parameter
 lCalc
 (
+    .plLen                  ( plLen                     ),
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
@@ -57,6 +59,7 @@ lCalc
 motoro3_pwm_generator
 pwmSG
 (
+    .plLen                  ( plLen                     ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
     .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
