@@ -84,7 +84,12 @@ always @ (negedge clk or negedge nRst) begin
         end
         else begin
             if ( m3cntLast1 == 1'd1 ) begin
-                m3LpwmSplitStep         <= m3LpwmSplitStep - 2'd1 ;
+                if ( m3LpwmSplitStep == 2'd0 ) begin
+                    m3LpwmSplitStep     <= m3r_stepSplitMax ;
+                end
+                else begin
+                    m3LpwmSplitStep     <= m3LpwmSplitStep - 2'd1 ;
+                end
             end
         end
     end
