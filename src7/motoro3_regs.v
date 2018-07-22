@@ -70,9 +70,9 @@ assign m3r_power_percent    = 8'h10 ;
 assign  m3r_pwmLenWant      = 12'd512   ;
 assign  m3r_pwmMinMask      = 12'd32    ;
 
-assign  m3r_stepSplitMax    = 2'd0      ;
+//assign  m3r_stepSplitMax    = 2'd0      ;
 //assign  m3r_stepSplitMax    = 2'd1      ;
-//assign  m3r_stepSplitMax    = 2'd3      ;
+assign  m3r_stepSplitMax    = 2'd3      ;
 
 
 endmodule
