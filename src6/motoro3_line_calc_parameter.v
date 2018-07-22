@@ -38,6 +38,7 @@ lcPWMlen
 motoro3_calc_sine_len_against_to_step
 lcSINEline
 (
+    .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
     .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .slLen                  ( slLen                     ),
     .lcStep                 ( lcStep                    ) 
