@@ -66,7 +66,9 @@ m3reg
 motoro3_step_generator
 sg
 (
-    .m3LpwmSplitStep             ( m3LpwmSplitStep                ),
+    .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
+    .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
+
     .m3stepA                ( m3LstepA                  ),
     .m3stepB                ( m3LstepB                  ),
     .m3stepC                ( m3LstepC                  ),
@@ -86,7 +88,7 @@ sg
 motoro3_line_generator
 lgA
 (
-    .m3LpwmSplitStep             ( m3LpwmSplitStep                ),
+    .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .lgStep                 ( m3LstepA                  ),
     .lgHp                   ( aHp                       ),
     .lgLp                   ( aLp                       ),

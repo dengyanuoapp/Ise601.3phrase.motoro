@@ -49,7 +49,7 @@ lCalc
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),
     .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
-    .m3LpwmSplitStep             ( m3LpwmSplitStep                ),
+    .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .lcStep                 ( lgStep                    ) 
 );// motoro3_line_calc_parameter 
 
