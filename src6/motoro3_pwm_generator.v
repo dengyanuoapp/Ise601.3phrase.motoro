@@ -27,19 +27,22 @@ input   wire    [24:0]      m3cnt                   ;
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
 
-reg             [12:0]      pwmCNT                  ;	
+reg             [11:0]      pwmCNT                  ;	
 wire                        pwmCNTreload1           ;
 wire                        pwmCNTreload2           ;
 wire                        pwmCNTreload3           ;
 wire                        pwmCNTreload9           ;
 reg                         pwmCNTreload_clked1     ;
+
 wire                        pwmACCreload1           ;
+reg             [11:0]      pwmACCall               ;	
+reg             [11:0]      pwmACCwant              ;	
 
 //wire                        pwmCNTlast = (pwmCNT[12:1] == 12'd0)? 1'd1 : 1'd0  ;
-// wire            [12:0]      pwmCNTload1             ;	
-// wire            [12:0]      pwmCNTload2             ;	
-// wire            [12:0]      pwmCNTinput             ;	
-// reg             [12:0]      pwmCNTinput_clked1      ;	
+// wire            [11:0]      pwmCNTload1             ;	
+// wire            [11:0]      pwmCNTload2             ;	
+// wire            [11:0]      pwmCNTinput             ;	
+// reg             [11:0]      pwmCNTinput_clked1      ;	
 // 
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
@@ -131,6 +134,21 @@ always @ (negedge clk or negedge nRst) begin
         else begin
                     pwmCNT      <= pwmCNT  - 9'd1 ;
         end
+    end
+end
+
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        pwmACCall               <= 12'd0 ;
+    end
+    else begin
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        pwmACCwant               <= 12'd0 ;
+    end
+    else begin
     end
 end
 
