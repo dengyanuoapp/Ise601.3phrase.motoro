@@ -126,7 +126,7 @@ always @ (negedge clk or negedge nRst) begin
         posRemain               <= 16'd0 ;
     end
     else begin
-        if ( pwmCNTreload1 ) begin
+        if ( pwmACCreload1 ) begin
                 posRemain       <= posSum3 ;
         end
     end
@@ -140,14 +140,14 @@ always @ (negedge clk or negedge nRst) begin
                     pwmPOScnt   <=  posSum2 ;
         end
         else begin
-            if ( posLess ) begin
-                pwmPOScnt           <= 16'd0 ;
-            end
-            else begin
+//            if ( posLess ) begin
+//                pwmPOScnt           <= 16'd0 ;
+//            end
+//            else begin
                 if ( pwmPOScnt ) begin
                     pwmPOScnt   <=  pwmPOScnt - 16'd1 ;
                 end
-            end
+//            end
         end
     end
 end
