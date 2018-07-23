@@ -36,9 +36,14 @@ reg                         pwmCNTreload_clked1     ;
 
 wire                        pwmACCreload1           ;
 reg             [11:0]      pwmACCall               ;	
-reg             [11:0]      pwmACCremain            ;	
 reg             [11:0]      pwmACCwant              ;	
 reg             [11:0]      pwmPOScnt               ;	
+
+reg             [15:0]      posRemain               ;	
+wire            [15:0]      posSum1                 ;	
+wire            [15:0]      posSum2                 ;	
+wire            [15:0]      posSum3                 ;	
+wire                        posLess                 ;
 
 //wire                        pwmCNTlast = (pwmCNT[12:1] == 12'd0)? 1'd1 : 1'd0  ;
 // wire            [11:0]      pwmCNTload1             ;	
@@ -153,11 +158,24 @@ always @ (negedge clk or negedge nRst) begin
     else begin
     end
 end
+
+assign posSum1 = posRemain    + plLen ;
+assign posLess = ( posSum1 < m3r_pwmMinMask ) ;
+assign posSum2 = ( posLess )? 0 : posSum1 ;
+assign posSum3 = ( posLess )? posSum1 : 0 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        pwmACCremain            <= 12'd0 ;
+        posRemain               <= 12'd0 ;
     end
     else begin
+        if ( pwmCNTreload1 ) begin
+            if ( posSum1 ) begin
+                posRemain       <=  posRemain    + 'd1 ;
+            end
+            else begin
+                posRemain       <= posSum3 ;
+            end
+        end
     end
 end
 always @ (negedge clk or negedge nRst) begin
@@ -165,6 +183,10 @@ always @ (negedge clk or negedge nRst) begin
         pwmPOScnt               <= 12'd0 ;
     end
     else begin
+        if ( pwmCNTreload1 ) begin
+        end
+        else begin
+        end
     end
 end
 
