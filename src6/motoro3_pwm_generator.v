@@ -19,7 +19,7 @@ input   wire    [15:0]      plLen                   ;
 input   wire    [11:0]      m3r_pwmLenWant          ;	
 input   wire    [11:0]      m3r_pwmMinMask          ;	
 input   wire    [1:0]       m3r_stepSplitMax        ;	
-output  reg                 pwm                     ;		
+output  wire                pwm                     ;		
 
 input   wire                m3cntLast1              ;		
 input   wire    [24:0]      m3cnt                   ;	
@@ -132,7 +132,6 @@ assign pwmCNTreload9 = ( pwmCNTreload1 | pwmCNTreload2 | pwmCNTreload3 );
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNT                  <= m3r_pwmLenWant ;
-        pwm                     <= 1'b0 ;
     end
     else begin
         if ( pwmCNTreload9 == 1'd1 ) begin
@@ -193,6 +192,8 @@ always @ (negedge clk or negedge nRst) begin
         end
     end
 end
+
+assign pwm  = (pwmPOScnt)? 1'b1 : 1'b0 ;
 
 
 endmodule
