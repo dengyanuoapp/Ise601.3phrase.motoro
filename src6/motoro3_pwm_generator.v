@@ -165,27 +165,31 @@ assign posSum2 = ( posLess )? 0 : posSum1 ;
 assign posSum3 = ( posLess )? posSum1 : 0 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posRemain               <= 12'd0 ;
+        posRemain               <= 16'd0 ;
     end
     else begin
         if ( pwmCNTreload1 ) begin
-            if ( posSum1 ) begin
                 posRemain       <= posSum3 ;
-            end
-            else begin
-                posRemain       <=  0 ;
-            end
         end
     end
 end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        pwmPOScnt               <= 12'd0 ;
+        pwmPOScnt               <= 16'd0 ;
     end
     else begin
-        if ( pwmCNTreload1 ) begin
+        if ( pwmACCreload1 ) begin
+                    pwmPOScnt   <=  posSum2 ;
         end
         else begin
+            if ( posLess ) begin
+                pwmPOScnt           <= 16'd0 ;
+            end
+            else begin
+                if ( pwmPOScnt ) begin
+                    pwmPOScnt   <=  pwmPOScnt - 16'd1 ;
+                end
+            end
         end
     end
 end
