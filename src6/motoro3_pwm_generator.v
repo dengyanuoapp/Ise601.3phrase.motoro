@@ -30,6 +30,10 @@ input   wire                nRst                    ;
 reg             [12:0]      pwmCNT                  ;	
 wire                        pwmCNTreload1           ;
 wire                        pwmCNTreload2           ;
+wire                        pwmCNTreload3           ;
+wire                        pwmCNTreload9           ;
+reg                         pwmCNTreload_clked1     ;
+wire                        pwmACCreload1           ;
 
 //wire                        pwmCNTlast = (pwmCNT[12:1] == 12'd0)? 1'd1 : 1'd0  ;
 // wire            [12:0]      pwmCNTload1             ;	
@@ -101,23 +105,31 @@ wire                        pwmCNTreload2           ;
 //     end
 // end
 
+assign pwmACCreload1    = (~pwmCNTreload9) & pwmCNTreload_clked1 ;
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        pwmCNTreload_clked1     <= 1'd0             ;
+    end
+    else begin
+        pwmCNTreload_clked1     <= pwmCNTreload9    ;
+    end
+end
+
 assign pwmCNTreload1 = m3cntLast1 ;
-assign pwmCNTreload2 = (pwmCNT == 12'd0 ) ;
+assign pwmCNTreload2 = (pwmCNT == 12'd1 ) ;
+assign pwmCNTreload3 = (plLen == 16'd0);
+assign pwmCNTreload9 = ( pwmCNTreload1 | pwmCNTreload2 | pwmCNTreload3 );
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNT                  <= m3r_pwmLenWant ;
         pwm                     <= 1'b0 ;
     end
     else begin
-        if ( pwmCNTreload1 == 1'd1 ) begin
+        if ( pwmCNTreload9 == 1'd1 ) begin
             pwmCNT              <= m3r_pwmLenWant ;
         end
         else begin
-            if ( pwmCNTreload1 == 1'd1 ) begin
-            end
-            else begin
                     pwmCNT      <= pwmCNT  - 9'd1 ;
-            end
         end
     end
 end
