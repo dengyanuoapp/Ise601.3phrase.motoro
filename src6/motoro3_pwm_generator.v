@@ -88,9 +88,17 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posACCwant              <= 16'd0 ;
+        posACCwant              <= 16'd0    ;
     end
     else begin
+        if ( m3cntLast1 == 1'd1 ) begin
+            posACCwant          <= 16'd0    ;
+        end
+        else begin
+            if ( pwmACCreload1 == 1'd1 ) begin
+                posACCwant      <=  posACCwant + plLen ;
+            end
+        end
     end
 end
 always @ (negedge clk or negedge nRst) begin
@@ -98,6 +106,14 @@ always @ (negedge clk or negedge nRst) begin
         posACCreal              <= 12'd0 ;
     end
     else begin
+        if ( m3cntLast1 == 1'd1 ) begin
+            posACCreal          <= 16'd0    ;
+        end
+        else begin
+            if ( pwm == 1'd1 ) begin
+                posACCreal      <=  posACCreal + 16'd1 ;
+            end
+        end
     end
 end
 
