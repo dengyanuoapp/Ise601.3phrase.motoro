@@ -88,7 +88,7 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posACCwant              <= 12'd0 ;
+        posACCwant              <= 16'd0 ;
     end
     else begin
     end
