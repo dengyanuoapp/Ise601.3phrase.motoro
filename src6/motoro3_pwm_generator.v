@@ -170,10 +170,10 @@ always @ (negedge clk or negedge nRst) begin
     else begin
         if ( pwmCNTreload1 ) begin
             if ( posSum1 ) begin
-                posRemain       <=  posRemain    + 'd1 ;
+                posRemain       <= posSum3 ;
             end
             else begin
-                posRemain       <= posSum3 ;
+                posRemain       <=  0 ;
             end
         end
     end
