@@ -1,5 +1,5 @@
 module motoro3_line_generator(
-    m3LpwmSplitStep                  ,
+    m3LpwmSplitStep             ,
     lgStep                      ,
     lgHp                        ,
     lgLp                        ,
@@ -24,7 +24,7 @@ output  wire                lgLp                    ;
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
                                                    
-input   wire    [1:0]       m3LpwmSplitStep              ;	
+input   wire    [1:0]       m3LpwmSplitStep         ;	
 input   wire    [3:0]       lgStep                  ;	
 input   wire    [24:0]      m3cnt                   ;	
 input   wire                m3cntLast1              ;
@@ -59,6 +59,7 @@ lCalc
 motoro3_pwm_generator
 pwmSG
 (
+    .sgStep                 ( lgStep                    ),
     .plLen                  ( plLen                     ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
     .m3r_pwmMinMask         ( m3r_pwmMinMask            ),

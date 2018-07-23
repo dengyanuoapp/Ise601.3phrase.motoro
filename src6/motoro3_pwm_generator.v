@@ -1,4 +1,5 @@
 module motoro3_pwm_generator(
+    sgStep                  ,
     plLen                   ,
 
     m3r_pwmLenWant          ,
@@ -14,6 +15,7 @@ module motoro3_pwm_generator(
 
 );
 
+input   wire    [3:0]       sgStep                  ;	
 input   wire    [15:0]      plLen                   ;	
 
 input   wire    [11:0]      m3r_pwmLenWant          ;	
@@ -86,6 +88,7 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
+assign posCNTreload1    = ( (m3cntLast1 == 1'd1 ) && ( (sgStep >= 4'd5) ) );
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posACCwant              <= 16'd0    ;
@@ -95,7 +98,7 @@ always @ (negedge clk or negedge nRst) begin
             posACCwant          <= 16'd0    ;
         end
         else begin
-            if ( pwmACCreload1 == 1'd1 ) begin
+            if ( posCNTreload1 == 1'd1 ) begin
                 posACCwant      <=  posACCwant + plLen ;
             end
         end
