@@ -23,8 +23,9 @@ input   wire                nRst                    ;
 //( per pwmSTEP 511clk, 51us )
 `ifndef m3cnt_reload1_now 
 `ifdef synthesising
-//`define m3cnt_reload1_now    25'd666_666
-`define m3cnt_reload1_now    25'd1_666_667  
+//`define m3cnt_reload1_now    25'd166_667          // 0.8s
+//`define m3cnt_reload1_now    25'd666_666          // 3.2s
+`define m3cnt_reload1_now    25'd1_666_667        // 8s
 `endif
 `ifdef simulating
 `define m3cnt_reload1_now    25'd16_667   // 1_666.7us * 12 == 20_000 us == 20ms == 50Hz , 16667/511==32pwmSTEP
