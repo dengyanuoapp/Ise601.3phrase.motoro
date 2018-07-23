@@ -38,7 +38,7 @@ wire                        pwmACCreload1           ;
 reg             [11:0]      pwmACCall               ;	
 reg             [11:0]      pwmACCremain            ;	
 reg             [11:0]      pwmACCwant              ;	
-reg             [11:0]      pwmACCnow               ;	
+reg             [11:0]      pwmPOScnt               ;	
 
 //wire                        pwmCNTlast = (pwmCNT[12:1] == 12'd0)? 1'd1 : 1'd0  ;
 // wire            [11:0]      pwmCNTload1             ;	
@@ -162,7 +162,7 @@ always @ (negedge clk or negedge nRst) begin
 end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        pwmACCnow               <= 12'd0 ;
+        pwmPOScnt               <= 12'd0 ;
     end
     else begin
     end
