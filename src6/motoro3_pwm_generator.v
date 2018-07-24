@@ -1,4 +1,8 @@
 module motoro3_pwm_generator(
+    posSumExtA                  ,	
+    posSumExtB                  ,	
+    posSumExtC                  ,	
+
     sgStep                  ,
     plLen                   ,
 
@@ -15,6 +19,10 @@ module motoro3_pwm_generator(
     clk
 
 );
+
+output  wire    [15:0]      posSumExtA              ;	
+input   wire    [15:0]      posSumExtB              ;	
+input   wire    [15:0]      posSumExtC              ;	
 
 input   wire    [3:0]       sgStep                  ;	
 input   wire    [15:0]      plLen                   ;	
@@ -172,6 +180,8 @@ always @ (negedge clk or negedge nRst) begin
         end
     end
 end
+
+assign posSumExtA   = posSum1   ;
 
 wire                        pwm01 ;
 assign pwm01    = (pwmPOScnt)? 1'b1 : 1'b0 ;
