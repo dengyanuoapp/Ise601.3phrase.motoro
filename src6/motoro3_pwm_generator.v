@@ -54,7 +54,7 @@ wire            [15:0]      posSum1                 ;
 wire            [15:0]      posSum2                 ;	
 wire            [15:0]      posSum3                 ;	
 reg                         posLoad1                ;
-reg                         posDiff                 ;
+reg                         posSkip                 ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
 reg             [15:0]      posACCreal1             ;	
@@ -75,7 +75,6 @@ wire            [15:0]      pwmMinNow               ;
 // // //`define pwmTest      12'h110 //  half of 511(0x1ff) * 0.1us == 26us
 // // //`define pwmTest      5'h10 // 1.56us // lost... the FPGA output lost... so, the MOSFET must be lost.
 
-assign pwmACCreload1    = (~pwmCNTreload9) & pwmCNTreload_clked1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNTreload_clked1     <= 1'd0             ;
@@ -105,6 +104,7 @@ end
 
 //assign posCNTreload1    = ( (m3cntLast1 == 1'd1 ) && ( (sgStep >= 4'd5) ) );
 //assign posCNTreload1    = (sgStep >= 4'd5) ;
+assign pwmACCreload1    = (~pwmCNTreload9) & pwmCNTreload_clked1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posACCwant1             <= 16'd0    ;
@@ -154,36 +154,41 @@ end
 assign pwmMinNow    = 12'd256;
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
     if ( sgStep == 4'd11 ) begin // C
-        if ( posSumExtC >= posSum1 ) begin
-            posLoad1    = ( posSum1 < pwmMinNow ) ;
-            posDiff     = 1'b0 ;
+        if ( posSumExtC >= posSum1 && posSum1 >= pwmMinNow ) begin
+            posLoad1    = 1'b1 ;
+            posSkip     = 1'b0 ;
         end
         else begin
-            posLoad1    = 1'b1 ;
-            posDiff     = 1'b1 ;
+            posLoad1    = 1'b0 ;
+            posSkip     = 1'b1 ;
         end
     end
     else begin
         if ( sgStep == 4'd6 ) begin // B
-            if ( posSumExtB >= posSum1 ) begin
-                posLoad1    = ( posSum1 < pwmMinNow ) ;
-                posDiff     = 1'b0 ;
+            if ( posSumExtB >= posSum1 && posSum1 >= pwmMinNow ) begin
+                posLoad1    = 1'b1 ;
+                posSkip     = 1'b0 ;
             end
             else begin
-                posLoad1    = 1'b1 ;
-                posDiff     = 1'b1 ;
+                posLoad1    = 1'b0 ;
+                posSkip     = 1'b1 ;
             end
         end
         else begin
-            posLoad1    = ( posSum1 < pwmMinNow ) ;
-            posDiff     = 1'b0 ;
+            if ( posSum1 >= pwmMinNow ) begin
+                posLoad1    = 1'b1 ;
+            end
+            else begin
+                posLoad1    = 1'b0 ;
+            end
+            posSkip     = 1'b0 ;
         end
     end
 end
 
 assign posSum1 = posRemain    + plLen ;
-assign posSum2 = ( posLoad1)? 0 : posSum1 ;
-assign posSum3 = ( posLoad1)? posSum1 : 0 ;
+assign posSum2 = ( posLoad1)? posSum1 : 0 ;
+assign posSum3 = ( posLoad1)? 0 : posSum1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posRemain               <= 16'd0 ;
@@ -205,17 +210,14 @@ always @ (negedge clk or negedge nRst) begin
     end
     else begin
         if ( pwmACCreload1 ) begin
-                    pwmPOScnt   <=  posSum2 ;
+            if ( posLoad1 ) begin
+                pwmPOScnt       <=  posSum2 ;
+            end
         end
         else begin
-//            if ( posLoad1) begin
-//                pwmPOScnt           <= 16'd0 ;
-//            end
-//            else begin
-                if ( pwmPOScnt ) begin
-                    pwmPOScnt   <=  pwmPOScnt - 16'd1 ;
-                end
-//            end
+            if ( pwmPOScnt ) begin
+                pwmPOScnt       <=  pwmPOScnt - 16'd1 ;
+            end
         end
     end
 end
