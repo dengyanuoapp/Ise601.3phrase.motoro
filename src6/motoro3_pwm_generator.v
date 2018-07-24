@@ -3,19 +3,19 @@ module motoro3_pwm_generator(
     posSumExtB                  ,	
     posSumExtC                  ,	
 
-    sgStep                  ,
-    plLen                   ,
-
-    m3r_pwmLenWant          ,
-    m3r_pwmMinMask          ,
-    m3r_stepSplitMax        ,	
-    pwm                     ,		
-
-    m3cnt                   ,
-    m3cntLast1              ,
-    m3cntLast2              ,
-
-    nRst                    ,
+    sgStep                      ,
+    plLen                       ,
+                               
+    m3r_pwmLenWant              ,
+    m3r_pwmMinMask              ,
+    m3r_stepSplitMax            ,	
+    pwm                         ,		
+                               
+    m3cnt                       ,
+    m3cntLast1                  ,
+    m3cntLast2                  ,
+                               
+    nRst                        ,
     clk
 
 );
@@ -53,7 +53,7 @@ reg             [15:0]      posRemain               ;
 wire            [15:0]      posSum1                 ;	
 wire            [15:0]      posSum2                 ;	
 wire            [15:0]      posSum3                 ;	
-wire                        posLess                 ;
+reg                         posLess                 ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
 reg             [15:0]      posACCreal1             ;	
@@ -146,8 +146,32 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
+//assign posLess = ( posSum1 < m3r_pwmMinMask ) ;
+always @( posSum1 or m3r_pwmMinMask or sgStep or posSumExtB or posSumExtC ) begin
+    if ( sgStep == 4'd11 ) begin // C
+        if ( posSumExtC >= posSum1 ) begin
+            posLess     = ( posSum1 < m3r_pwmMinMask ) ;
+        end
+        else begin
+            posLess     = 1'b1 ;
+        end
+    end
+    else begin
+        if ( sgStep == 4'd6 ) begin // B
+            if ( posSumExtB >= posSum1 ) begin
+                posLess     = ( posSum1 < m3r_pwmMinMask ) ;
+            end
+            else begin
+                posLess     = 1'b1 ;
+            end
+        end
+        else begin
+            posLess     = ( posSum1 < m3r_pwmMinMask ) ;
+        end
+    end
+end
+
 assign posSum1 = posRemain    + plLen ;
-assign posLess = ( posSum1 < m3r_pwmMinMask ) ;
 assign posSum2 = ( posLess )? 0 : posSum1 ;
 assign posSum3 = ( posLess )? posSum1 : 0 ;
 always @ (negedge clk or negedge nRst) begin
