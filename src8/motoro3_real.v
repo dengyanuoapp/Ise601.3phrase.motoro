@@ -44,6 +44,7 @@ wire            [3:0]       m3LstepB                ;
 wire            [3:0]       m3LstepC                ;	
 wire            [24:0]      m3cnt                   ;	
 wire                        m3cntLast1              ;
+wire                        m3cntLast2              ;
 wire            [24:0]      m3r_stepCNT_speedSET    ;	
 wire            [7:0]       m3r_power_percent       ;	
 wire            [11:0]      m3r_pwmLenWant          ;	
@@ -75,6 +76,7 @@ sg
                                                        
     .m3cnt                  ( m3cnt                     ),
     .m3cntLast1             ( m3cntLast1                ),
+    .m3cntLast2             ( m3cntLast2                ),
     .m3start                ( m3start                   ),
     .m3freqINC              ( m3freqINC                 ),
     .m3freqDEC              ( m3freqDEC                 ),
@@ -95,6 +97,7 @@ lgA
 
     .m3cnt                  ( m3cnt                     ),
     .m3cntLast1             ( m3cntLast1                ),
+    .m3cntLast2             ( m3cntLast2                ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
@@ -115,6 +118,7 @@ lgB
 
     .m3cnt                  ( m3cnt                     ),
     .m3cntLast1             ( m3cntLast1                ),
+    .m3cntLast2             ( m3cntLast2                ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
@@ -135,6 +139,7 @@ lgC
 
     .m3cnt                  ( m3cnt                     ),
     .m3cntLast1             ( m3cntLast1                ),
+    .m3cntLast2             ( m3cntLast2                ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),

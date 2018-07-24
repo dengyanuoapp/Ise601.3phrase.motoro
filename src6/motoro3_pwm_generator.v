@@ -9,6 +9,7 @@ module motoro3_pwm_generator(
 
     m3cnt                   ,
     m3cntLast1              ,
+    m3cntLast2              ,
 
     nRst                    ,
     clk
@@ -24,6 +25,7 @@ input   wire    [1:0]       m3r_stepSplitMax        ;
 output  wire                pwm                     ;		
 
 input   wire                m3cntLast1              ;		
+input   wire                m3cntLast2              ;		
 input   wire    [24:0]      m3cnt                   ;	
 
 input   wire                clk                     ;			// 10MHz
@@ -88,18 +90,19 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
-assign posCNTreload1    = ( (m3cntLast1 == 1'd1 ) && ( (sgStep >= 4'd5) ) );
+//assign posCNTreload1    = ( (m3cntLast1 == 1'd1 ) && ( (sgStep >= 4'd5) ) );
+//assign posCNTreload1    = (sgStep >= 4'd5) ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posACCwant              <= 16'd0    ;
     end
     else begin
-        if ( m3cntLast1 == 1'd1 ) begin
+        if ( m3cntLast2 == 1'd1 ) begin
             posACCwant          <= 16'd0    ;
         end
         else begin
-            if ( posCNTreload1 == 1'd1 ) begin
-                posACCwant      <=  posACCwant + plLen ;
+            if ( pwmACCreload1 == 1'd1 ) begin
+                    posACCwant      <=  posACCwant + plLen ;
             end
         end
     end

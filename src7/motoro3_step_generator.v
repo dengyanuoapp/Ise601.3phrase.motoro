@@ -12,6 +12,7 @@ module motoro3_step_generator(
     m3freqDEC                   ,
 
     m3cntLast1                  ,
+    m3cntLast2                  ,
 
     m3r_stepCNT_speedSET        ,
 
@@ -30,6 +31,7 @@ output  reg     [3:0]       m3stepB;
 output  reg     [3:0]       m3stepC;	
 output  reg     [24:0]      m3cnt;	
 output  wire                m3cntLast1 ;
+output  wire                m3cntLast2 ;
 input   wire    [24:0]      m3r_stepCNT_speedSET    ;	
 
 input   wire                m3start;	
@@ -46,6 +48,7 @@ wire                        m3start_up1;
 reg             [64:0]      roundCNT                ;	
 
 assign  m3cntLast1 = ( m3cnt[24:1] == 24'd0 )? 1'd1:1'd0 ;
+assign  m3cntLast2 = m3cntLast1 && (m3LpwmSplitStep == 0 );
 
 
 assign  m3start_up1 = (m3start) && (~m3start_clked1) ;
