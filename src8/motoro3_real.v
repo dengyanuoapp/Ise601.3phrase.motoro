@@ -50,6 +50,9 @@ wire            [7:0]       m3r_power_percent       ;
 wire            [11:0]      m3r_pwmLenWant          ;	
 wire            [11:0]      m3r_pwmMinMask          ;	
 wire            [1:0]       m3r_stepSplitMax        ;	
+wire            [15:0]      posSumExtAA             ;	
+wire            [15:0]      posSumExtBB             ;	
+wire            [15:0]      posSumExtCC             ;	
 
 motoro3_regs
 m3reg
@@ -90,6 +93,9 @@ sg
 motoro3_line_generator
 lgA
 (
+    .posSumExtA             ( posSumExtAA               ),
+    .posSumExtB             ( posSumExtBB               ),
+    .posSumExtC             ( posSumExtCC               ),
     .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .lgStep                 ( m3LstepA                  ),
     .lgHp                   ( aHp                       ),
@@ -111,7 +117,10 @@ lgA
 motoro3_line_generator
 lgB
 (
-    .m3LpwmSplitStep             ( m3LpwmSplitStep                ),
+    .posSumExtA             ( posSumExtBB               ),
+    .posSumExtB             ( posSumExtCC               ),
+    .posSumExtC             ( posSumExtAA               ),
+    .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .lgStep                 ( m3LstepB                  ),
     .lgHp                   ( bHp                       ),
     .lgLp                   ( bLp                       ),
@@ -132,7 +141,10 @@ lgB
 motoro3_line_generator
 lgC
 (
-    .m3LpwmSplitStep             ( m3LpwmSplitStep                ),
+    .posSumExtA             ( posSumExtCC               ),
+    .posSumExtB             ( posSumExtAA               ),
+    .posSumExtC             ( posSumExtBB               ),
+    .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .lgStep                 ( m3LstepC                  ),
     .lgHp                   ( cHp                       ),
     .lgLp                   ( cLp                       ),
