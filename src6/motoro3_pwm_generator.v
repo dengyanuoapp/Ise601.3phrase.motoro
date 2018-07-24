@@ -46,7 +46,8 @@ wire            [15:0]      posSum1                 ;
 wire            [15:0]      posSum2                 ;	
 wire            [15:0]      posSum3                 ;	
 wire                        posLess                 ;
-reg             [15:0]      posACCwant              ;	
+reg             [15:0]      posACCwant1             ;	
+reg             [15:0]      posACCwant2             ;	
 reg             [15:0]      posACCreal              ;	
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
@@ -94,16 +95,26 @@ end
 //assign posCNTreload1    = (sgStep >= 4'd5) ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posACCwant              <= 16'd0    ;
+        posACCwant1             <= 16'd0    ;
     end
     else begin
         if ( m3cntLast2 == 1'd1 ) begin
-            posACCwant          <= 16'd0    ;
+            posACCwant1         <= 16'd0    ;
         end
         else begin
             if ( pwmACCreload1 == 1'd1 ) begin
-                    posACCwant      <=  posACCwant + plLen ;
+                    posACCwant1     <=  posACCwant1+ plLen ;
             end
+        end
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        posACCwant2             <= 16'd0    ;
+    end
+    else begin
+        if ( m3cntLast2 == 1'd1 ) begin
+            posACCwant2         <= posACCwant1 + plLen ;
         end
     end
 end
