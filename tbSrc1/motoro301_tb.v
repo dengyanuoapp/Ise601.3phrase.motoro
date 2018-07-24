@@ -93,6 +93,13 @@ always begin
     #1 clk = !clk ;
 end
 
+assign error01  = ({aHP,bHP,cHP}==3'b000) ;
+assign error11  = ({aLN,bLN,cLN}==3'b100) ;
+assign error12  = ({aLN,bLN,cLN}==3'b010) ;
+assign error13  = ({aLN,bLN,cLN}==3'b001) ;
+assign error14  = ({aLN,bLN,cLN}==3'b000) ;
+assign error19  = error11 | error12 | error13 | error14 ;
+assign error91  = error01 & error19 ;
 
 
 
