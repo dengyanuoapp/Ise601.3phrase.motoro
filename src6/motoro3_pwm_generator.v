@@ -59,6 +59,7 @@ reg             [15:0]      posACCwant2             ;
 reg             [15:0]      posACCreal1             ;	
 reg             [15:0]      posACCreal2             ;	
 
+wire            [15:0]      pwmMinNow               ;	
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
@@ -147,10 +148,12 @@ always @ (negedge clk or negedge nRst) begin
 end
 
 //assign posLess = ( posSum1 < m3r_pwmMinMask ) ;
-always @( posSum1 or m3r_pwmMinMask or sgStep or posSumExtB or posSumExtC ) begin
+//assign pwmMinNow    = (m3r_pwmLenWant[11] == 1'b1 ) ? ({4'd0,m3r_pwmMinMask}) : (16'h8000);
+assign pwmMinNow    = ({4'd0,m3r_pwmMinMask}) ;
+always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
     if ( sgStep == 4'd11 ) begin // C
         if ( posSumExtC >= posSum1 ) begin
-            posLess     = ( posSum1 < m3r_pwmMinMask ) ;
+            posLess     = ( posSum1 < pwmMinNow ) ;
         end
         else begin
             posLess     = 1'b1 ;
@@ -159,14 +162,14 @@ always @( posSum1 or m3r_pwmMinMask or sgStep or posSumExtB or posSumExtC ) begi
     else begin
         if ( sgStep == 4'd6 ) begin // B
             if ( posSumExtB >= posSum1 ) begin
-                posLess     = ( posSum1 < m3r_pwmMinMask ) ;
+                posLess     = ( posSum1 < pwmMinNow ) ;
             end
             else begin
                 posLess     = 1'b1 ;
             end
         end
         else begin
-            posLess     = ( posSum1 < m3r_pwmMinMask ) ;
+            posLess     = ( posSum1 < pwmMinNow ) ;
         end
     end
 end
