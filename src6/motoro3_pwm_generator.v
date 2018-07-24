@@ -51,6 +51,7 @@ reg             [15:0]      posACCwant2             ;
 reg             [15:0]      posACCreal1             ;	
 reg             [15:0]      posACCreal2             ;	
 
+
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
 // // // min MOS open : 0x10  : 16   * 0.1us == 1.6us  (min set to 16: mosDriver2003/2007 raise/failing time 150ns )
@@ -172,7 +173,12 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
-assign pwm  = (pwmPOScnt)? 1'b1 : 1'b0 ;
+wire                        pwm01 ;
+assign pwm01    = (pwmPOScnt)? 1'b1 : 1'b0 ;
+//wire                        pwm02 ;
+//assign pwm02    = (sgStep==4'd7)|(sgStep==4'd8)|(sgStep==4'd9)|(sgStep==4'd10);
+//assign pwm      = pwm01 | pwm02 ;
+assign pwm      = pwm01 ;
 
 
 endmodule
