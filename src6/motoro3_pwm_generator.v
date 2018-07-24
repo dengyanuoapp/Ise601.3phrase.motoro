@@ -149,7 +149,8 @@ end
 
 //assign posLess = ( posSum1 < m3r_pwmMinMask ) ;
 //assign pwmMinNow    = (m3r_pwmLenWant[11] == 1'b1 ) ? ({4'd0,m3r_pwmMinMask}) : (16'h8000);
-assign pwmMinNow    = ({4'd0,m3r_pwmMinMask}) ;
+//assign pwmMinNow    = ({4'd0,m3r_pwmMinMask}) ;
+assign pwmMinNow    = 12'd256;
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
     if ( sgStep == 4'd11 ) begin // C
         if ( posSumExtC >= posSum1 ) begin
