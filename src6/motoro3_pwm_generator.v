@@ -64,6 +64,7 @@ wire            [15:0]      pwmMinNow               ;
 reg             [15:0]      posLost1                ;	
 reg             [15:0]      posLost2                ;	
 reg             [15:0]      posLost3                ;	
+reg             [15:0]      posLost4                ;	
 reg                         m3cntLast2_clked        ;		
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
@@ -231,18 +232,28 @@ always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posLost1                <= 16'd0 ;
         posLost2                <= 16'd0 ;
-        posLost3                <= 16'd0 ;
+        posLost4                <= 16'd0 ;
     end
     else begin
         if ( m3cntLast2_clked ) begin
             posLost1        <= posACCwant2 - posACCreal2 ;
-            posLost3        <= sgStep ;
             if ( sgStep == 4'd1 || sgStep == 4'd7 ) begin
                 posLost2    <= posACCwant2 - posACCreal2 ;
+                posLost4    <= posLost2 ;
             end
             else begin
                 posLost2    <= posLost2 + posACCwant2 - posACCreal2 ;
             end
+        end
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        posLost3                <= 16'd0 ;
+    end
+    else begin
+        if ( m3cntLast2 ) begin
+            posLost3        <= sgStep ;
         end
     end
 end
