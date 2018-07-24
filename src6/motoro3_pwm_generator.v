@@ -61,6 +61,8 @@ reg             [15:0]      posACCreal1             ;
 reg             [15:0]      posACCreal2             ;	
 
 wire            [15:0]      pwmMinNow               ;	
+reg             [15:0]      posLost1                ;	
+reg             [15:0]      posLost2                ;	
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
@@ -217,6 +219,23 @@ always @ (negedge clk or negedge nRst) begin
         else begin
             if ( pwmPOScnt ) begin
                 pwmPOScnt       <=  pwmPOScnt - 16'd1 ;
+            end
+        end
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        posLost1                <= 16'd0 ;
+        posLost2                <= 16'd0 ;
+    end
+    else begin
+        if ( pwmACCreload1 ) begin
+            posLost1            <= posACCwant2 - posACCreal2 ;
+            if ( sgStep == 4'd5 || sgStep == 4'd11 ) begin
+                posLost2            <= 0 ;
+            end
+            else begin
+                posLost2            <= posLost2 + posLost1 ;
             end
         end
     end
