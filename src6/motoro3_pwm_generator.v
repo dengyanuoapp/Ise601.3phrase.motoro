@@ -229,8 +229,8 @@ always @ (negedge clk or negedge nRst) begin
         posLost2                <= 16'd0 ;
     end
     else begin
-        if ( pwmACCreload1 ) begin
-            if ( posLoad1 ) begin
+        if ( m3cntLast2 ) begin
+            if ( m3cntLast2 ) begin
                 posLost1        <= posACCwant2 - posACCreal2 ;
                 if ( sgStep == 4'd5 || sgStep == 4'd11 ) begin
                     posLost2    <= posACCwant2 - posACCreal2 ;
