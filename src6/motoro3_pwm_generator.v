@@ -48,7 +48,8 @@ wire            [15:0]      posSum3                 ;
 wire                        posLess                 ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
-reg             [15:0]      posACCreal              ;	
+reg             [15:0]      posACCreal1             ;	
+reg             [15:0]      posACCreal2             ;	
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
@@ -111,24 +112,26 @@ end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posACCwant2             <= 16'd0    ;
+        posACCreal2             <= 16'd0    ;
     end
     else begin
         if ( m3cntLast2 == 1'd1 ) begin
-            posACCwant2         <= posACCwant1 + plLen ;
+            posACCwant2         <= posACCwant1 ;
+            posACCreal2         <= posACCreal1 ;
         end
     end
 end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posACCreal              <= 12'd0 ;
+        posACCreal1             <= 12'd0 ;
     end
     else begin
-        if ( m3cntLast1 == 1'd1 ) begin
-            posACCreal          <= 16'd0    ;
+        if ( m3cntLast2 == 1'd1 ) begin
+            posACCreal1         <= 16'd0    ;
         end
         else begin
             if ( pwm == 1'd1 ) begin
-                posACCreal      <=  posACCreal + 16'd1 ;
+                posACCreal1     <=  posACCreal1+ 16'd1 ;
             end
         end
     end
