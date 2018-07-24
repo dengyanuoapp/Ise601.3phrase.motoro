@@ -230,12 +230,14 @@ always @ (negedge clk or negedge nRst) begin
     end
     else begin
         if ( pwmACCreload1 ) begin
-            posLost1            <= posACCwant2 - posACCreal2 ;
-            if ( sgStep == 4'd5 || sgStep == 4'd11 ) begin
-                posLost2            <= 0 ;
-            end
-            else begin
-                posLost2            <= posLost2 + posLost1 ;
+            if ( posLoad1 ) begin
+                posLost1        <= posACCwant2 - posACCreal2 ;
+                if ( sgStep == 4'd5 || sgStep == 4'd11 ) begin
+                    posLost2    <= posACCwant2 - posACCreal2 ;
+                end
+                else begin
+                    posLost2    <= posLost2 + posLost1 ;
+                end
             end
         end
     end
