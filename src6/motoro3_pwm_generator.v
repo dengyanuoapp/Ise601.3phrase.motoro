@@ -63,6 +63,8 @@ reg             [15:0]      posACCreal2             ;
 wire            [15:0]      pwmMinNow               ;	
 reg             [15:0]      posLost1                ;	
 reg             [15:0]      posLost2                ;	
+reg             [15:0]      posLost3                ;	
+reg                         m3cntLast2_clked        ;		
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
@@ -80,9 +82,11 @@ reg             [15:0]      posLost2                ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNTreload_clked1     <= 1'd0             ;
+        m3cntLast2_clked        <= 1'd0             ;
     end
     else begin
         pwmCNTreload_clked1     <= pwmCNTreload9    ;
+        m3cntLast2_clked        <= m3cntLast2 | sgStep == 4'd15      ;
     end
 end
 
@@ -227,17 +231,17 @@ always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posLost1                <= 16'd0 ;
         posLost2                <= 16'd0 ;
+        posLost3                <= 16'd0 ;
     end
     else begin
-        if ( m3cntLast2 ) begin
-            if ( m3cntLast2 ) begin
-                posLost1        <= posACCwant2 - posACCreal2 ;
-                if ( sgStep == 4'd5 || sgStep == 4'd11 ) begin
-                    posLost2    <= posACCwant2 - posACCreal2 ;
-                end
-                else begin
-                    posLost2    <= posLost2 + posLost1 ;
-                end
+        if ( m3cntLast2_clked ) begin
+            posLost1        <= posACCwant2 - posACCreal2 ;
+            posLost3        <= sgStep ;
+            if ( sgStep == 4'd1 || sgStep == 4'd7 ) begin
+                posLost2    <= posACCwant2 - posACCreal2 ;
+            end
+            else begin
+                posLost2    <= posLost2 + posACCwant2 - posACCreal2 ;
             end
         end
     end
