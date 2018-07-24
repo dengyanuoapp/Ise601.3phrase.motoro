@@ -53,7 +53,7 @@ reg             [15:0]      posRemain               ;
 wire            [15:0]      posSum1                 ;	
 wire            [15:0]      posSum2                 ;	
 wire            [15:0]      posSum3                 ;	
-reg                         posLess                 ;
+reg                         posLoad1                ;
 reg                         posDiff                 ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
@@ -148,42 +148,42 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
-//assign posLess = ( posSum1 < m3r_pwmMinMask ) ;
+//assign posLoad1= ( posSum1 < m3r_pwmMinMask ) ;
 //assign pwmMinNow    = (m3r_pwmLenWant[11] == 1'b1 ) ? ({4'd0,m3r_pwmMinMask}) : (16'h8000);
 //assign pwmMinNow    = ({4'd0,m3r_pwmMinMask}) ;
 assign pwmMinNow    = 12'd256;
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
     if ( sgStep == 4'd11 ) begin // C
         if ( posSumExtC >= posSum1 ) begin
-            posLess     = ( posSum1 < pwmMinNow ) ;
+            posLoad1    = ( posSum1 < pwmMinNow ) ;
             posDiff     = 1'b0 ;
         end
         else begin
-            posLess     = 1'b1 ;
+            posLoad1    = 1'b1 ;
             posDiff     = 1'b1 ;
         end
     end
     else begin
         if ( sgStep == 4'd6 ) begin // B
             if ( posSumExtB >= posSum1 ) begin
-                posLess     = ( posSum1 < pwmMinNow ) ;
+                posLoad1    = ( posSum1 < pwmMinNow ) ;
                 posDiff     = 1'b0 ;
             end
             else begin
-                posLess     = 1'b1 ;
+                posLoad1    = 1'b1 ;
                 posDiff     = 1'b1 ;
             end
         end
         else begin
-            posLess     = ( posSum1 < pwmMinNow ) ;
+            posLoad1    = ( posSum1 < pwmMinNow ) ;
             posDiff     = 1'b0 ;
         end
     end
 end
 
 assign posSum1 = posRemain    + plLen ;
-assign posSum2 = ( posLess )? 0 : posSum1 ;
-assign posSum3 = ( posLess )? posSum1 : 0 ;
+assign posSum2 = ( posLoad1)? 0 : posSum1 ;
+assign posSum3 = ( posLoad1)? posSum1 : 0 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posRemain               <= 16'd0 ;
@@ -208,7 +208,7 @@ always @ (negedge clk or negedge nRst) begin
                     pwmPOScnt   <=  posSum2 ;
         end
         else begin
-//            if ( posLess ) begin
+//            if ( posLoad1) begin
 //                pwmPOScnt           <= 16'd0 ;
 //            end
 //            else begin
