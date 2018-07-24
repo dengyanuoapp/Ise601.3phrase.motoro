@@ -54,6 +54,7 @@ wire            [15:0]      posSum1                 ;
 wire            [15:0]      posSum2                 ;	
 wire            [15:0]      posSum3                 ;	
 reg                         posLess                 ;
+reg                         posDiff                 ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
 reg             [15:0]      posACCreal1             ;	
@@ -155,22 +156,27 @@ always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
     if ( sgStep == 4'd11 ) begin // C
         if ( posSumExtC >= posSum1 ) begin
             posLess     = ( posSum1 < pwmMinNow ) ;
+            posDiff     = 1'b0 ;
         end
         else begin
             posLess     = 1'b1 ;
+            posDiff     = 1'b1 ;
         end
     end
     else begin
         if ( sgStep == 4'd6 ) begin // B
             if ( posSumExtB >= posSum1 ) begin
                 posLess     = ( posSum1 < pwmMinNow ) ;
+                posDiff     = 1'b0 ;
             end
             else begin
                 posLess     = 1'b1 ;
+                posDiff     = 1'b1 ;
             end
         end
         else begin
             posLess     = ( posSum1 < pwmMinNow ) ;
+            posDiff     = 1'b0 ;
         end
     end
 end
@@ -183,8 +189,13 @@ always @ (negedge clk or negedge nRst) begin
         posRemain               <= 16'd0 ;
     end
     else begin
-        if ( pwmACCreload1 ) begin
+        if ( m3cntLast2 ) begin
+            posRemain           <= 16'd0 ;
+        end
+        else begin
+            if ( pwmACCreload1 ) begin
                 posRemain       <= posSum3 ;
+            end
         end
     end
 end
