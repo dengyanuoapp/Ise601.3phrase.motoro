@@ -160,7 +160,7 @@ always @ (negedge clk or negedge nRst) begin
         posACCreal2             <= 16'd0    ;
     end
     else begin
-        if ( m3cntLast2 == 1'd1 ) begin
+        if ( m3cntLast2 ) begin
             posACCwant2         <= posACCwant1 ;
             posACCreal2         <= posACCreal1 ;
         end
