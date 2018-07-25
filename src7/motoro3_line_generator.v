@@ -1,5 +1,5 @@
 module motoro3_line_generator(
-    posActive1                  ,
+    pwmActive1                  ,
 
     posSumExtA                  ,	
     posSumExtB                  ,	
@@ -14,6 +14,7 @@ module motoro3_line_generator(
     m3cntLast1                  ,
     m3cntLast2                  ,
     m3cntFirst1                 ,
+    m3cntFirst2                 ,
 
     m3r_power_percent           ,	
     m3r_stepCNT_speedSET        ,	
@@ -26,7 +27,7 @@ module motoro3_line_generator(
 
 );
 
-input   wire                posActive1              ;		
+input   wire                pwmActive1              ;		
 
 output  wire    [15:0]      posSumExtA              ;	
 input   wire    [15:0]      posSumExtB              ;	
@@ -44,6 +45,7 @@ input   wire    [24:0]      m3cnt                   ;
 input   wire                m3cntLast1              ;
 input   wire                m3cntLast2              ;
 input   wire                m3cntFirst1             ;		
+input   wire                m3cntFirst2             ;		
 input   wire    [7:0]       m3r_power_percent       ;	// to control the percent of power , max 255 % , min 1 %.
 input   wire    [24:0]      m3r_stepCNT_speedSET    ;	 // to control the speed
 input   wire    [11:0]      m3r_pwmLenWant          ;	
@@ -75,7 +77,7 @@ lCalc
 motoro3_pwm_generator
 pwmSG
 (
-    .posActive1             ( posActive1                ),
+    .pwmActive1             ( pwmActive1                ),
     .posSumExtA             ( posSumExtA                ),
     .posSumExtB             ( posSumExtB                ),
     .posSumExtC             ( posSumExtC                ),
@@ -89,6 +91,7 @@ pwmSG
     .m3cntLast1             ( m3cntLast1                ),
     .m3cntLast2             ( m3cntLast2                ),
     .m3cntFirst1            ( m3cntFirst1               ),
+    .m3cntFirst2            ( m3cntFirst2               ),
     .nRst                   ( nRst                      ),
     .clk                    ( clk                       ) 
 );// motoro3_pwm_generator                             

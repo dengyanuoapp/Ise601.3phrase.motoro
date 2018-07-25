@@ -46,6 +46,7 @@ wire            [24:0]      m3cnt                   ;
 wire                        m3cntLast1              ;
 wire                        m3cntLast2              ;
 wire                        m3cntFirst1             ;
+wire                        m3cntFirst2             ;
 wire            [24:0]      m3r_stepCNT_speedSET    ;	
 wire            [7:0]       m3r_power_percent       ;	
 wire            [11:0]      m3r_pwmLenWant          ;	
@@ -54,7 +55,7 @@ wire            [1:0]       m3r_stepSplitMax        ;
 wire            [15:0]      posSumExtAA             ;	
 wire            [15:0]      posSumExtBB             ;	
 wire            [15:0]      posSumExtCC             ;	
-wire                        posActive1              ;
+wire                        pwmActive1              ;
 
 motoro3_regs
 m3reg
@@ -72,7 +73,7 @@ m3reg
 motoro3_step_generator
 sg
 (
-    .posActive1             ( posActive1                ),
+    .pwmActive1             ( pwmActive1                ),
 
     .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
@@ -85,6 +86,7 @@ sg
     .m3cntLast1             ( m3cntLast1                ),
     .m3cntLast2             ( m3cntLast2                ),
     .m3cntFirst1            ( m3cntFirst1               ),
+    .m3cntFirst2            ( m3cntFirst2               ),
     .m3start                ( m3start                   ),
     .m3freqINC              ( m3freqINC                 ),
     .m3freqDEC              ( m3freqDEC                 ),
@@ -98,7 +100,7 @@ sg
 motoro3_line_generator
 lgA
 (
-    .posActive1             ( posActive1                ),
+    .pwmActive1             ( pwmActive1                ),
 
     .posSumExtA             ( posSumExtAA               ),
     .posSumExtB             ( posSumExtBB               ),
@@ -112,6 +114,7 @@ lgA
     .m3cntLast1             ( m3cntLast1                ),
     .m3cntLast2             ( m3cntLast2                ),
     .m3cntFirst1            ( m3cntFirst1               ),
+    .m3cntFirst2            ( m3cntFirst2               ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
@@ -125,7 +128,7 @@ lgA
 motoro3_line_generator
 lgB
 (
-    .posActive1             ( posActive1                ),
+    .pwmActive1             ( pwmActive1                ),
 
     .posSumExtA             ( posSumExtBB               ),
     .posSumExtB             ( posSumExtCC               ),
@@ -139,6 +142,7 @@ lgB
     .m3cntLast1             ( m3cntLast1                ),
     .m3cntLast2             ( m3cntLast2                ),
     .m3cntFirst1            ( m3cntFirst1               ),
+    .m3cntFirst2            ( m3cntFirst2               ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
@@ -152,7 +156,7 @@ lgB
 motoro3_line_generator
 lgC
 (
-    .posActive1             ( posActive1                ),
+    .pwmActive1             ( pwmActive1                ),
 
     .posSumExtA             ( posSumExtCC               ),
     .posSumExtB             ( posSumExtAA               ),
@@ -166,6 +170,7 @@ lgC
     .m3cntLast1             ( m3cntLast1                ),
     .m3cntLast2             ( m3cntLast2                ),
     .m3cntFirst1            ( m3cntFirst1               ),
+    .m3cntFirst2            ( m3cntFirst2               ),
 
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),

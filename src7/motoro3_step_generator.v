@@ -1,14 +1,13 @@
 module motoro3_step_generator(
-    posActive1                  ,
 
     m3LpwmSplitStep             ,
-    m3r_stepSplitMax            ,	
+    m3r_stepSplitMax            ,
 
     m3stepA                     ,
     m3stepB                     ,
     m3stepC                     ,
     m3cnt                       ,
-                               
+
     m3start                     ,
     m3freqINC                   ,
     m3freqDEC                   ,
@@ -16,6 +15,8 @@ module motoro3_step_generator(
     m3cntLast1                  ,
     m3cntLast2                  ,
     m3cntFirst1                 ,
+    m3cntFirst2                 ,
+    pwmActive1                  ,
 
     m3r_stepCNT_speedSET        ,
 
@@ -23,35 +24,36 @@ module motoro3_step_generator(
     clk
 );
 
-output  reg                 posActive1              ;		
 
 // 0: idle
 // 1,2,3,4,5,6:nomal
 // 7:force stop
-output  reg     [1:0]       m3LpwmSplitStep         ;	
-input   wire    [1:0]       m3r_stepSplitMax        ;	
+output  reg     [1:0]       m3LpwmSplitStep         ;
+input   wire    [1:0]       m3r_stepSplitMax        ;
 
-output  reg     [3:0]       m3stepA;	
-output  reg     [3:0]       m3stepB;	
-output  reg     [3:0]       m3stepC;	
-output  reg     [24:0]      m3cnt;	
-output  wire                m3cntLast1 ;
-output  wire                m3cntLast2 ;
-output  wire                m3cntFirst1 ;
-input   wire    [24:0]      m3r_stepCNT_speedSET    ;	
+output  reg     [3:0]       m3stepA                 ;
+output  reg     [3:0]       m3stepB                 ;
+output  reg     [3:0]       m3stepC                 ;
+output  reg     [24:0]      m3cnt                   ;
+output  wire                m3cntLast1              ;
+output  wire                m3cntLast2              ;
+output  wire                m3cntFirst1             ;
+output  wire                m3cntFirst2             ;
+output  reg                 pwmActive1              ;
+input   wire    [24:0]      m3r_stepCNT_speedSET    ;
 
-input   wire                m3start;	
-input   wire                m3freqINC;	 
-input   wire                m3freqDEC;	 
+input   wire                m3start;
+input   wire                m3freqINC;
+input   wire                m3freqDEC;
 
 
 input   wire                clk;			// 10MHz
-input   wire                nRst;		
+input   wire                nRst;
 
-reg                         m3start_clked1;	
-wire                        m3start_up1;	
+reg                         m3start_clked1;
+wire                        m3start_up1;
 
-reg             [64:0]      roundCNT                ;	
+reg             [64:0]      roundCNT                ;
 
 assign  m3cntLast1 = ( m3cnt[24:1] == 24'd0 )? 1'd1:1'd0 ;
 assign  m3cntLast2 = m3cntLast1 && (m3LpwmSplitStep == 0 );
@@ -143,22 +145,22 @@ end
 
 always @( m3stepA ) begin
     case ( m3stepA )
-        4'd0    :   begin   m3stepB = 4'd8  ;   m3stepC = 4'd4  ;   posActive1 = 1'b1 ; end
-        4'd1    :   begin   m3stepB = 4'd9  ;   m3stepC = 4'd5  ;   posActive1 = 1'b1 ; end
-        4'd2    :   begin   m3stepB = 4'd10 ;   m3stepC = 4'd6  ;   posActive1 = 1'b1 ; end
-        4'd3    :   begin   m3stepB = 4'd11 ;   m3stepC = 4'd7  ;   posActive1 = 1'b1 ; end
-                                                                   
-        4'd4    :   begin   m3stepB = 4'd0  ;   m3stepC = 4'd8  ;   posActive1 = 1'b1 ; end
-        4'd5    :   begin   m3stepB = 4'd1  ;   m3stepC = 4'd9  ;   posActive1 = 1'b1 ; end
-        4'd6    :   begin   m3stepB = 4'd2  ;   m3stepC = 4'd10 ;   posActive1 = 1'b1 ; end
-        4'd7    :   begin   m3stepB = 4'd3  ;   m3stepC = 4'd11 ;   posActive1 = 1'b1 ; end
-                                                                   
-        4'd8    :   begin   m3stepB = 4'd4  ;   m3stepC = 4'd0  ;   posActive1 = 1'b1 ; end
-        4'd9    :   begin   m3stepB = 4'd5  ;   m3stepC = 4'd1  ;   posActive1 = 1'b1 ; end
-        4'd10   :   begin   m3stepB = 4'd6  ;   m3stepC = 4'd2  ;   posActive1 = 1'b1 ; end
-        4'd11   :   begin   m3stepB = 4'd7  ;   m3stepC = 4'd3  ;   posActive1 = 1'b1 ; end
-                                                                   
-        default :   begin   m3stepB = 4'hE  ;   m3stepC = 4'hE  ;   posActive1 = 1'b0 ; end
+        4'd0    :   begin   m3stepB = 4'd8  ;   m3stepC = 4'd4  ;   pwmActive1 = 1'b1 ; end
+        4'd1    :   begin   m3stepB = 4'd9  ;   m3stepC = 4'd5  ;   pwmActive1 = 1'b1 ; end
+        4'd2    :   begin   m3stepB = 4'd10 ;   m3stepC = 4'd6  ;   pwmActive1 = 1'b1 ; end
+        4'd3    :   begin   m3stepB = 4'd11 ;   m3stepC = 4'd7  ;   pwmActive1 = 1'b1 ; end
+
+        4'd4    :   begin   m3stepB = 4'd0  ;   m3stepC = 4'd8  ;   pwmActive1 = 1'b1 ; end
+        4'd5    :   begin   m3stepB = 4'd1  ;   m3stepC = 4'd9  ;   pwmActive1 = 1'b1 ; end
+        4'd6    :   begin   m3stepB = 4'd2  ;   m3stepC = 4'd10 ;   pwmActive1 = 1'b1 ; end
+        4'd7    :   begin   m3stepB = 4'd3  ;   m3stepC = 4'd11 ;   pwmActive1 = 1'b1 ; end
+
+        4'd8    :   begin   m3stepB = 4'd4  ;   m3stepC = 4'd0  ;   pwmActive1 = 1'b1 ; end
+        4'd9    :   begin   m3stepB = 4'd5  ;   m3stepC = 4'd1  ;   pwmActive1 = 1'b1 ; end
+        4'd10   :   begin   m3stepB = 4'd6  ;   m3stepC = 4'd2  ;   pwmActive1 = 1'b1 ; end
+        4'd11   :   begin   m3stepB = 4'd7  ;   m3stepC = 4'd3  ;   pwmActive1 = 1'b1 ; end
+
+        default :   begin   m3stepB = 4'hE  ;   m3stepC = 4'hE  ;   pwmActive1 = 1'b0 ; end
     endcase
 
 end

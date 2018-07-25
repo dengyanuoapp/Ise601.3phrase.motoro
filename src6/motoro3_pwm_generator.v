@@ -1,5 +1,5 @@
 module motoro3_pwm_generator(
-    posActive1                  ,
+    pwmActive1                  ,
 
     posSumExtA                  ,	
     posSumExtB                  ,	
@@ -17,13 +17,14 @@ module motoro3_pwm_generator(
     m3cntLast1                  ,
     m3cntLast2                  ,
     m3cntFirst1                 ,
+    m3cntFirst2                 ,
                                
     nRst                        ,
     clk
 
 );
 
-input   wire                posActive1              ;		
+input   wire                pwmActive1              ;		
 
 output  wire    [15:0]      posSumExtA              ;	
 input   wire    [15:0]      posSumExtB              ;	
@@ -40,6 +41,7 @@ output  wire                pwm                     ;
 input   wire                m3cntLast1              ;		
 input   wire                m3cntLast2              ;		
 input   wire                m3cntFirst1             ;		
+input   wire                m3cntFirst2             ;		
 input   wire    [24:0]      m3cnt                   ;	
 
 input   wire                clk                     ;			// 10MHz
