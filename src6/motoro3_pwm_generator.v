@@ -200,15 +200,19 @@ assign posSum3 = ( posLoad1)? 0 : posSum1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posRemain1              <= 16'd0 ;
+        posRemain2              <= 16'd0 ;
     end
     else begin
         if ( m3cntLast2 ) begin
             posRemain1          <= 16'd0 ;
         end
         else begin
-            if ( pwmACCreload1 ) begin
+            if ( m3cntLast2_clked ) begin
                 posRemain1      <= posSum3 ;
             end
+        end
+        if ( m3cntLast2_clked ) begin
+            posRemain2          <= posLost2 ;
         end
     end
 end
