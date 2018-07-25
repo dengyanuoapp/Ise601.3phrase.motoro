@@ -37,7 +37,7 @@ output  reg     [3:0]       m3stepC                 ;
 output  reg     [24:0]      m3cnt                   ;
 output  wire                m3cntLast1              ;
 output  wire                m3cntLast2              ;
-output  wire                m3cntFirst1             ;
+output  reg                 m3cntFirst1             ;
 output  wire                m3cntFirst2             ;
 output  reg                 pwmActive1              ;
 input   wire    [24:0]      m3r_stepCNT_speedSET    ;
@@ -55,8 +55,10 @@ wire                        m3start_up1;
 
 reg             [64:0]      roundCNT                ;
 
-assign  m3cntLast1 = ( m3cnt[24:1] == 24'd0 )? 1'd1:1'd0 ;
-assign  m3cntLast2 = m3cntLast1 && (m3LpwmSplitStep == 0 );
+assign  m3cntLast1  = ( m3cnt[24:1] == 24'd0 )? 1'd1:1'd0 ;
+assign  m3cntLast2  = m3cntLast1 && (m3LpwmSplitStep == 0 );
+
+assign  m3cntFirst2 = m3cntFirst1 && (m3LpwmSplitStep == m3r_stepSplitMax );
 
 
 assign  m3start_up1 = (m3start) && (~m3start_clked1) ;
@@ -71,15 +73,18 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        m3cnt               <= m3r_stepCNT_speedSET            ;
+        m3cnt               <= m3r_stepCNT_speedSET             ;
+        m3cntFirst1         <= 1'b0                             ;
     end
     else begin
+        m3cntFirst1         <= 1'b0                             ;
         if ( m3start_up1 == 1 || m3cntLast1 == 1) begin
-            m3cnt           <= m3r_stepCNT_speedSET            ;
+            m3cnt           <= m3r_stepCNT_speedSET             ;
+            m3cntFirst1     <= 1'b1                             ;
         end
         else begin
             if ( m3start == 1 ) begin
-                m3cnt       <= m3cnt - 25'd1 ;
+                m3cnt       <= m3cnt - 25'd1                    ;
             end
         end
     end
