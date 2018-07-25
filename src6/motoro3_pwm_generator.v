@@ -111,12 +111,20 @@ always @ (negedge clk or negedge nRst) begin
         pwmCNT                  <= m3r_pwmLenWant ;
     end
     else begin
-        if ( m3cntLast1 == 1'd1 ) begin
+        if ( ! pwmActive1 ) begin
             pwmCNT              <= m3r_pwmLenWant ;
         end
         else begin
-            if ( pwmCNT ) begin
-                pwmCNT          <= pwmCNT  - 9'd1 ;
+            if ( m3cntLast1 ) begin
+                pwmCNT          <= m3r_pwmLenWant ;
+            end
+            else begin
+                if ( pwmCNT == 16'd1 ) begin
+                    pwmCNT      <= m3r_pwmLenWant ;
+                end
+                else begin
+                    pwmCNT      <= pwmCNT  - 9'd1 ;
+                end
             end
         end
     end
