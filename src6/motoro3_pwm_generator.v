@@ -272,8 +272,8 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
-always @( m3stepA ) begin
-    case ( m3stepA )
+always @( sgStep ) begin
+    case ( sgStep )
         4'd0 , 4'd1 , 4'd2 , 4'd3 , 4'd4 , 4'd5    :   begin   pwmH1L0 = 1'b1 ; end
         default :   begin   pwmH1L0 = 1'b0 ; end
     endcase
