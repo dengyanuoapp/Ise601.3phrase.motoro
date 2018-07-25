@@ -48,8 +48,8 @@ input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
 
 reg             [11:0]      pwmCNT                  ;	
-//wire                        pwmCNTreload1           ;
-wire                        pwmCNTreload2           ;
+wire                        pwmCNTreload1           ;
+//wire                        pwmCNTreload2           ;
 wire                        pwmCNTreload3           ;
 //wire                        pwmCNTreload9           ;
 //reg                         pwmCNTreload_clked1     ;
@@ -106,6 +106,7 @@ reg                         pwmH1L0                 ;
 //assign pwmCNTreload3 = (plLen == 16'd0);
 //assign pwmCNTreload9 = ( m3cntLast1 | pwmCNTreload2 | pwmCNTreload3 );
 //assign pwmCNTreload9 = m3cntLast1 ;
+assign pwmCNTreload1 = (pwmCNT == 16'd1 ) ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNT                  <= m3r_pwmLenWant ;
@@ -119,7 +120,7 @@ always @ (negedge clk or negedge nRst) begin
                 pwmCNT          <= m3r_pwmLenWant ;
             end
             else begin
-                if ( pwmCNT == 16'd1 ) begin
+                if ( pwmCNTreload1 ) begin
                     pwmCNT      <= m3r_pwmLenWant ;
                 end
                 else begin
