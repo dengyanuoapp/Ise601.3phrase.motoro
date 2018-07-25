@@ -74,7 +74,7 @@ reg             [15:0]      posLost1                ;
 reg             [15:0]      posLost2                ;	
 reg             [15:0]      posStep                 ;	
 reg             [15:0]      posLost4                ;	
-reg                         m3cntLast2_clked        ;		
+//reg                         m3cntLast2_clked        ;		
 reg                         pwmH1L0                 ;	
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
@@ -219,11 +219,11 @@ always @ (negedge clk or negedge nRst) begin
             posRemain1          <= 16'd0 ;
         end
         else begin
-            if ( m3cntLast2_clked ) begin
+            if ( m3cntFirst1 ) begin
                 posRemain1      <= posSum3 ;
             end
         end
-        if ( m3cntLast2_clked ) begin
+        if ( m3cntFirst1 ) begin
             posRemain2          <= posLost2 ;
         end
     end
@@ -252,7 +252,7 @@ always @ (negedge clk or negedge nRst) begin
         posLost4                <= 16'd0 ;
     end
     else begin
-        if ( m3cntLast2_clked ) begin
+        if ( m3cntFirst1 ) begin
             posLost1        <= posACCwant2 - posACCreal2 ;
             if ( sgStep == 4'd1 || sgStep == 4'd7 ) begin
                 posLost2    <= posACCwant2 - posACCreal2 ;
