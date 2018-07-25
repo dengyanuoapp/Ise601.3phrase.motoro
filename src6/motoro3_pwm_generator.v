@@ -48,11 +48,11 @@ input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
 
 reg             [11:0]      pwmCNT                  ;	
-wire                        pwmCNTreload1           ;
+//wire                        pwmCNTreload1           ;
 wire                        pwmCNTreload2           ;
 wire                        pwmCNTreload3           ;
 wire                        pwmCNTreload9           ;
-reg                         pwmCNTreload_clked1     ;
+//reg                         pwmCNTreload_clked1     ;
 
 wire                        pwmACCreload1           ;
 reg             [15:0]      pwmPOScnt               ;	
@@ -90,21 +90,22 @@ reg                         pwmH1L0                 ;
 // // //`define pwmTest      12'h110 //  half of 511(0x1ff) * 0.1us == 26us
 // // //`define pwmTest      5'h10 // 1.56us // lost... the FPGA output lost... so, the MOSFET must be lost.
 
-always @ (negedge clk or negedge nRst) begin
-    if(!nRst) begin
-        pwmCNTreload_clked1     <= 1'd0             ;
-        m3cntLast2_clked        <= 1'd0             ;
-    end
-    else begin
-        pwmCNTreload_clked1     <= pwmCNTreload9    ;
-        m3cntLast2_clked        <= m3cntLast2 | sgStep == 4'd15      ;
-    end
-end
+//always @ (negedge clk or negedge nRst) begin
+//    if(!nRst) begin
+//        pwmCNTreload_clked1     <= 1'd0             ;
+//        m3cntLast2_clked        <= 1'd0             ;
+//    end
+//    else begin
+//        pwmCNTreload_clked1     <= pwmCNTreload9    ;
+//        m3cntLast2_clked        <= m3cntLast2 | sgStep == 4'd15      ;
+//    end
+//end
 
-assign pwmCNTreload1 = m3cntLast1 ;
-assign pwmCNTreload2 = (pwmCNT == 12'd1 ) ;
-assign pwmCNTreload3 = (plLen == 16'd0);
-assign pwmCNTreload9 = ( pwmCNTreload1 | pwmCNTreload2 | pwmCNTreload3 );
+//assign pwmCNTreload1 = m3cntLast1 ;
+//assign pwmCNTreload2 = (pwmCNT == 12'd1 ) ;
+//assign pwmCNTreload3 = (plLen == 16'd0);
+//assign pwmCNTreload9 = ( m3cntLast1 | pwmCNTreload2 | pwmCNTreload3 );
+assign pwmCNTreload9 = m3cntLast1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         pwmCNT                  <= m3r_pwmLenWant ;
@@ -114,14 +115,16 @@ always @ (negedge clk or negedge nRst) begin
             pwmCNT              <= m3r_pwmLenWant ;
         end
         else begin
-                    pwmCNT      <= pwmCNT  - 9'd1 ;
+            if ( pwmCNT ) begin
+                pwmCNT          <= pwmCNT  - 9'd1 ;
+            end
         end
     end
 end
 
-//assign posCNTreload1    = ( (m3cntLast1 == 1'd1 ) && ( (sgStep >= 4'd5) ) );
-//assign posCNTreload1    = (sgStep >= 4'd5) ;
-assign pwmACCreload1    = (~pwmCNTreload9) & pwmCNTreload_clked1 ;
+////assign posCNTreload1    = ( (m3cntLast1 == 1'd1 ) && ( (sgStep >= 4'd5) ) );
+////assign posCNTreload1    = (sgStep >= 4'd5) ;
+//assign pwmACCreload1    = (~pwmCNTreload9) & pwmCNTreload_clked1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posACCwant1             <= 16'd0    ;
