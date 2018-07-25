@@ -143,7 +143,7 @@ always @ (negedge clk or negedge nRst) begin
             posACCwant1         <= 16'd0    ;
         end
         else begin
-            if ( m3cntFirst1 ) begin
+            if ( pwmCNTreload1 ) begin
                     posACCwant1     <=  posACCwant1+ plLen ;
             end
         end
