@@ -139,12 +139,17 @@ always @ (negedge clk or negedge nRst) begin
         posACCwant1             <= 16'd0    ;
     end
     else begin
-        if ( m3cntLast2 ) begin
-            posACCwant1         <= 16'd0    ;
+        if ( ! pwmActive1 ) begin
+            posACCwant1             <= 16'd0    ;
         end
         else begin
-            if ( pwmCNTreload1 ) begin
+            if ( m3cntFirst2 ) begin
+                posACCwant1         <= plLen ;
+            end
+            else begin
+                if ( pwmCNTreload1 ) begin
                     posACCwant1     <=  posACCwant1+ plLen ;
+                end
             end
         end
     end
