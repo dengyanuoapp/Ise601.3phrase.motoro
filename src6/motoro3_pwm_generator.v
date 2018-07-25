@@ -68,7 +68,7 @@ reg             [15:0]      posACCreal2             ;
 wire            [15:0]      pwmMinNow               ;	
 reg             [15:0]      posLost1                ;	
 reg             [15:0]      posLost2                ;	
-reg             [15:0]      posLost3                ;	
+reg             [15:0]      posStep                 ;	
 reg             [15:0]      posLost4                ;	
 reg                         m3cntLast2_clked        ;		
 
@@ -258,11 +258,11 @@ always @ (negedge clk or negedge nRst) begin
 end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posLost3                <= 16'd0 ;
+        posStep                 <= 16'hFF ;
     end
     else begin
         if ( m3cntLast2 ) begin
-            posLost3        <= sgStep ;
+            posStep         <= sgStep ;
         end
     end
 end
