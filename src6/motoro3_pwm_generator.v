@@ -147,7 +147,7 @@ always @ (negedge clk or negedge nRst) begin
                 posACCwant1         <= plLen ;
             end
             else begin
-                if ( pwmCNTreload1 ) begin
+                if ( m3cntFirst1 || pwmCNTreload1 ) begin
                     posACCwant1     <=  posACCwant1+ plLen ;
                 end
             end
