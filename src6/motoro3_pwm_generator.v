@@ -1,4 +1,6 @@
 module motoro3_pwm_generator(
+    posActive1                  ,
+
     posSumExtA                  ,	
     posSumExtB                  ,	
     posSumExtC                  ,	
@@ -19,6 +21,8 @@ module motoro3_pwm_generator(
     clk
 
 );
+
+input   wire                posActive1              ;		
 
 output  wire    [15:0]      posSumExtA              ;	
 input   wire    [15:0]      posSumExtB              ;	

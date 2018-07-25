@@ -1,4 +1,6 @@
 module motoro3_step_generator(
+    posActive1                  ,
+
     m3LpwmSplitStep             ,
     m3r_stepSplitMax            ,	
 
@@ -19,6 +21,8 @@ module motoro3_step_generator(
     nRst                        ,
     clk
 );
+
+output  reg                 posActive1              ;		
 
 // 0: idle
 // 1,2,3,4,5,6:nomal
@@ -137,22 +141,22 @@ end
 
 always @( m3stepA ) begin
     case ( m3stepA )
-        4'd0    :   begin   m3stepB = 4'd8  ;   m3stepC = 4'd4  ;   end
-        4'd1    :   begin   m3stepB = 4'd9  ;   m3stepC = 4'd5  ;   end
-        4'd2    :   begin   m3stepB = 4'd10 ;   m3stepC = 4'd6  ;   end
-        4'd3    :   begin   m3stepB = 4'd11 ;   m3stepC = 4'd7  ;   end
+        4'd0    :   begin   m3stepB = 4'd8  ;   m3stepC = 4'd4  ;   posActive1 = 1'b1 ; end
+        4'd1    :   begin   m3stepB = 4'd9  ;   m3stepC = 4'd5  ;   posActive1 = 1'b1 ; end
+        4'd2    :   begin   m3stepB = 4'd10 ;   m3stepC = 4'd6  ;   posActive1 = 1'b1 ; end
+        4'd3    :   begin   m3stepB = 4'd11 ;   m3stepC = 4'd7  ;   posActive1 = 1'b1 ; end
                                                                    
-        4'd4    :   begin   m3stepB = 4'd0  ;   m3stepC = 4'd8  ;   end
-        4'd5    :   begin   m3stepB = 4'd1  ;   m3stepC = 4'd9  ;   end
-        4'd6    :   begin   m3stepB = 4'd2  ;   m3stepC = 4'd10 ;   end
-        4'd7    :   begin   m3stepB = 4'd3  ;   m3stepC = 4'd11 ;   end
+        4'd4    :   begin   m3stepB = 4'd0  ;   m3stepC = 4'd8  ;   posActive1 = 1'b1 ; end
+        4'd5    :   begin   m3stepB = 4'd1  ;   m3stepC = 4'd9  ;   posActive1 = 1'b1 ; end
+        4'd6    :   begin   m3stepB = 4'd2  ;   m3stepC = 4'd10 ;   posActive1 = 1'b1 ; end
+        4'd7    :   begin   m3stepB = 4'd3  ;   m3stepC = 4'd11 ;   posActive1 = 1'b1 ; end
                                                                    
-        4'd8    :   begin   m3stepB = 4'd4  ;   m3stepC = 4'd0  ;   end
-        4'd9    :   begin   m3stepB = 4'd5  ;   m3stepC = 4'd1  ;   end
-        4'd10   :   begin   m3stepB = 4'd6  ;   m3stepC = 4'd2  ;   end
-        4'd11   :   begin   m3stepB = 4'd7  ;   m3stepC = 4'd3  ;   end
+        4'd8    :   begin   m3stepB = 4'd4  ;   m3stepC = 4'd0  ;   posActive1 = 1'b1 ; end
+        4'd9    :   begin   m3stepB = 4'd5  ;   m3stepC = 4'd1  ;   posActive1 = 1'b1 ; end
+        4'd10   :   begin   m3stepB = 4'd6  ;   m3stepC = 4'd2  ;   posActive1 = 1'b1 ; end
+        4'd11   :   begin   m3stepB = 4'd7  ;   m3stepC = 4'd3  ;   posActive1 = 1'b1 ; end
                                                                    
-        default :   begin   m3stepB = 4'hE  ;   m3stepC = 4'hE  ;   end
+        default :   begin   m3stepB = 4'hE  ;   m3stepC = 4'hE  ;   posActive1 = 1'b0 ; end
     endcase
 
 end
