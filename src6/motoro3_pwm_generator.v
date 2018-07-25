@@ -16,6 +16,7 @@ module motoro3_pwm_generator(
     m3cnt                       ,
     m3cntLast1                  ,
     m3cntLast2                  ,
+    m3cntFirst1                 ,
                                
     nRst                        ,
     clk
@@ -38,6 +39,7 @@ output  wire                pwm                     ;
 
 input   wire                m3cntLast1              ;		
 input   wire                m3cntLast2              ;		
+input   wire                m3cntFirst1             ;		
 input   wire    [24:0]      m3cnt                   ;	
 
 input   wire                clk                     ;			// 10MHz

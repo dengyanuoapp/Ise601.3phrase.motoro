@@ -15,6 +15,7 @@ module motoro3_step_generator(
 
     m3cntLast1                  ,
     m3cntLast2                  ,
+    m3cntFirst1                 ,
 
     m3r_stepCNT_speedSET        ,
 
@@ -36,6 +37,7 @@ output  reg     [3:0]       m3stepC;
 output  reg     [24:0]      m3cnt;	
 output  wire                m3cntLast1 ;
 output  wire                m3cntLast2 ;
+output  wire                m3cntFirst1 ;
 input   wire    [24:0]      m3r_stepCNT_speedSET    ;	
 
 input   wire                m3start;	
