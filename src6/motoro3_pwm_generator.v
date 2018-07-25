@@ -75,6 +75,7 @@ reg             [15:0]      posLost2                ;
 reg             [15:0]      posStep                 ;	
 reg             [15:0]      posLost4                ;	
 reg                         m3cntLast2_clked        ;		
+reg                         pwmH1L0                 ;	
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
@@ -269,6 +270,13 @@ always @ (negedge clk or negedge nRst) begin
             posStep         <= sgStep ;
         end
     end
+end
+
+always @( m3stepA ) begin
+    case ( m3stepA )
+        4'd0 , 4'd1 , 4'd2 , 4'd3 , 4'd4 , 4'd5    :   begin   pwmH1L0 = 1'b1 ; end
+        default :   begin   pwmH1L0 = 1'b0 ; end
+    endcase
 end
 
 assign posSumExtA   = posSum1   ;
