@@ -1,5 +1,5 @@
 module motoro3_line_calc_parameter(
-    plLen                       ,
+    pwmPOS                      ,
     m3LpwmSplitStep             ,
     m3r_power_percent           ,	
     m3r_stepCNT_speedSET        ,	
@@ -19,13 +19,13 @@ input   wire    [3:0]       lcStep                  ;
                                                    
                                                    
 wire            [15:0]      slLen                   ;	
-output  wire    [15:0]      plLen                   ;	
+output  wire    [15:0]      pwmPOS                  ;	
 
 motoro3_calc_pwm_len
 lcPWMlen
 (
     .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
-    .plLen                  ( plLen                     ),
+    .pwmPOS                 ( pwmPOS                    ),
     .m3r_power_percent      ( m3r_power_percent         ),
     .m3r_stepCNT_speedSET   ( m3r_stepCNT_speedSET      ),
     .m3r_pwmLenWant         ( m3r_pwmLenWant            ),
