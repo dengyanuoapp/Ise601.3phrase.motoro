@@ -49,7 +49,8 @@ reg                         pwmCNTreload_clked1     ;
 wire                        pwmACCreload1           ;
 reg             [15:0]      pwmPOScnt               ;	
 
-reg             [15:0]      posRemain               ;	
+reg             [15:0]      posRemain1              ;	
+reg             [15:0]      posRemain2              ;	
 wire            [15:0]      posSum1                 ;	
 wire            [15:0]      posSum2                 ;	
 wire            [15:0]      posSum3                 ;	
@@ -193,20 +194,20 @@ always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
     end
 end
 
-assign posSum1 = posRemain    + plLen ;
+assign posSum1 = posRemain1   + plLen ;
 assign posSum2 = ( posLoad1)? posSum1 : 0 ;
 assign posSum3 = ( posLoad1)? 0 : posSum1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posRemain               <= 16'd0 ;
+        posRemain1              <= 16'd0 ;
     end
     else begin
         if ( m3cntLast2 ) begin
-            posRemain           <= 16'd0 ;
+            posRemain1          <= 16'd0 ;
         end
         else begin
             if ( pwmACCreload1 ) begin
-                posRemain       <= posSum3 ;
+                posRemain1      <= posSum3 ;
             end
         end
     end
