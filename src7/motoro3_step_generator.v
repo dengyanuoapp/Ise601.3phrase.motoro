@@ -1,5 +1,6 @@
 module motoro3_step_generator(
 
+    pwmLastStep1                ,
     m3LpwmSplitStep             ,
     m3r_stepSplitMax            ,
 
@@ -28,6 +29,7 @@ module motoro3_step_generator(
 // 0: idle
 // 1,2,3,4,5,6:nomal
 // 7:force stop
+output  wire    [1:0]       pwmLastStep1            ;
 output  reg     [1:0]       m3LpwmSplitStep         ;
 input   wire    [1:0]       m3r_stepSplitMax        ;
 
@@ -56,7 +58,8 @@ wire                        m3start_up1;
 reg             [64:0]      roundCNT                ;
 
 assign  m3cntLast1  = ( m3cnt[24:1] == 24'd0 )? 1'd1:1'd0 ;
-assign  m3cntLast2  = m3cntLast1 && (m3LpwmSplitStep == 0 );
+assign  m3cntLast2  = m3cntLast1 && pwmLastStep1 ;
+assign  pwmLastStep1    = ( m3LpwmSplitStep == 2'd0 );
 
 assign  m3cntFirst2 = m3cntFirst1 && (m3LpwmSplitStep == m3r_stepSplitMax );
 
@@ -100,7 +103,7 @@ always @ (negedge clk or negedge nRst) begin
         end
         else begin
             if ( m3cntLast1 == 1'd1 ) begin
-                if ( m3LpwmSplitStep == 2'd0 ) begin
+                if ( pwmLastStep1 ) begin
                     m3LpwmSplitStep     <= m3r_stepSplitMax ;
                 end
                 else begin
@@ -120,7 +123,7 @@ always @ (negedge clk or negedge nRst) begin
             m3stepA                     <= 4'd0             ;
         end
         else begin
-            if ( m3cntLast1 == 1'd1 && m3LpwmSplitStep == 2'd0 ) begin
+            if ( m3cntLast1 == 1'd1 && pwmLastStep1 ) begin
                 if ( m3stepA== 4'd11 ) begin
                     m3stepA             <= 4'd0             ;
                 end
