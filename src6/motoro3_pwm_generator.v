@@ -201,7 +201,9 @@ end
 
 //assign pwmMinNow    = (m3r_pwmLenWant[11] == 1'b1 ) ? ({4'd0,m3r_pwmMinMask}) : (16'h8000);
 //assign pwmMinNow    = ({4'd0,m3r_pwmMinMask}) ;
-assign pwmMinNow    = 12'd256;
+//assign pwmMinNow    = 12'd256;
+//assign pwmMinNow    = 12'd32;
+assign pwmMinNow    = 12'd16;
 `define skipBecause1noActive    2'd3 
 `define skipBecause2noHighPull  2'd2 
 `define skipBecause3minLimit    2'd1 
