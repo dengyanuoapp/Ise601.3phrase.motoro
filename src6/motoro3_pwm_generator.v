@@ -54,7 +54,6 @@ wire                        pwmCNTreload3           ;
 reg             [15:0]      pwmPOScnt               ;	
 
 reg             [15:0]      posRemain1              ;	
-reg             [15:0]      posRemain2              ;	
 wire            [15:0]      posSum1                 ;	
 reg             [1:0]       posSkip1                ;
 reg             [15:0]      posACCwant1             ;	
@@ -201,9 +200,9 @@ end
 
 //assign pwmMinNow    = (m3r_pwmLenWant[11] == 1'b1 ) ? ({4'd0,m3r_pwmMinMask}) : (16'h8000);
 //assign pwmMinNow    = ({4'd0,m3r_pwmMinMask}) ;
-//assign pwmMinNow    = 12'd256;
+assign pwmMinNow    = 12'd256;
 //assign pwmMinNow    = 12'd32;
-assign pwmMinNow    = 12'd16;
+//assign pwmMinNow    = 12'd16;
 `define skipBecause1noActive    2'd3 
 `define skipBecause2noHighPull  2'd2 
 `define skipBecause3minLimit    2'd1 
@@ -255,16 +254,6 @@ always @ (negedge clk or negedge nRst) begin
                     if ( posSkip1 == `skipBecause4noSkip )      begin posRemain1      <= 0 ;       end
                 end
             end
-        end
-    end
-end
-always @ (negedge clk or negedge nRst) begin
-    if(!nRst) begin
-        posRemain2              <= 16'd0 ;
-    end
-    else begin
-        if ( m3cntFirst1 ) begin
-            posRemain2          <= posLost1 ;
         end
     end
 end
