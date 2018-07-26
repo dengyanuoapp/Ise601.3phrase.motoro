@@ -191,25 +191,31 @@ assign pwmMinNow    = 12'd256;
 `define skipBecause3minLimit    2'd1 
 `define skipBecause4noSkip      2'd0 
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
-    posSkip1            <= `skipBecause2noHighPull ;
     case ( sgStep )
         4'd11 : begin /* C  */
-            if ( posSumExtC < posSum1   )   begin posSkip1  <= `skipBecause2noHighPull ;    end
-            if ( posSum1    < pwmMinNow )   begin posSkip1  <= `skipBecause3minLimit ;      end
+            if      ( posSum1    < pwmMinNow )  begin posSkip1  = `skipBecause3minLimit ;   end 
+            else begin
+                if  ( posSumExtC < posSum1   )  begin posSkip1  = `skipBecause2noHighPull ; end 
+                else                            begin posSkip1  = `skipBecause4noSkip ;     end
+            end
         end
         4'd6 : begin // B 
-            if ( posSumExtB < posSum1   )   begin posSkip1  <= `skipBecause2noHighPull ;    end
-            if ( posSum1    < pwmMinNow )   begin posSkip1  <= `skipBecause3minLimit ;      end
+            if      ( posSum1    < pwmMinNow )  begin posSkip1  = `skipBecause3minLimit ;   end 
+            else begin
+                if  ( posSumExtB < posSum1   )  begin posSkip1  = `skipBecause2noHighPull ; end 
+                else                            begin posSkip1  = `skipBecause4noSkip ;     end
+            end
         end
         4'd0, 4'd1, 4'd2, 4'd3, 4'd4, 4'd5,
         4'd7, 4'd8, 4'd9, 4'd10: begin
-            if ( posSum1    < pwmMinNow )   begin posSkip1  <= `skipBecause3minLimit ;      end
+            if      ( posSum1    < pwmMinNow )  begin posSkip1  = `skipBecause3minLimit ;   end
+            else                                begin posSkip1  = `skipBecause4noSkip ;     end
         end
-        default :                           begin posSkip1  <= `skipBecause1noActive ;      end   
+        default :                               begin posSkip1  = `skipBecause1noActive ;   end   
     endcase
 end
-
 assign posSum1 = posRemain1   + pwmLENpos ;
+
 //assign posSum2 = ( posLoad1)? posSum1 : 0 ;
 //assign posSum3 = ( posLoad1)? 0 : posSum1 ;
 always @ (negedge clk or negedge nRst) begin
@@ -222,7 +228,7 @@ always @ (negedge clk or negedge nRst) begin
             posRemain1          <= 16'd0 ;
         end
         else begin
-            if ( m3cntFirst1 ) begin
+            if ( posSkip1 == `skipBecause3minLimit ) begin
                 posRemain1      <= posSum1 ;
             end
         end
