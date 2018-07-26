@@ -63,7 +63,7 @@ wire            [15:0]      posSum1                 ;
 wire            [15:0]      posSum2                 ;	
 wire            [15:0]      posSum3                 ;	
 reg                         posLoad1                ;
-reg                         posSkip                 ;
+reg             [1:0]       posSkip1                ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
 reg             [15:0]      posACCreal1             ;	
@@ -186,38 +186,27 @@ end
 //assign pwmMinNow    = (m3r_pwmLenWant[11] == 1'b1 ) ? ({4'd0,m3r_pwmMinMask}) : (16'h8000);
 //assign pwmMinNow    = ({4'd0,m3r_pwmMinMask}) ;
 assign pwmMinNow    = 12'd256;
+`define skipBecause1noActive    2'd3 
+`define skipBecause2noHighPull  2'd2 
+`define skipBecause3minLimit    2'd1 
+`define skipBecause4noSkip      2'd0 
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
-    if ( sgStep == 4'd11 ) begin // C
-        if ( posSumExtC >= posSum1 && posSum1 >= pwmMinNow ) begin
-            posLoad1    = 1'b1 ;
-            posSkip     = 1'b0 ;
+    posSkip1            <= `skipBecause2noHighPull ;
+    case ( sgStep )
+        4'd11 : begin /* C  */
+            if ( posSumExtC < posSum1   )   begin posSkip1  <= `skipBecause2noHighPull ;    end
+            if ( posSum1    < pwmMinNow )   begin posSkip1  <= `skipBecause3minLimit ;      end
         end
-        else begin
-            posLoad1    = 1'b0 ;
-            posSkip     = 1'b1 ;
+        4'd6 : begin // B 
+            if ( posSumExtB < posSum1   )   begin posSkip1  <= `skipBecause2noHighPull ;    end
+            if ( posSum1    < pwmMinNow )   begin posSkip1  <= `skipBecause3minLimit ;      end
         end
-    end
-    else begin
-        if ( sgStep == 4'd6 ) begin // B
-            if ( posSumExtB >= posSum1 && posSum1 >= pwmMinNow ) begin
-                posLoad1    = 1'b1 ;
-                posSkip     = 1'b0 ;
-            end
-            else begin
-                posLoad1    = 1'b0 ;
-                posSkip     = 1'b1 ;
-            end
+        4'd0, 4'd1, 4'd2, 4'd3, 4'd4, 4'd5,
+        4'd7, 4'd8, 4'd9, 4'd10: begin
+            if ( posSum1    < pwmMinNow )   begin posSkip1  <= `skipBecause3minLimit ;      end
         end
-        else begin
-            if ( posSum1 >= pwmMinNow ) begin
-                posLoad1    = 1'b1 ;
-            end
-            else begin
-                posLoad1    = 1'b0 ;
-            end
-            posSkip     = 1'b0 ;
-        end
-    end
+        default :                           begin posSkip1  <= `skipBecause1noActive ;      end   
+    endcase
 end
 
 assign posSum1 = posRemain1   + pwmLENpos ;
