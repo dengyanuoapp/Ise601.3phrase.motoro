@@ -194,20 +194,16 @@ assign pwmMinNow    = 12'd256;
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or posSum2 ) begin
     case ( sgStep )
         4'd11 : begin /* C  */
-            if      ( posSum1    < pwmMinNow )          begin posSkip1  = `skipReason3minLimit ;        end 
-            else begin
-                if  ( posSumExtC < posSum1   )          begin posSkip1  = `skipReason2noHighPull ;      end 
-                else if  ( m3cnt < posSum2   )          begin posSkip1  = `skipReason4loadPOSlast ;     end 
-                else                                    begin posSkip1  = `skipReason0loadPOSnow1 ;     end
-            end
+            if  ( m3cnt < posSum2 && pwmLastStep1 ) begin posSkip1  = `skipReason4loadPOSlast ;     end 
+            else if  ( posSum1    < pwmMinNow )     begin posSkip1  = `skipReason3minLimit ;        end 
+            else if  ( posSumExtC < posSum1   )     begin posSkip1  = `skipReason2noHighPull ;      end 
+            else                                    begin posSkip1  = `skipReason0loadPOSnow1 ;     end
         end
         4'd6 : begin // B 
-            if      ( posSum1    < pwmMinNow )          begin posSkip1  = `skipReason3minLimit ;        end 
-            else begin
-                if  ( posSumExtB < posSum1   )          begin posSkip1  = `skipReason2noHighPull ;      end 
-                else if  ( m3cnt < posSum2   )          begin posSkip1  = `skipReason4loadPOSlast ;     end 
-                else                                    begin posSkip1  = `skipReason0loadPOSnow1 ;     end
-            end
+            if  ( m3cnt < posSum2 && pwmLastStep1 ) begin posSkip1  = `skipReason4loadPOSlast ;     end 
+            else if  ( posSum1    < pwmMinNow )     begin posSkip1  = `skipReason3minLimit ;        end 
+            else if  ( posSumExtB < posSum1   )     begin posSkip1  = `skipReason2noHighPull ;      end 
+            else                                    begin posSkip1  = `skipReason0loadPOSnow1 ;     end
         end
         4'd0, 4'd1, 4'd2, 4'd3, 4'd4, 4'd5,
         4'd7, 4'd8, 4'd9, 4'd10: begin
