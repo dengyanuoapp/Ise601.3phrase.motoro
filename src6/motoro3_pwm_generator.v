@@ -221,17 +221,24 @@ assign posSum1 = posRemain1   + pwmLENpos ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posRemain1              <= 16'd0 ;
-        posRemain2              <= 16'd0 ;
     end
     else begin
         if ( m3cntLast2 ) begin
             posRemain1          <= 16'd0 ;
         end
         else begin
-            if ( posSkip1 == `skipBecause3minLimit ) begin
+            if ( pwmCNTreload1 && posSkip1 == `skipBecause3minLimit ) begin
                 posRemain1      <= posSum1 ;
             end
         end
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        posRemain1              <= 16'd0 ;
+        posRemain2              <= 16'd0 ;
+    end
+    else begin
         if ( m3cntFirst1 ) begin
             posRemain2          <= posLost1 ;
         end
