@@ -125,15 +125,14 @@ always @ (negedge clk or negedge nRst) begin
         if ( ! pwmActive1 ) begin
             posACCwant1             <= 16'd0    ;
         end
-        else begin
-            if ( m3cntFirst2 ) begin
-                posACCwant1         <= pwmLENpos;
-            end
-            else begin
-                if ( m3cntFirst1 || pwmCNTreload1 ) begin
-                    posACCwant1     <=  posACCwant1+ pwmLENpos;
-                end
-            end
+        else if ( m3cntFirst2 ) begin
+            posACCwant1         <= pwmLENpos;
+        end
+        else if ( m3cntFirst1 ) begin
+            posACCwant1         <=  posACCwant1 + pwmLENpos;
+        end
+        else if ( pwmCNTreload1 ) begin
+            posACCwant1         <=  posACCwant1 + pwmLENpos;
         end
     end
 end
@@ -250,7 +249,8 @@ always @ (negedge clk or negedge nRst) begin
             posRemain1          <= 16'd0 ;
         end
         else if ( m3cntFirst2 ) begin
-            posRemain1          <= pwmLENpos ;
+            //posRemain1          <= pwmLENpos ;
+            posRemain1          <= 16'd0 ;
         end
         else if ( pwmCNTreload1 ) begin
             posRemain1      <= posSum1;
