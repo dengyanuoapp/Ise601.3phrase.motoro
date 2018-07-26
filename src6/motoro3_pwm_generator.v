@@ -256,7 +256,8 @@ always @ (negedge clk or negedge nRst) begin
         end
         else if ( pwmCNTreload1 ) begin
             posRemain1      <= posSum1;
-            if ( posSkip1 == `skipReason0loadPOSnow1 )      begin posRemain1      <= pwmLENpos ;    end
+            //if ( posSkip1 == `skipReason0loadPOSnow1 )      begin posRemain1      <= pwmLENpos ;    end
+            if ( posSkip1 == `skipReason0loadPOSnow1 )      begin posRemain1      <= 16'd0 ;    end
             if ( posSkip1 == `skipReason4loadPOSlast )      begin posRemain1      <= pwmLENpos ;    end
         end
     end
