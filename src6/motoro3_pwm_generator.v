@@ -119,25 +119,6 @@ end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posACCwant1             <= 16'd0    ;
-    end
-    else begin
-        if ( ! pwmActive1 ) begin
-            posACCwant1             <= 16'd0    ;
-        end
-        else if ( m3cntFirst2 ) begin
-            posACCwant1         <= pwmLENpos;
-        end
-        else if ( m3cntFirst1 ) begin
-            posACCwant1         <=  posACCwant1 + pwmLENpos;
-        end
-        else if ( pwmCNTreload1 ) begin
-            posACCwant1         <=  posACCwant1 + pwmLENpos;
-        end
-    end
-end
-always @ (negedge clk or negedge nRst) begin
-    if(!nRst) begin
         posACCreal1             <= 12'd0 ;
     end
     else begin
@@ -242,20 +223,38 @@ assign posSum2 = posSum1 + pwmLENpos + m3r_pwmLenWant ;
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
+        posACCwant1             <= 16'd0    ;
+    end
+    else begin
+        if ( ! pwmActive1 ) begin
+            posACCwant1             <= 16'd0    ;
+        end
+        else if ( m3cntFirst2 ) begin
+            posACCwant1         <= pwmLENpos;
+        end
+        else if ( m3cntFirst1 ) begin
+            posACCwant1         <=  posACCwant1 + pwmLENpos;
+        end
+        else if ( pwmCNTreload1 ) begin
+            posACCwant1         <=  posACCwant1 + pwmLENpos;
+        end
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
         posRemain1              <= 16'd0 ;
     end
     else begin
-        if ( m3cntLast3 ) begin
-            posRemain1          <= 16'd0 ;
+        if ( ! pwmActive1 ) begin
+            posRemain1          <= 16'd0    ;
         end
         else if ( m3cntFirst2 ) begin
-            //posRemain1          <= pwmLENpos ;
-            posRemain1          <= 16'd0 ;
+            posRemain1          <= pwmLENpos ;
         end
         else if ( pwmCNTreload1 ) begin
             posRemain1      <= posSum1;
-            if ( posSkip1 == `skipReason0loadPOSnow1 )      begin posRemain1      <= 0 ;    end
-            if ( posSkip1 == `skipReason4loadPOSlast )      begin posRemain1      <= 0 ;    end
+            if ( posSkip1 == `skipReason0loadPOSnow1 )      begin posRemain1      <= pwmLENpos ;    end
+            if ( posSkip1 == `skipReason4loadPOSlast )      begin posRemain1      <= pwmLENpos ;    end
         end
     end
 end
