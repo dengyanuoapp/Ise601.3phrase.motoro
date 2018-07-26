@@ -49,20 +49,13 @@ input   wire                nRst                    ;
 
 reg             [11:0]      pwmCNT                  ;	
 wire                        pwmCNTreload1           ;
-//wire                        pwmCNTreload2           ;
 wire                        pwmCNTreload3           ;
-//wire                        pwmCNTreload9           ;
-//reg                         pwmCNTreload_clked1     ;
 
-//wire                        pwmACCreload1           ;
 reg             [15:0]      pwmPOScnt               ;	
 
 reg             [15:0]      posRemain1              ;	
 reg             [15:0]      posRemain2              ;	
 wire            [15:0]      posSum1                 ;	
-wire            [15:0]      posSum2                 ;	
-wire            [15:0]      posSum3                 ;	
-reg                         posLoad1                ;
 reg             [1:0]       posSkip1                ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
@@ -74,7 +67,6 @@ reg             [15:0]      posLost1                ;
 reg             [15:0]      posLost2                ;	
 reg             [15:0]      posStep                 ;	
 reg             [15:0]      posLost4                ;	
-//reg                         m3cntLast2_clked        ;		
 reg                         pwmH1L0                 ;	
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
@@ -90,22 +82,6 @@ reg                         pwmH1L0                 ;
 // // //`define pwmTest      12'h110 //  half of 511(0x1ff) * 0.1us == 26us
 // // //`define pwmTest      5'h10 // 1.56us // lost... the FPGA output lost... so, the MOSFET must be lost.
 
-//always @ (negedge clk or negedge nRst) begin
-//    if(!nRst) begin
-//        pwmCNTreload_clked1     <= 1'd0             ;
-//        m3cntLast2_clked        <= 1'd0             ;
-//    end
-//    else begin
-//        pwmCNTreload_clked1     <= pwmCNTreload9    ;
-//        m3cntLast2_clked        <= m3cntLast2 | sgStep == 4'd15      ;
-//    end
-//end
-
-//assign pwmCNTreload1 = m3cntLast1 ;
-//assign pwmCNTreload2 = (pwmCNT == 12'd1 ) ;
-//assign pwmCNTreload3 = (pwmLENpos== 16'd0);
-//assign pwmCNTreload9 = ( m3cntLast1 | pwmCNTreload2 | pwmCNTreload3 );
-//assign pwmCNTreload9 = m3cntLast1 ;
 assign pwmCNTreload1 = (pwmCNT == 16'd1 ) ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
@@ -131,9 +107,6 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
-////assign posCNTreload1    = ( (m3cntLast1 == 1'd1 ) && ( (sgStep >= 4'd5) ) );
-////assign posCNTreload1    = (sgStep >= 4'd5) ;
-//assign pwmACCreload1    = (~pwmCNTreload9) & pwmCNTreload_clked1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posACCwant1             <= 16'd0    ;
@@ -148,7 +121,6 @@ always @ (negedge clk or negedge nRst) begin
             end
             else begin
                 if ( m3cntFirst1 || pwmCNTreload1 ) begin
-                //if ( pwmCNTreload1 ) begin
                     posACCwant1     <=  posACCwant1+ pwmLENpos;
                 end
             end
@@ -183,7 +155,6 @@ always @ (negedge clk or negedge nRst) begin
     end
 end
 
-//assign posLoad1= ( posSum1 < m3r_pwmMinMask ) ;
 //assign pwmMinNow    = (m3r_pwmLenWant[11] == 1'b1 ) ? ({4'd0,m3r_pwmMinMask}) : (16'h8000);
 //assign pwmMinNow    = ({4'd0,m3r_pwmMinMask}) ;
 assign pwmMinNow    = 12'd256;
@@ -217,8 +188,6 @@ always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
 end
 assign posSum1 = posRemain1   + pwmLENpos ;
 
-//assign posSum2 = ( posLoad1)? posSum1 : 0 ;
-//assign posSum3 = ( posLoad1)? 0 : posSum1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posRemain1              <= 16'd0 ;
@@ -308,9 +277,6 @@ assign posSumExtA   = posSum1   ;
 
 wire                        pwm01 ;
 assign pwm01    = (pwmPOScnt)? 1'b1 : 1'b0 ;
-//wire                        pwm02 ;
-//assign pwm02    = (sgStep==4'd7)|(sgStep==4'd8)|(sgStep==4'd9)|(sgStep==4'd10);
-//assign pwm      = pwm01 | pwm02 ;
 assign pwm      = pwm01 ;
 
 
