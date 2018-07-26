@@ -63,12 +63,15 @@ reg             [15:0]      posACCwant3             ;
 reg             [15:0]      posACCwant4             ;	
 reg             [15:0]      posACCreal1             ;	
 reg             [15:0]      posACCreal2             ;	
+reg             [15:0]      posACCreal3             ;	
+reg             [15:0]      posACCreal4             ;	
 
 wire            [15:0]      pwmMinNow               ;	
 reg             [15:0]      posLost1                ;	
-reg             [15:0]      posLost2                ;	
+wire            [15:0]      posLost2                ;	
+reg             [15:0]      posLost3                ;	
+wire            [15:0]      posLost4                ;	
 reg             [15:0]      posStep                 ;	
-reg             [15:0]      posLost4                ;	
 reg                         pwmH1L0                 ;	
 
 reg                         m3cntLast3              ;		
@@ -162,6 +165,7 @@ end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posACCwant3             <= 16'd0    ;
+        posACCreal3             <= 16'd0    ;
     end
     else begin
         if ( m3cntLast2 ) begin
@@ -169,18 +173,27 @@ always @ (negedge clk or negedge nRst) begin
                 4'd0, 4'd3, 4'd6, 4'd9  : posACCwant3         <= posACCwant1 ;
                 default                 : posACCwant3         <= posACCwant3 + posACCwant1 ;
             endcase
+            case ( sgStep )
+                4'd0, 4'd3, 4'd6, 4'd9  : posACCreal3         <= posACCreal1 ;
+                default                 : posACCreal3         <= posACCreal3 + posACCreal1 ;
+            endcase
         end
     end
 end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posACCwant4             <= 16'd0    ;
+        posACCreal4             <= 16'd0    ;
     end
     else begin
         if ( m3cntLast2 ) begin
             case ( sgStep )
                 4'd0, 4'd6              : posACCwant4         <= posACCwant1 ;
                 default                 : posACCwant4         <= posACCwant4 + posACCwant1 ;
+            endcase
+            case ( sgStep )
+                4'd0, 4'd6              : posACCreal4         <= posACCreal1 ;
+                default                 : posACCreal4         <= posACCreal4 + posACCreal1 ;
             endcase
         end
     end
@@ -283,22 +296,18 @@ end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posLost1                <= 16'd0 ;
-        posLost2                <= 16'd0 ;
-        posLost4                <= 16'd0 ;
+        posLost3                <= 16'd0 ;
     end
     else begin
-        if ( m3cntFirst1 ) begin
+        if ( m3cntFirst2 ) begin
             posLost1        <= posACCwant2 - posACCreal2 ;
-            if ( sgStep == 4'd1 || sgStep == 4'd7 ) begin
-                posLost2    <= posACCwant2 - posACCreal2 ;
-                posLost4    <= posLost2 ;
-            end
-            else begin
-                posLost2    <= posLost2 + posACCwant2 - posACCreal2 ;
-            end
+            posLost3        <= posACCwant4 - posACCreal4 ;
         end
     end
 end
+assign posLost2 = (posLost1[15])?(posLost1^16'hFFFF):posLost1;
+assign posLost4 = (posLost3[15])?(posLost3^16'hFFFF):posLost3;
+
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posStep                 <= 16'hFF ;
