@@ -225,7 +225,12 @@ always @ (negedge clk or negedge nRst) begin
         else begin
             if ( pwmCNTreload1 ) begin
                 if ( posSkip1 == `skipBecause4noSkip ) begin 
-                    pwmPOScnt      <= posSum1 ; 
+                    if ( pwmCNT < m3r_pwmLenWant ) begin 
+                        pwmPOScnt  <= posSum1 + pwmLENpos ; 
+                    end
+                    else begin
+                        pwmPOScnt  <= posSum1 ; 
+                    end
                 end 
             end
             else begin
