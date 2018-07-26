@@ -54,7 +54,7 @@ wire                        pwmCNTreload3           ;
 //wire                        pwmCNTreload9           ;
 //reg                         pwmCNTreload_clked1     ;
 
-wire                        pwmACCreload1           ;
+//wire                        pwmACCreload1           ;
 reg             [15:0]      pwmPOScnt               ;	
 
 reg             [15:0]      posRemain1              ;	
@@ -254,7 +254,7 @@ always @ (negedge clk or negedge nRst) begin
             pwmPOScnt           <= 16'd0 ;
         end
         else begin
-            if ( pwmACCreload1 ) begin
+            if ( pwmCNTreload1 ) begin
                 if ( posSkip1 == `skipBecause4noSkip ) begin 
                     pwmPOScnt      <= posSum1 ; 
                 end 
