@@ -263,24 +263,19 @@ always @ (negedge clk or negedge nRst) begin
 end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        pwmPOScnt               <= 16'd0 ;
+        pwmPOScnt                   <= 16'd0 ;
     end
     else begin
         if ( m3cntLast2 ) begin
-            pwmPOScnt           <= 16'd0 ;
+            pwmPOScnt               <= 16'd0 ;
         end
         else begin
             if ( pwmCNTreload1 ) begin
                 if ( posSkip1 == `skipReason0loadPOSnow1 ) begin 
-                    if ( pwmCNT < m3r_pwmLenWant ) begin 
-                        pwmPOScnt  <= posSum1 + pwmLENpos ; 
-                    end
-                    else begin
-                        pwmPOScnt  <= posSum1 ; 
-                    end
+                    pwmPOScnt       <= posSum1 ; 
                 end 
                 if ( posSkip1 == `skipReason4loadPOSlast ) begin 
-                        pwmPOScnt  <= posSum1 ; 
+                    pwmPOScnt       <= posSum1 ; 
                 end 
             end
             else begin
