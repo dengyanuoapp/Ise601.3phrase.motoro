@@ -6,7 +6,7 @@ module motoro3_pwm_generator(
     posSumExtC                  ,	
 
     sgStep                      ,
-    pwmPOS                      ,
+    pwmLENpos                   ,
                                
     m3r_pwmLenWant              ,
     m3r_pwmMinMask              ,
@@ -31,7 +31,7 @@ input   wire    [15:0]      posSumExtB              ;
 input   wire    [15:0]      posSumExtC              ;	
 
 input   wire    [3:0]       sgStep                  ;	
-input   wire    [15:0]      pwmPOS                  ;	
+input   wire    [15:0]      pwmLENpos               ;	
 
 input   wire    [11:0]      m3r_pwmLenWant          ;	
 input   wire    [11:0]      m3r_pwmMinMask          ;	
@@ -103,7 +103,7 @@ reg                         pwmH1L0                 ;
 
 //assign pwmCNTreload1 = m3cntLast1 ;
 //assign pwmCNTreload2 = (pwmCNT == 12'd1 ) ;
-//assign pwmCNTreload3 = (pwmPOS== 16'd0);
+//assign pwmCNTreload3 = (pwmLENpos== 16'd0);
 //assign pwmCNTreload9 = ( m3cntLast1 | pwmCNTreload2 | pwmCNTreload3 );
 //assign pwmCNTreload9 = m3cntLast1 ;
 assign pwmCNTreload1 = (pwmCNT == 16'd1 ) ;
@@ -144,11 +144,11 @@ always @ (negedge clk or negedge nRst) begin
         end
         else begin
             if ( m3cntFirst2 ) begin
-                posACCwant1         <= pwmPOS;
+                posACCwant1         <= pwmLENpos;
             end
             else begin
                 if ( m3cntFirst1 || pwmCNTreload1 ) begin
-                    posACCwant1     <=  posACCwant1+ pwmPOS;
+                    posACCwant1     <=  posACCwant1+ pwmLENpos;
                 end
             end
         end
@@ -220,9 +220,9 @@ always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
     end
 end
 
-assign posSum1 = posRemain1   + pwmPOS ;
-assign posSum2 = ( posLoad1)? posSum1 : 0 ;
-assign posSum3 = ( posLoad1)? 0 : posSum1 ;
+assign posSum1 = posRemain1   + pwmLENpos ;
+//assign posSum2 = ( posLoad1)? posSum1 : 0 ;
+//assign posSum3 = ( posLoad1)? 0 : posSum1 ;
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
         posRemain1              <= 16'd0 ;
@@ -234,11 +234,11 @@ always @ (negedge clk or negedge nRst) begin
         end
         else begin
             if ( m3cntFirst1 ) begin
-                posRemain1      <= posSum3 ;
+                posRemain1      <= posSum1 ;
             end
         end
         if ( m3cntFirst1 ) begin
-            posRemain2          <= posLost2 ;
+            posRemain2          <= posLost1 ;
         end
     end
 end

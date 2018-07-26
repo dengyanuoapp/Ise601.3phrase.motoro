@@ -1,6 +1,6 @@
 module motoro3_calc_pwm_len(
     m3LpwmSplitStep             ,
-    pwmPOS                      ,
+    pwmLENpos                      ,
     m3r_power_percent           ,	
     m3r_stepCNT_speedSET        ,	
     m3r_pwmLenWant              ,
@@ -20,7 +20,7 @@ input   wire    [1:0]       m3r_stepSplitMax        ;
 input   wire    [3:0]       lcStep                  ;	
 input   wire    [15:0]      slLen                   ;	
 
-output  wire    [15:0]      pwmPOS                  ;	
+output  wire    [15:0]      pwmLENpos                  ;	
 
 wire            [19:0]      pwmPOS1                 ;	// 8 + 12 == 20
 wire            [11:0]      pwmPOS2                 ;	
@@ -40,7 +40,7 @@ end
 
 assign slLen    = pi24 ;
 */
-assign pwmPOS   =   pwmNow9 ;
+assign pwmLENpos   =   pwmNow9 ;
 
 assign  pwmPOS1 =   m3r_power_percent * m3r_pwmLenWant ; // 8 + 12 == 20
 assign  pwmPOS2 =   pwmPOS1[19:8] ;
