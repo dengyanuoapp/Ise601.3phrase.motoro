@@ -196,7 +196,7 @@ always @ (negedge clk or negedge nRst) begin
         posRemain1              <= 16'd0 ;
     end
     else begin
-        if ( m3cntLast2 ) begin
+        if ( m3cntLast3 ) begin
             posRemain1          <= 16'd0 ;
         end
         else begin //if ( m3cntFirst1 || pwmCNTreload1 ) begin
