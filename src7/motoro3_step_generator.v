@@ -29,7 +29,7 @@ module motoro3_step_generator(
 // 0: idle
 // 1,2,3,4,5,6:nomal
 // 7:force stop
-output  wire    [1:0]       pwmLastStep1            ;
+output  wire                pwmLastStep1            ;
 output  reg     [1:0]       m3LpwmSplitStep         ;
 input   wire    [1:0]       m3r_stepSplitMax        ;
 

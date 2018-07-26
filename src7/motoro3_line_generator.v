@@ -1,4 +1,5 @@
 module motoro3_line_generator(
+    pwmLastStep1                ,
     pwmActive1                  ,
 
     posSumExtA                  ,	
@@ -28,6 +29,7 @@ module motoro3_line_generator(
 );
 
 input   wire                pwmActive1              ;		
+input   wire                pwmLastStep1            ;
 
 output  wire    [15:0]      posSumExtA              ;	
 input   wire    [15:0]      posSumExtB              ;	
@@ -77,6 +79,7 @@ lCalc
 motoro3_pwm_generator
 pwmSG
 (
+    .pwmLastStep1           ( pwmLastStep1              ),
     .pwmActive1             ( pwmActive1                ),
     .posSumExtA             ( posSumExtA                ),
     .posSumExtB             ( posSumExtB                ),

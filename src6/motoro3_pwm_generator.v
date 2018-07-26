@@ -1,4 +1,5 @@
 module motoro3_pwm_generator(
+    pwmLastStep1                ,
     pwmActive1                  ,
 
     posSumExtA                  ,	
@@ -24,6 +25,7 @@ module motoro3_pwm_generator(
 
 );
 
+input   wire                pwmLastStep1            ;
 input   wire                pwmActive1              ;		
 
 output  wire    [15:0]      posSumExtA              ;	

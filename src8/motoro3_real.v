@@ -56,6 +56,7 @@ wire            [15:0]      posSumExtAA             ;
 wire            [15:0]      posSumExtBB             ;	
 wire            [15:0]      posSumExtCC             ;	
 wire                        pwmActive1              ;
+wire                        pwmLastStep1            ;
 
 motoro3_regs
 m3reg
@@ -74,6 +75,7 @@ motoro3_step_generator
 sg
 (
     .pwmActive1             ( pwmActive1                ),
+    .pwmLastStep1           ( pwmLastStep1              ),
 
     .m3LpwmSplitStep        ( m3LpwmSplitStep           ),
     .m3r_stepSplitMax       ( m3r_stepSplitMax          ),
@@ -101,6 +103,7 @@ motoro3_line_generator
 lgA
 (
     .pwmActive1             ( pwmActive1                ),
+    .pwmLastStep1           ( pwmLastStep1              ),
 
     .posSumExtA             ( posSumExtAA               ),
     .posSumExtB             ( posSumExtBB               ),
@@ -129,6 +132,7 @@ motoro3_line_generator
 lgB
 (
     .pwmActive1             ( pwmActive1                ),
+    .pwmLastStep1           ( pwmLastStep1              ),
 
     .posSumExtA             ( posSumExtBB               ),
     .posSumExtB             ( posSumExtCC               ),
@@ -157,6 +161,7 @@ motoro3_line_generator
 lgC
 (
     .pwmActive1             ( pwmActive1                ),
+    .pwmLastStep1           ( pwmLastStep1              ),
 
     .posSumExtA             ( posSumExtCC               ),
     .posSumExtB             ( posSumExtAA               ),
