@@ -148,21 +148,10 @@ always @ (negedge clk or negedge nRst) begin
             end
             else begin
                 if ( m3cntFirst1 || pwmCNTreload1 ) begin
+                //if ( pwmCNTreload1 ) begin
                     posACCwant1     <=  posACCwant1+ pwmLENpos;
                 end
             end
-        end
-    end
-end
-always @ (negedge clk or negedge nRst) begin
-    if(!nRst) begin
-        posACCwant2             <= 16'd0    ;
-        posACCreal2             <= 16'd0    ;
-    end
-    else begin
-        if ( m3cntLast2 ) begin
-            posACCwant2         <= posACCwant1 ;
-            posACCreal2         <= posACCreal1 ;
         end
     end
 end
@@ -178,6 +167,18 @@ always @ (negedge clk or negedge nRst) begin
             if ( pwm == 1'd1 ) begin
                 posACCreal1     <=  posACCreal1+ 16'd1 ;
             end
+        end
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        posACCwant2             <= 16'd0    ;
+        posACCreal2             <= 16'd0    ;
+    end
+    else begin
+        if ( m3cntLast2 ) begin
+            posACCwant2         <= posACCwant1 ;
+            posACCreal2         <= posACCreal1 ;
         end
     end
 end
@@ -226,9 +227,12 @@ always @ (negedge clk or negedge nRst) begin
         if ( m3cntLast2 ) begin
             posRemain1          <= 16'd0 ;
         end
-        else begin
-            if ( pwmCNTreload1 && posSkip1 == `skipBecause3minLimit ) begin
-                posRemain1      <= posSum1 ;
+        else begin //if ( m3cntFirst1 || pwmCNTreload1 ) begin
+            if ( pwmCNTreload1 ) begin
+                if ( posSkip1 == `skipBecause3minLimit ) begin posRemain1      <= posSum1 ; end
+                if ( posSkip1 == `skipBecause4noSkip ) begin posRemain1      <= 0 ;       end
+            end
+            else begin
             end
         end
     end
