@@ -229,15 +229,14 @@ always @ (negedge clk or negedge nRst) begin
         end
         else begin //if ( m3cntFirst1 || pwmCNTreload1 ) begin
             if ( pwmCNTreload1 ) begin
-                if ( posSkip1 == `skipBecause3minLimit ) begin posRemain1      <= posSum1 ; end
-                if ( posSkip1 == `skipBecause4noSkip ) begin posRemain1      <= 0 ;       end
+                if ( posSkip1 == `skipBecause3minLimit )    begin posRemain1      <= posSum1 ; end
+                if ( posSkip1 == `skipBecause4noSkip )      begin posRemain1      <= 0 ;       end
             end
         end
     end
 end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posRemain1              <= 16'd0 ;
         posRemain2              <= 16'd0 ;
     end
     else begin
