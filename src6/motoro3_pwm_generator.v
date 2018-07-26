@@ -55,6 +55,7 @@ reg             [15:0]      pwmPOScnt               ;
 
 reg             [15:0]      posRemain1              ;	
 wire            [15:0]      posSum1                 ;	
+wire            [15:0]      posSum2                 ;	
 reg             [1:0]       posSkip1                ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
@@ -232,6 +233,7 @@ always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
     endcase
 end
 assign posSum1 = posRemain1   + pwmLENpos ;
+assign posSum2 = posSum1 + pwmLENpos + m3r_pwmLenWant ;
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
