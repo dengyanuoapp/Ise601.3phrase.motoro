@@ -60,6 +60,7 @@ reg             [1:0]       posSkip1                ;
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
 reg             [15:0]      posACCwant3             ;	
+reg             [15:0]      posACCwant4             ;	
 reg             [15:0]      posACCreal1             ;	
 reg             [15:0]      posACCreal2             ;	
 
@@ -167,6 +168,19 @@ always @ (negedge clk or negedge nRst) begin
             case ( sgStep )
                 4'd0, 4'd3, 4'd6, 4'd9  : posACCwant3         <= posACCwant1 ;
                 default                 : posACCwant3         <= posACCwant3 + posACCwant1 ;
+            endcase
+        end
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        posACCwant4             <= 16'd0    ;
+    end
+    else begin
+        if ( m3cntLast2 ) begin
+            case ( sgStep )
+                4'd0, 4'd6              : posACCwant4         <= posACCwant1 ;
+                default                 : posACCwant4         <= posACCwant4 + posACCwant1 ;
             endcase
         end
     end
