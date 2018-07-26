@@ -69,6 +69,9 @@ reg             [15:0]      posStep                 ;
 reg             [15:0]      posLost4                ;	
 reg                         pwmH1L0                 ;	
 
+reg                         m3cntLast3              ;		
+reg                         m3cntFirst3              ;		
+
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
 // // // min MOS open : 0x10  : 16   * 0.1us == 1.6us  (min set to 16: mosDriver2003/2007 raise/failing time 150ns )
@@ -281,8 +284,20 @@ end
 
 always @( sgStep ) begin
     case ( sgStep )
-        4'd0 , 4'd1 , 4'd2 , 4'd3 , 4'd4 , 4'd5    :   begin   pwmH1L0 = 1'b1 ; end
-        default :   begin   pwmH1L0 = 1'b0 ; end
+        4'd0 , 4'd1 , 4'd2 , 4'd3 , 4'd4 , 4'd5    :    begin   pwmH1L0 = 1'b1 ; end
+        default :                                       begin   pwmH1L0 = 1'b0 ; end
+    endcase
+end
+always @( sgStep or m3cntLast2 ) begin
+    case ( sgStep )
+        4'd5 , 4'd11    :   begin   m3cntLast3 = m3cntLast2 ; end
+        default :           begin   m3cntLast3 = 1'b0 ; end
+    endcase
+end
+always @( sgStep or m3cntFirst2 ) begin
+    case ( sgStep )
+        4'd0 , 4'd6    :    begin   m3cntFirst3 = m3cntFirst2  ; end
+        default :           begin   m3cntFirst3 = 1'b0 ; end
     endcase
 end
 
