@@ -209,7 +209,7 @@ assign pwmMinNow    = 12'd256;
 `define skipReason2noHighPull  3'd2 
 `define skipReason3minLimit    3'd1 
 `define skipReason4loadPOSlast 3'd4 
-always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC ) begin
+always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or posSum2 ) begin
     case ( sgStep )
         4'd11 : begin /* C  */
             if      ( posSum1    < pwmMinNow )          begin posSkip1  = `skipReason3minLimit ;        end 
