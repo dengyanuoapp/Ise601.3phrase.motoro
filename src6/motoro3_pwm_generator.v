@@ -89,8 +89,10 @@ wire                        sR_minCheckEXT          = ( posSum1    >= pwmMinNow 
 wire                        sR_minCheckForceOKb     = ( sR_Step6B  && ( posSumExtB >= posSum1) ) ;
 wire                        sR_minCheckForceOKc     = ( sR_Step11C && ( posSumExtC >= posSum1) ) ;
 wire                        sR_minCheckForceOK      = sR_minCheckForceOKb | sR_minCheckForceOKc ;
-wire                        sR_lastPeriod           = ( m3cnt < {m3r_pwmLenWant, 1'b0} )    ;
+wire                        sR_lastPeriod           = ( pwmLastStep1 && (m3cnt < {m3r_pwmLenWant, 1'b0} ))    ;
 wire                        sR_runing0_noRun1       = ( sgStep > 4'd0 && sgStep < 4'd12 )   ;
+
+wire                        pwmLastStep2            = sR_lastPeriod ;
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
