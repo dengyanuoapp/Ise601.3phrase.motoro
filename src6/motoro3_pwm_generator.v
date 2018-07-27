@@ -215,8 +215,12 @@ assign posSkip1 = {
 } ;
 
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or posSum2 ) begin
-    posLoad1    <= 0 ;
-    unknowN1    <= 0 ;
+    posLoad1    <= 1'b0 ;
+    unknowN1    <= 1'b1 ;
+    case ( posSkip1 ) 
+        'd0 :       begin unknowN1 <= 1'b0 ; end
+        default :   begin end
+    endcase
 end
 assign posSum1 = posRemain1   + pwmLENpos ;
 assign posSum2 = posSum1 + pwmLENpos + m3r_pwmLenWant ;
