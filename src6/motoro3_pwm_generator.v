@@ -58,7 +58,11 @@ reg             [15:0]      pwmPOScnt               ;
 reg             [15:0]      posRemain1              ;	
 wire            [15:0]      posSum1                 ;	
 wire            [15:0]      posSum2                 ;	
-reg             [2:0]       posSkip1                ;
+
+wire            [5:0]       posSkip1                ;
+reg             [2:0]       posLoad1                ;
+reg                         unknowN1                ;
+
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
 reg             [15:0]      posACCwant3             ;	
@@ -77,7 +81,16 @@ reg             [15:0]      posStep                 ;
 reg                         pwmH1L0                 ;	
 
 reg                         m3cntLast3              ;		
-reg                         m3cntFirst3              ;		
+reg                         m3cntFirst3             ;		
+
+wire                        sR_Step11C              = ( sgStep == 4'd11 ) ;
+wire                        sR_Step6B               = ( sgStep == 4'd6  ) ;
+wire                        sR_minCheckEXT          = ( posSum1    >= pwmMinNow )   ;
+wire                        sR_minCheckForceOKb     = ( sR_Step6B  && ( posSumExtB >= posSum1) ) ;
+wire                        sR_minCheckForceOKc     = ( sR_Step11C && ( posSumExtC >= posSum1) ) ;
+wire                        sR_minCheckForceOK      = sR_minCheckForceOKb | sR_minCheckForceOKc ;
+wire                        sR_lastPeriod           = ( m3cnt < {m3r_pwmLenWant, 1'b0} )    ;
+wire                        sR_runing0_noRun1       = ( sgStep > 4'd0 && sgStep < 4'd12 )   ;
 
 // // // clk freq : 10Mhz , 100ns , 0.1us
 // // // max period   : 0xfff : 4095 * 0.1us == 410us --> 2.44kHz
@@ -186,33 +199,24 @@ end
 assign pwmMinNow    = 12'd256;
 //assign pwmMinNow    = 12'd32;
 //assign pwmMinNow    = 12'd16;
-`define skipReason1noActive    3'd7 
-`define skipReason0loadPOSnow1 3'd0 
-`define skipReason2noHighPull  3'd2 
-`define skipReason3minLimit    3'd1 
-`define skipReason4loadPOSlast 3'd4 
+
+
+// 100: 4 : load MaxPWM
+// 010: 2 : load posEXT
+// 001: 1 : load Remain + pos
+// 000: 0 : not load
+assign posSkip1 = {
+    sR_minCheckEXT ,          // 1 : posSum1      >= posMIN
+    sR_minCheckForceOK ,      // 1 : posSumExt    >= posSum1
+    sR_Step11C ,              // 1 : during PWM step 11, pull up by C
+    sR_Step6B ,               // 1 : during PWM step 6,  pull up by B
+    sR_lastPeriod ,           // 1 : during last 2nd PWM period
+    sR_runing0_noRun1         // 1 : no runing
+} ;
+
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or posSum2 ) begin
-    case ( sgStep )
-        4'd11 : begin /* C  */
-            if  ( m3cnt < posSum2 && pwmLastStep1 ) begin posSkip1  = `skipReason4loadPOSlast ;     end 
-            else if  ( posSum1    < pwmMinNow )     begin posSkip1  = `skipReason3minLimit ;        end 
-            else if  ( posSumExtC < posSum1   )     begin posSkip1  = `skipReason2noHighPull ;      end 
-            else                                    begin posSkip1  = `skipReason0loadPOSnow1 ;     end
-        end
-        4'd6 : begin // B 
-            if  ( m3cnt < posSum2 && pwmLastStep1 ) begin posSkip1  = `skipReason4loadPOSlast ;     end 
-            else if  ( posSum1    < pwmMinNow )     begin posSkip1  = `skipReason3minLimit ;        end 
-            else if  ( posSumExtB < posSum1   )     begin posSkip1  = `skipReason2noHighPull ;      end 
-            else                                    begin posSkip1  = `skipReason0loadPOSnow1 ;     end
-        end
-        4'd0, 4'd1, 4'd2, 4'd3, 4'd4, 4'd5,
-        4'd7, 4'd8, 4'd9, 4'd10: begin
-            if  ( m3cnt < posSum2 && pwmLastStep1 )     begin posSkip1  = `skipReason4loadPOSlast ;     end 
-            else if ( posSum1 < pwmMinNow )             begin posSkip1  = `skipReason3minLimit ;        end
-            else                                        begin posSkip1  = `skipReason0loadPOSnow1 ;     end
-        end
-        default :                                       begin posSkip1  = `skipReason1noActive ;        end   
-    endcase
+    posLoad1    <= 0 ;
+    unknowN1    <= 0 ;
 end
 assign posSum1 = posRemain1   + pwmLENpos ;
 assign posSum2 = posSum1 + pwmLENpos + m3r_pwmLenWant ;
