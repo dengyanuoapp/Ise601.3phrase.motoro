@@ -61,7 +61,7 @@ wire            [15:0]      posSum1                 ;
 wire            [15:0]      posSum2                 ;	
 reg             [15:0]      posSumX                 ;	
 
-wire            [5:0]       posSkip1                ;
+wire            [5:0]       posST1                ;
 reg             [2:0]       posLoad1                ;
 reg             [2:0]       remainLoad1             ;
 reg                         unknowN1                ;
@@ -210,7 +210,7 @@ assign pwmMinNow    = 12'd256;
 // 010: 2 : load posEXT
 // 001: 1 : load Remain + pos
 // 000: 0 : not load
-assign posSkip1 = {
+assign posST1 = {
     sR_minCheckMinX,          // 1 : posSum1      >= posMIN
     sR_minCheckExtX ,      // 1 : posSumExt    >= posSum1
     sR_Step11C ,              // 1 : during PWM step 11, pull up by C
@@ -225,7 +225,7 @@ always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or
     posLoad1    <= 1'b0 ;
     remainLoad1 <= 1'b0 ;
     unknowN1    <= 1'b1 ;
-    case ( posSkip1 ) 
+    case ( posST1 ) 
         'd0  :      begin unknowN1 <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
         'd32 :      begin unknowN1 <= 1'b0 ;    posLoad1    <= `posLoadAddPos ;      end
         //default :   begin end
