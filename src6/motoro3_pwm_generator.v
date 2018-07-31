@@ -58,6 +58,7 @@ reg             [15:0]      pwmPOScnt               ;
 reg             [15:0]      posRemain1              ;	
 wire            [15:0]      posSum1                 ;	
 wire            [15:0]      posSum2                 ;	
+reg             [15:0]      posSumX                 ;	
 
 wire            [5:0]       posSkip1                ;
 reg             [2:0]       posLoad1                ;
@@ -220,12 +221,18 @@ always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or
     posLoad1    <= 1'b0 ;
     unknowN1    <= 1'b1 ;
     case ( posSkip1 ) 
-        'd0 :       begin unknowN1 <= 1'b0 ; end
-        default :   begin end
+        'd0 :       begin unknowN1 <= 1'b0 ;    posLoad1 <= 3'd1 ;  end
+        //default :   begin end
     endcase
 end
 assign posSum1 = posRemain1   + pwmLENpos ;
 assign posSum2 = posSum1 + pwmLENpos + m3r_pwmLenWant ;
+always @( posLoad1 or posSum1 or posSum2 ) begin
+    case ( posLoad1 )
+        3'd1    : posSumX   =   posSum1 ;
+        default : posSumX   =   16'd0   ;
+    endcase
+end
 
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
@@ -251,10 +258,7 @@ always @ (negedge clk or negedge nRst) begin
         posRemain1              <= 16'd0 ;
     end
     else begin
-        if ( pwmCNTreload1 )   
-            case ( posSkip1 ) 
-                6'd0    :           begin posRemain1            <= posSum1 ;    end
-            endcase
+        if ( pwmCNTreload1 )        begin posRemain1            <= posSumX  ;   end
         if ( m3cntFirst2 )          begin posRemain1            <= 16'd0    ;   end
         if ( ! pwmActive1 )         begin posRemain1            <= 16'd0    ;   end
     end
