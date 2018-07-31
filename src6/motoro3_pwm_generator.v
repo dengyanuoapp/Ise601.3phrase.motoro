@@ -232,7 +232,7 @@ always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or
     endcase
 end
 assign posSum1 = posRemain1  + posRemain2   + pwmLENpos ;
-assign posSum2 = posSum1 + pwmLENpos + m3r_pwmLenWant ;
+assign posSum2 = m3r_pwmLenWant ;
 always @( posLoad1 or posSum1 or posSum2 ) begin
     case ( posLoad1 )
         3'd1    : posSumX   =   posSum1 ;
