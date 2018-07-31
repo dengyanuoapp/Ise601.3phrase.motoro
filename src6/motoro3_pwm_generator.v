@@ -63,6 +63,7 @@ reg             [15:0]      posSumX                 ;
 
 wire            [5:0]       posSkip1                ;
 reg             [2:0]       posLoad1                ;
+reg             [2:0]       remainLoad1             ;
 reg                         unknowN1                ;
 
 reg             [15:0]      posACCwant1             ;	
@@ -87,10 +88,10 @@ reg                         m3cntFirst3             ;
 
 wire                        sR_Step11C              = ( sgStep == 4'd11 ) ;
 wire                        sR_Step6B               = ( sgStep == 4'd6  ) ;
-wire                        sR_minCheckEXT          = ( posSum1    >= pwmMinNow )   ;
-wire                        sR_minCheckForceOKb     = ( sR_Step6B  && ( posSumExtB >= posSum1) ) ;
-wire                        sR_minCheckForceOKc     = ( sR_Step11C && ( posSumExtC >= posSum1) ) ;
-wire                        sR_minCheckForceOK      = sR_minCheckForceOKb | sR_minCheckForceOKc ;
+wire                        sR_minCheckMinX         = ( posSum1    >= pwmMinNow )   ;
+wire                        sR_minCheckExtXb        = ( sR_Step6B  && ( posSumExtB >= posSum1) ) ;
+wire                        sR_minCheckExtXc        = ( sR_Step11C && ( posSumExtC >= posSum1) ) ;
+wire                        sR_minCheckExtX         = sR_minCheckExtXb | sR_minCheckExtXc ;
 wire                        sR_lastPeriod           = ( pwmLastStep1 && (m3cnt < {m3r_pwmLenWant, 1'b0} ))    ;
 wire                        sR_runing0_noRun1       = ( sgStep > 4'd0 && sgStep < 4'd12 )   ;
 
@@ -210,23 +211,27 @@ assign pwmMinNow    = 12'd256;
 // 001: 1 : load Remain + pos
 // 000: 0 : not load
 assign posSkip1 = {
-    sR_minCheckEXT ,          // 1 : posSum1      >= posMIN
-    sR_minCheckForceOK ,      // 1 : posSumExt    >= posSum1
+    sR_minCheckMinX,          // 1 : posSum1      >= posMIN
+    sR_minCheckExtX ,      // 1 : posSumExt    >= posSum1
     sR_Step11C ,              // 1 : during PWM step 11, pull up by C
     sR_Step6B ,               // 1 : during PWM step 6,  pull up by B
     sR_lastPeriod ,           // 1 : during last 2nd PWM period
     sR_runing0_noRun1         // 1 : no runing
 } ;
 
+`define remainLoadAddPos    3'd1
+`define posLoadAddPos       3'd1
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or posSum2 ) begin
     posLoad1    <= 1'b0 ;
+    remainLoad1 <= 1'b0 ;
     unknowN1    <= 1'b1 ;
     case ( posSkip1 ) 
-        'd0 :       begin unknowN1 <= 1'b0 ;    posLoad1 <= 3'd1 ;  end
+        'd0  :      begin unknowN1 <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
+        'd32 :      begin unknowN1 <= 1'b0 ;    posLoad1    <= `posLoadAddPos ;      end
         //default :   begin end
     endcase
 end
-assign posSum1 = posRemain1   + pwmLENpos ;
+assign posSum1 = posRemain1  + posRemain2   + pwmLENpos ;
 assign posSum2 = posSum1 + pwmLENpos + m3r_pwmLenWant ;
 always @( posLoad1 or posSum1 or posSum2 ) begin
     case ( posLoad1 )
