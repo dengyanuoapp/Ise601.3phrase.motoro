@@ -56,6 +56,7 @@ wire                        pwmCNTreload3           ;
 reg             [15:0]      pwmPOScnt               ;	
 
 reg             [15:0]      posRemain1              ;	
+reg             [15:0]      posRemain2              ;	
 wire            [15:0]      posSum1                 ;	
 wire            [15:0]      posSum2                 ;	
 reg             [15:0]      posSumX                 ;	
@@ -258,9 +259,18 @@ always @ (negedge clk or negedge nRst) begin
         posRemain1              <= 16'd0 ;
     end
     else begin
-        if ( pwmCNTreload1 )        begin posRemain1            <= posSumX  ;   end
-        if ( m3cntFirst2 )          begin posRemain1            <= 16'd0    ;   end
-        if ( ! pwmActive1 )         begin posRemain1            <= 16'd0    ;   end
+        if ( pwmCNTreload1 )        posRemain1              <= posSumX      ;   
+        if ( m3cntFirst2 )          posRemain1              <= 16'd0        ;   
+        if ( ! pwmActive1 )         posRemain1              <= 16'd0        ;   
+    end
+end
+always @ (negedge clk or negedge nRst) begin
+    if(!nRst) begin
+        posRemain2              <= 16'd0 ;
+    end
+    else begin
+        if ( m3cntFirst2 )          posRemain2              <= pwmLENpos    ;   
+        if ( ! pwmActive1 )         posRemain2              <= 16'd0        ;   
     end
 end
 always @ (negedge clk or negedge nRst) begin
@@ -268,24 +278,10 @@ always @ (negedge clk or negedge nRst) begin
         pwmPOScnt                   <= 16'd0 ;
     end
     else begin
-        if ( m3cntLast2 ) begin
-            pwmPOScnt               <= 16'd0 ;
-        end
-        else begin
-            if ( pwmCNTreload1 ) begin
-                if ( posLoad1 ) begin 
-                    pwmPOScnt       <= posSum1 ; 
-                end 
-                if ( posLoad1 ) begin 
-                    pwmPOScnt       <= posSum1 ; 
-                end 
-            end
-            else begin
-                if ( pwmPOScnt ) begin
-                    pwmPOScnt       <=  pwmPOScnt - 16'd1 ;
-                end
-            end
-        end
+        if ( pwmPOScnt )            pwmPOScnt       <=  pwmPOScnt - 16'd1 ;
+        if ( pwmCNTreload1 )        pwmPOScnt       <= posSum1 ; 
+        if ( m3cntLast2 )           pwmPOScnt       <= 16'd0 ;
+        if ( posLoad1 )             pwmPOScnt       <= posSum1 ; 
     end
 end
 always @ (negedge clk or negedge nRst) begin
