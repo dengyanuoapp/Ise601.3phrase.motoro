@@ -64,7 +64,7 @@ reg             [15:0]      posSumX                 ;
 wire            [5:0]       posST1                ;
 reg             [2:0]       posLoad1                ;
 reg             [2:0]       remainLoad1             ;
-reg                         unknowN1                ;
+reg             [1:0]       unknowN1                ;
 
 reg             [15:0]      posACCwant1             ;	
 reg             [15:0]      posACCwant2             ;	
@@ -221,20 +221,30 @@ assign posST1 = {
 
 `define remainLoadAddPos    3'd1
 `define remainLoadInit      3'd7
-`define posLoadAddPos       3'd1
-`define posLoadInit         3'd7
 always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or posSum2 or pwmActive1 ) begin
-    posLoad1    <= `remainLoadInit ;
-    remainLoad1 <= `posLoadInit ;
-    unknowN1    <= 1'b1 ;
+    remainLoad1 <= `remainLoadInit ;
+    unknowN1[0] <= 1'b1 ;
     case ( posST1 ) 
-        'd0  :      begin unknowN1 <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
-        'd32 :      begin unknowN1 <= 1'b0 ;    posLoad1    <= `posLoadAddPos ;      end
+        'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
         //default :   begin end
     endcase
     if ( !pwmActive1 ) begin
-        posLoad1    <= `remainLoadInit ;
-        remainLoad1 <= `posLoadInit ;
+        remainLoad1 <= `remainLoadInit ;
+        unknowN1    <= 1'b0 ;
+    end
+end
+
+`define posLoadAddPos       3'd1
+`define posLoadInit         3'd7
+always @( posSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or posSum2 or pwmActive1 ) begin
+    posLoad1    <= `posLoadInit ;
+    unknowN1[1] <= 1'b1 ;
+    case ( posST1 ) 
+        'd32 :      begin unknowN1[1] <= 1'b0 ;    posLoad1    <= `posLoadAddPos ;      end
+        //default :   begin end
+    endcase
+    if ( !pwmActive1 ) begin
+        posLoad1    <= `posLoadInit ;
         unknowN1    <= 1'b0 ;
     end
 end
