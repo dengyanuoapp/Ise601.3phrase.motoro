@@ -292,8 +292,8 @@ always @ (negedge clk or negedge nRst) begin
         posRemain2              <= 16'd0 ;
     end
     else begin
-        if ( pwmCNTreload1 )        posRemain2              <= 16'd0        ;   
-        if ( m3cntFirst2 )          posRemain2              <= pwmLENpos    ;   
+        if ( m3cntLast1 )           posRemain2              <= pwmLENpos - posRemain2   ;    
+        if ( m3cntFirst1 )          posRemain2              <= pwmLENpos    ;   
         if ( ! pwmActive1 )         posRemain2              <= 16'd0        ;   
     end
 end
