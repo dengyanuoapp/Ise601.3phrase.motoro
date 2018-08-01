@@ -57,11 +57,12 @@ reg             [15:0]      pwmPOScnt               ;
 
 reg             [15:0]      posRemain1              ;	
 reg             [15:0]      posRemain2              ;	
-wire            [15:0]      calcSum1                 ;	
-wire            [15:0]      calcSum2                 ;	
-reg             [15:0]      calcSumX                 ;	
+wire            [15:0]      calcSum1                ;	
+wire            [15:0]      calcSum2                ;	
+wire            [15:0]      calcSum3                ;	
+reg             [15:0]      calcSumX                ;	
 
-wire            [5:0]       posST1                ;
+wire            [5:0]       posST1                  ;
 reg             [2:0]       posLoad1                ;
 reg             [2:0]       remainLoad1             ;
 reg             [1:0]       unknowN1                ;
@@ -283,6 +284,7 @@ always @ (negedge clk or negedge nRst) begin
     end
     else begin
         if ( pwmCNTreload1 )        posRemain1              <= calcSumX      ;   
+        if ( m3cntFirst1 )          posRemain1              <= calcSum2      ;   
         if ( m3cntFirst2 )          posRemain1              <= 16'd0        ;   
         if ( ! pwmActive1 )         posRemain1              <= 16'd0        ;   
     end
@@ -292,8 +294,7 @@ always @ (negedge clk or negedge nRst) begin
         posRemain2              <= 16'd0 ;
     end
     else begin
-        if ( m3cntLast1 )           posRemain2              <= pwmLENpos - posRemain2   ;    
-        if ( m3cntFirst1 )          posRemain2              <= pwmLENpos    ;   
+        if ( m3cntFirst1 )           posRemain2              <= pwmLENpos - posRemain2   ;    
         if ( ! pwmActive1 )         posRemain2              <= 16'd0        ;   
     end
 end
