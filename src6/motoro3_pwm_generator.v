@@ -249,7 +249,7 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
     end
 end
 assign calcSum1 = posRemain1  + posRemain2   + pwmLENpos ;
-assign calcSum2 = m3r_pwmLenWant ;
+assign calcSum2 = calcSum1 + pwmLENpos ;
 always @( remainLoad1 or calcSum1 or calcSum2 ) begin
     case ( remainLoad1 )
         `remainLoadInit     : calcSumX   =   16'hFFFF ;
