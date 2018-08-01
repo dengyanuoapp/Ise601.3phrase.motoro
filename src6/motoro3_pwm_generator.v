@@ -248,8 +248,8 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
         unknowN1    <= 1'b0 ;
     end
 end
-assign calcSum1 = posRemain1  + posRemain2   + pwmLENpos ;
-assign calcSum2 = calcSum1 + pwmLENpos ;
+assign calcSum1 = posRemain1  + pwmLENpos ;
+assign calcSum2 = calcSum1 + posRemain2   ;
 always @( remainLoad1 or calcSum1 or calcSum2 ) begin
     case ( remainLoad1 )
         `remainLoadInit     : calcSumX   =   16'hFFFF ;
@@ -292,6 +292,7 @@ always @ (negedge clk or negedge nRst) begin
         posRemain2              <= 16'd0 ;
     end
     else begin
+        if ( pwmCNTreload1 )        posRemain2              <= 16'd0        ;   
         if ( m3cntFirst2 )          posRemain2              <= pwmLENpos    ;   
         if ( ! pwmActive1 )         posRemain2              <= 16'd0        ;   
     end
