@@ -237,22 +237,27 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
     end
 end
 
-`define posLoadAddPos       3'd1
-`define posLoadInit         3'd7
-always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or calcSum2 or pwmActive1 ) begin
-    posLoad1    <= `posLoadInit ;
+`define posLoadPosSum1          3'd1
+`define posLoadPosSum2          3'd2
+`define posLoadDonTouch         3'd3
+`define posLoadDec1             3'd4
+`define posLoadZero             3'd7
+always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or calcSum2 or pwmActive1 or pwmPOScnt or posST1 ) begin
+    posLoad1    <= `posLoadDonTouch ;
     unknowN1[1] <= 1'b1 ;
-    case ( posST1 ) 
-        'd32 :      begin unknowN1[1] <= 1'b0 ;    posLoad1    <= `posLoadAddPos ;      end
-        //default :   begin end
-    endcase
-    if ( !pwmActive1 ) begin
-        posLoad1    <= `posLoadInit ;
-        unknowN1    <= 1'b0 ;
+    if ( pwmPOScnt )        begin                           posLoad1    <= `posLoadDec1 ;       unknowN1[1] <= 1'b0 ;   end
+    if ( pwmCNTreload1 )    begin
+        case ( posST1 ) 
+            'd32 :          begin unknowN1[1] <= 1'b0 ;     posLoad1    <= `posLoadPosSum2 ;    unknowN1[1] <= 1'b0 ;   end
+            //default :   begin end
+        endcase
     end
+    if ( m3cntLast2 )       begin                           posLoad1    <= `posLoadZero ;       unknowN1[1] <= 1'b0 ;   end   
+    if ( !pwmActive1 )      begin                           posLoad1    <= `posLoadZero ;       unknowN1[1] <= 1'b0 ;   end
 end
 assign calcSum1 = posRemain1  + pwmLENpos ;
-assign calcSum2 = posRemain1  + posRemain2   ;
+//assign calcSum2 = posRemain1  + posRemain2   ;
+assign calcSum2 = calcSum1  + pwmLENpos   ;
 always @( remainLoad1 or calcSum1 or calcSum2 ) begin
     case ( remainLoad1 )
         `remainLoadInit     : calcSumX   =   16'hFFFF   ;
@@ -306,10 +311,11 @@ always @ (negedge clk or negedge nRst) begin
         pwmPOScnt                   <= 16'd0 ;
     end
     else begin
-        if ( pwmPOScnt )            pwmPOScnt       <=  pwmPOScnt - 16'd1 ;
-        if ( pwmCNTreload1 )        pwmPOScnt       <= calcSum1 ; 
-        if ( m3cntLast2 )           pwmPOScnt       <= 16'd0 ;
-        if ( posLoad1 )             pwmPOScnt       <= calcSum1 ; 
+        case ( posLoad1 )
+            `posLoadZero    :       pwmPOScnt       <=  16'd0               ;     
+            `posLoadDec1    :       pwmPOScnt       <=  pwmPOScnt - 16'd1   ;     
+            `posLoadPosSum2 :       pwmPOScnt       <=  calcSum2            ;
+        endcase
     end
 end
 always @ (negedge clk or negedge nRst) begin
