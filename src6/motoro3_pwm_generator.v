@@ -242,7 +242,8 @@ end
 `define posLoadDonTouch         3'd3
 `define posLoadDec1             3'd4
 `define posLoadZero             3'd7
-always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or calcSum2 or pwmActive1 or pwmPOScnt or posST1 ) begin
+always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt 
+    or calcSum2 or pwmActive1 or pwmPOScnt or posST1 or pwmCNTreload1 or m3cntLast2 ) begin
     posLoad1    <= `posLoadDonTouch ;
     unknowN1[1] <= 1'b1 ;
     if ( pwmPOScnt )        begin                           posLoad1    <= `posLoadDec1 ;       unknowN1[1] <= 1'b0 ;   end
@@ -314,6 +315,7 @@ always @ (negedge clk or negedge nRst) begin
         case ( posLoad1 )
             `posLoadZero    :       pwmPOScnt       <=  16'd0               ;     
             `posLoadDec1    :       pwmPOScnt       <=  pwmPOScnt - 16'd1   ;     
+            `posLoadPosSum1 :       pwmPOScnt       <=  calcSum1            ;
             `posLoadPosSum2 :       pwmPOScnt       <=  calcSum2            ;
         endcase
     end
