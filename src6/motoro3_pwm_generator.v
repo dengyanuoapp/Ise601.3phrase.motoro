@@ -221,12 +221,14 @@ assign posST1 = {
 } ;
 
 `define remainLoadAddPos    3'd1
+`define remainLoadZero1     3'd2
 `define remainLoadInit      3'd7
 always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or calcSum2 or pwmActive1 ) begin
     remainLoad1 <= `remainLoadInit ;
     unknowN1[0] <= 1'b1 ;
     case ( posST1 ) 
         'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
+        'd32 :      begin unknowN1[1] <= 1'b0 ;    remainLoad1 <= `remainLoadZero1  ;   end
         //default :   begin end
     endcase
     if ( !pwmActive1 ) begin
@@ -253,9 +255,10 @@ assign calcSum1 = posRemain1  + pwmLENpos ;
 assign calcSum2 = posRemain1  + posRemain2   ;
 always @( remainLoad1 or calcSum1 or calcSum2 ) begin
     case ( remainLoad1 )
-        `remainLoadInit     : calcSumX   =   16'hFFFF ;
-        `remainLoadAddPos   : calcSumX   =   calcSum1 ;
-        default             : calcSumX   =   16'd0   ;
+        `remainLoadInit     : calcSumX   =   16'hFFFF   ;
+        `remainLoadAddPos   : calcSumX   =   calcSum1   ;
+        `remainLoadZero1    : calcSumX   =   16'd0      ;
+        default             : calcSumX   =   16'd0      ;
     endcase
 end
 
