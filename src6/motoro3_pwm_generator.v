@@ -228,12 +228,12 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
     unknowN1[0] <= 1'b1 ;
     case ( posST1 ) 
         'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
-        'd32 :      begin unknowN1[1] <= 1'b0 ;    remainLoad1 <= `remainLoadZero1  ;   end
+        'd32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadZero1  ;   end
         //default :   begin end
     endcase
     if ( !pwmActive1 ) begin
         remainLoad1 <= `remainLoadInit ;
-        unknowN1    <= 1'b0 ;
+        unknowN1[0] <= 1'b0 ;
     end
 end
 
@@ -246,15 +246,15 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt
     or calcSum2 or pwmActive1 or pwmPOScnt or posST1 or pwmCNTreload1 or m3cntLast2 ) begin
     posLoad1    <= `posLoadDonTouch ;
     unknowN1[1] <= 1'b1 ;
-    if ( pwmPOScnt )        begin                           posLoad1    <= `posLoadDec1 ;       unknowN1[1] <= 1'b0 ;   end
+    if ( pwmPOScnt )        begin       posLoad1    <= `posLoadDec1 ;       unknowN1[1] <= 1'b0 ;   end
     if ( pwmCNTreload1 )    begin
         case ( posST1 ) 
-            'd32 :          begin unknowN1[1] <= 1'b0 ;     posLoad1    <= `posLoadPosSum2 ;    unknowN1[1] <= 1'b0 ;   end
+            'd32 :          begin       posLoad1    <= `posLoadPosSum2 ;    unknowN1[1] <= 1'b0 ;   end
             //default :   begin end
         endcase
     end
-    if ( m3cntLast2 )       begin                           posLoad1    <= `posLoadZero ;       unknowN1[1] <= 1'b0 ;   end   
-    if ( !pwmActive1 )      begin                           posLoad1    <= `posLoadZero ;       unknowN1[1] <= 1'b0 ;   end
+    if ( m3cntLast2 )       begin       posLoad1    <= `posLoadZero ;       unknowN1[1] <= 1'b0 ;   end   
+    if ( !pwmActive1 )      begin       posLoad1    <= `posLoadZero ;       unknowN1[1] <= 1'b0 ;   end
 end
 assign calcSum1 = posRemain1  + pwmLENpos ;
 //assign calcSum2 = posRemain1  + posRemain2   ;
