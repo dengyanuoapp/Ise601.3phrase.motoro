@@ -70,6 +70,7 @@ ledTop(
     .clk            (   clk50mhz    )
 );
 
+wire    [`busWIDTH:1]            busDefault ;
 uart_set_show_config_top
 usTop(
     .busDefault     ( { 
