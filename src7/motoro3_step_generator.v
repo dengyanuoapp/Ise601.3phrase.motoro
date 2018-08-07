@@ -98,6 +98,7 @@ always @ (negedge clk or negedge nRst) begin
         m3LpwmSplitStep                 <= m3r_stepSplitMax ;
     end
     else begin
+        //m3LpwmSplitStep                 <= m3LpwmSplitStep  ;
         if ( m3start_up1 == 1 ) begin
             m3LpwmSplitStep             <= m3r_stepSplitMax ;
         end
