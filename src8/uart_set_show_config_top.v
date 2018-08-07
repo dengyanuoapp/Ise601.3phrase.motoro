@@ -1,3 +1,5 @@
+`include "motoro301_rtl_top.def.inc.v"
+
 module uart_set_show_config_top(
     busDefault,
     busNow,
@@ -9,11 +11,11 @@ module uart_set_show_config_top(
     clk10mhz
 
 );
-parameter busWIDTH      = 8;
-parameter busADDRwidth  = 1;
+//parameter busWIDTH      = 8;
+//parameter busADDRwidth  = 1;
 
-input   wire    [busWIDTH:1]            busDefault ;
-output  wire    [busWIDTH:1]            busNow ;
+input   wire    [`busWIDTH:1]            busDefault ;
+output  wire    [`busWIDTH:1]            busNow ;
 input   wire                            clk10mhz;	// 10MHz
 input   wire                            nRst;		// reset button on the core board
                            
