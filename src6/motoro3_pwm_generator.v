@@ -49,6 +49,8 @@ input   wire    [24:0]      m3cnt                   ;
 input   wire                clk                     ;			// 10MHz
 input   wire                nRst                    ;		
 
+reg             [15:0]      pwmLENpos_clked1        ;	
+
 reg             [11:0]      pwmCNT                  ;	
 wire                        pwmCNTreload1           ;
 wire                        pwmCNTreload3           ;
@@ -56,7 +58,6 @@ wire                        pwmCNTreload3           ;
 reg             [15:0]      pwmPOScnt               ;	
 
 reg             [15:0]      posRemain1              ;	
-reg             [15:0]      posRemain2              ;	
 wire            [15:0]      calcSum1                ;	
 wire            [15:0]      calcSum2                ;	
 wire            [15:0]      calcSum3                ;	
@@ -223,8 +224,8 @@ assign posST1 = {
 
 assign calcSum1 = posRemain1  + pwmLENpos ;
 //assign calcSum2 = calcSum1  + pwmLENpos   ;
-//assign calcSum2 = posRemain1  + posRemain2 + pwmLENpos   ;
-assign calcSum2 = posRemain1  + posRemain2 ;
+//assign calcSum2 = posRemain1  + pwmLENpos_clked1 + pwmLENpos   ;
+assign calcSum2 = posRemain1  + pwmLENpos_clked1 ;
 `define remainLoadAddPos    3'd1
 `define remainLoadZero1     3'd2
 `define remainLoadSum1      3'd3
@@ -312,11 +313,11 @@ always @ (negedge clk or negedge nRst) begin
 end
 always @ (negedge clk or negedge nRst) begin
     if(!nRst) begin
-        posRemain2              <= 16'd0 ;
+        pwmLENpos_clked1              <= 16'd0 ;
     end
     else begin
-        if ( m3cntFirst1 )          posRemain2              <= pwmLENpos    ;    
-        if ( ! pwmActive1 )         posRemain2              <= 16'd0        ;   
+        if ( m3cntFirst1 )          pwmLENpos_clked1              <= pwmLENpos    ;    
+        if ( ! pwmActive1 )         pwmLENpos_clked1              <= 16'd0        ;   
     end
 end
 always @ (negedge clk or negedge nRst) begin
