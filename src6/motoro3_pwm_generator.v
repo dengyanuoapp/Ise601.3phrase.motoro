@@ -224,18 +224,20 @@ assign posST1 = {
 `define remainLoadZero1     3'd2
 `define remainLoadSum1      3'd3
 `define remainLoadSum2      3'd4
+`define remainLoadDonTouch  3'd5
 `define remainLoadInit      3'd7
 always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or calcSum2 or pwmActive1 ) begin
-    remainLoad1 <= `remainLoadInit ;
-    unknowN1[0] <= 1'b1 ;
-    case ( posST1 ) 
-        'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
-        'd32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadZero1  ;   end
-//        if ( pwmCNTreload1 )        posRemain1              <= calcSumX      ;   
-//        if ( m3cntFirst1 )          posRemain1              <= calcSum2      ;   
-//        if ( m3cntFirst2 )          posRemain1              <= 16'd0        ;   
-        //default :   begin end
-    endcase
+    remainLoad1 <= `remainLoadDonTouch ;
+    unknowN1[0] <= 1'b0 ;
+    if ( pwmCNTreload1 ) begin
+        case ( posST1 ) 
+            'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
+            'd32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadZero1  ;   end
+            //default :   begin end
+        endcase
+    end
+    if ( m3cntFirst1 )          remainLoad1 <=  `remainLoadSum2     ;
+    if ( m3cntFirst2 )          remainLoad1 <=  `remainLoadZero1    ;
     if ( !pwmActive1 ) begin
         remainLoad1 <= `remainLoadInit ;
         unknowN1[0] <= 1'b0 ;
