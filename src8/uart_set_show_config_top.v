@@ -26,7 +26,8 @@ wire            [7:0]                   txData8;
 wire                                    txBusy;		
 
 assign txData8  =   'h08;
-assign busNow   =   0 ;
+//assign busNow   =   0 ;
+assign busNow   =   busDefault ;
 
 uart_clkgen_10mhz_115200		
 ucg01(	

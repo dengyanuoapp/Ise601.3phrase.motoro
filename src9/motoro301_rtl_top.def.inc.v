@@ -1,6 +1,6 @@
 
 `ifndef m3speedRoundPerSecondL8 
-    `define busWIDTH                        24 
+    `define busWIDTH                        32 
     `define m3pos1_neg0                     8'd1
     `define m3perCent                       8'd10
     `define m3speedRoundPerSecondH8         8'd0

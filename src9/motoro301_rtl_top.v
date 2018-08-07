@@ -46,6 +46,7 @@ input   wire                nReset;		// reset button on the core board
 
 wire                        clkUtx ;
 wire                        clkM3;			// 10MHz
+wire    [`busWIDTH:1]            busDefault ;
 
 
 //assign {tp01 , tp02 } = { nReset , ~nReset };
@@ -59,7 +60,6 @@ ledTop(
     .clk            (   clk50mhz    )
 );
 
-wire    [`busWIDTH:1]            busDefault ;
 uart_set_show_config_top
 usTop(
     .busDefault     ( { 
