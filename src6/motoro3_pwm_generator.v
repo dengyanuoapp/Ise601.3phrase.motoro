@@ -220,6 +220,11 @@ assign posST1 = {
     sR_runing0_noRun1         // 1 : no runing
 } ;
 
+
+assign calcSum1 = posRemain1  + pwmLENpos ;
+//assign calcSum2 = calcSum1  + pwmLENpos   ;
+//assign calcSum2 = posRemain1  + posRemain2 + pwmLENpos   ;
+assign calcSum2 = posRemain1  + posRemain2 ;
 `define remainLoadAddPos    3'd1
 `define remainLoadZero1     3'd2
 `define remainLoadSum1      3'd3
@@ -263,9 +268,6 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt
     if ( m3cntLast2 )       begin       posLoad1    <= `posLoadZero ;       unknowN1[1] <= 1'b0 ;   end   
     if ( !pwmActive1 )      begin       posLoad1    <= `posLoadZero ;       unknowN1[1] <= 1'b0 ;   end
 end
-assign calcSum1 = posRemain1  + pwmLENpos ;
-//assign calcSum2 = posRemain1  + posRemain2   ;
-assign calcSum2 = calcSum1  + pwmLENpos   ;
 always @( remainLoad1 or calcSum1 or calcSum2 ) begin
     case ( remainLoad1 )
         `remainLoadInit     : calcSumX   =   16'hFFFF   ;
@@ -313,7 +315,7 @@ always @ (negedge clk or negedge nRst) begin
         posRemain2              <= 16'd0 ;
     end
     else begin
-        if ( m3cntFirst1 )          posRemain2              <= pwmLENpos - posRemain2   ;    
+        if ( m3cntFirst1 )          posRemain2              <= pwmLENpos    ;    
         if ( ! pwmActive1 )         posRemain2              <= 16'd0        ;   
     end
 end
