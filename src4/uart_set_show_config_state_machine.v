@@ -1,3 +1,4 @@
+`include "motoro301_rtl_top.def.inc.v"
 module uart_set_show_config_state_machine(
     busDefault,
     busNow,
@@ -10,8 +11,8 @@ module uart_set_show_config_state_machine(
 
 );
 
-input   wire    [7:0]       busDefault ;
-output  wire    [7:0]       busNow ;
+input   wire    [`busWIDTH:0]       busDefault ;
+output  wire    [`busWIDTH:0]       busNow ;
 input   wire                clk10mhz;			// 50MHz
 input   wire                nRst;		// reset button on the core board
                            
