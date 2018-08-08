@@ -222,10 +222,11 @@ assign posST1 = {
 } ;
 
 
-assign calcSum1 = posRemain1  + pwmLENpos ;
-//assign calcSum2 = calcSum1  + pwmLENpos   ;
+assign calcSum1 = posRemain1    + pwmLENpos ;
+//assign calcSum2 = calcSum1    + pwmLENpos   ;
 //assign calcSum2 = posRemain1  + pwmLENpos_clked1 + pwmLENpos   ;
-assign calcSum2 = posRemain1  + pwmLENpos_clked1 ;
+assign calcSum2 = posRemain1    + pwmLENpos_clked1 ;
+assign calcSum3 = calcSum1      + pwmLENpos ;
 `define remainLoadAddPos    3'd1
 `define remainLoadZero1     3'd2
 `define remainLoadSum1      3'd3
@@ -252,8 +253,9 @@ end
 
 `define posLoadPosSum1          3'd1
 `define posLoadPosSum2          3'd2
-`define posLoadDonTouch         3'd3
-`define posLoadDec1             3'd4
+`define posLoadPosSum3          3'd3
+`define posLoadDonTouch         3'd4
+`define posLoadDec1             3'd5
 `define posLoadZero             3'd7
 always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt 
     or calcSum2 or pwmActive1 or pwmPOScnt or posST1 or pwmCNTreload1 or m3cntLast2 ) begin
@@ -262,7 +264,7 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt
     if ( pwmPOScnt )        begin       posLoad1    <= `posLoadDec1 ;       unknowN1[1] <= 1'b0 ;   end
     if ( pwmCNTreload1 )    begin
         case ( posST1 ) 
-            'd32 :          begin       posLoad1    <= `posLoadPosSum2 ;    unknowN1[1] <= 1'b0 ;   end
+            'd32 :          begin       posLoad1    <= `posLoadPosSum3 ;    unknowN1[1] <= 1'b0 ;   end
             //default :   begin end
         endcase
     end
@@ -330,6 +332,7 @@ always @ (negedge clk or negedge nRst) begin
             `posLoadDec1    :       pwmPOScnt       <=  pwmPOScnt - 16'd1   ;     
             `posLoadPosSum1 :       pwmPOScnt       <=  calcSum1            ;
             `posLoadPosSum2 :       pwmPOScnt       <=  calcSum2            ;
+            `posLoadPosSum3 :       pwmPOScnt       <=  calcSum3            ;
         endcase
     end
 end
