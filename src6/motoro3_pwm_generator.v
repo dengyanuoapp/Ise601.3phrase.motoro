@@ -61,6 +61,7 @@ reg             [15:0]      posRemain1              ;
 wire            [15:0]      calcSum1                ;	
 wire            [15:0]      calcSum2                ;	
 wire            [15:0]      calcSum3                ;	
+wire            [15:0]      calcSum4                ;	
 reg             [15:0]      calcSumX                ;	
 
 wire            [5:0]       posST1                  ;
@@ -227,7 +228,7 @@ assign calcSum1 = posRemain1    + pwmLENpos ;
 //assign calcSum2 = posRemain1  + pwmLENpos_clked1 + pwmLENpos   ;
 assign calcSum2 = posRemain1    + pwmLENpos_clked1 ;
 assign calcSum3 = calcSum1      + pwmLENpos ;
-assign calcSum4 =               - pwmLENpos ;
+assign calcSum4 = 0             - pwmLENpos ;
 `define remainLoadAddPos    4'd1
 `define remainLoadZero1     4'd2
 `define remainLoadSum1      4'd3
