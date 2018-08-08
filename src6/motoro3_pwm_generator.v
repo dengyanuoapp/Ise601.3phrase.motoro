@@ -62,6 +62,8 @@ wire            [15:0]      calcSum1                ;
 wire            [15:0]      calcSum2                ;	
 wire            [15:0]      calcSum3                ;	
 wire            [15:0]      calcSum4                ;	
+wire            [15:0]      calcSum5                ;	
+wire            [15:0]      calcSum6                ;	
 reg             [15:0]      calcSumX                ;	
 
 wire            [5:0]       posST1                  ;
@@ -91,6 +93,7 @@ reg                         m3cntFirst3             ;
 
 wire                        sR_Step11C              = ( sgStep == 4'd11 ) ;
 wire                        sR_Step6B               = ( sgStep == 4'd6  ) ;
+wire                        sR_lastCheckMinX        = ( calcSum5    >= pwmMinNow )   ;// 1 : calcSum1 + 2 * POSlen     >= posMIN
 wire                        sR_minCheckMinX         = ( calcSum1    >= pwmMinNow )   ;
 wire                        sR_minCheckExtXb        = ( sR_Step6B  && ( posSumExtB >= calcSum1) ) ;
 wire                        sR_minCheckExtXc        = ( sR_Step11C && ( posSumExtC >= calcSum1) ) ;
@@ -214,28 +217,30 @@ assign pwmMinNow    = 12'd256;
 // 001: 1 : load Remain + pos
 // 000: 0 : not load
 assign posST1 = {
-    sR_minCheckMinX,          // 1 : calcSum1      >= posMIN
-    sR_minCheckExtX ,      // 1 : posSumExt    >= calcSum1
-    sR_Step11C ,              // 1 : during PWM step 11, pull up by C
-    sR_Step6B ,               // 1 : during PWM step 6,  pull up by B
-    sR_lastPeriod ,           // 1 : during last 2nd PWM period
-    sR_runing0_noRun1         // 1 : no runing
+    sR_lastCheckMinX,           // 1 : calcSum1 + 2 * POSlen     >= posMIN
+    sR_minCheckMinX,            // 1 : calcSum1      >= posMIN
+    sR_minCheckExtX ,           // 1 : posSumExt    >= calcSum1
+    sR_Step11C ,                // 1 : during PWM step 11, pull up by C
+    sR_Step6B ,                 // 1 : during PWM step 6,  pull up by B
+    sR_lastPeriod ,             // 1 : during last 2nd PWM period
+    sR_runing0_noRun1           // 1 : no runing
 } ;
 
 
 assign calcSum1 = posRemain1    + pwmLENpos ;
-//assign calcSum2 = calcSum1    + pwmLENpos   ;
-//assign calcSum2 = posRemain1  + pwmLENpos_clked1 + pwmLENpos   ;
 assign calcSum2 = posRemain1    + pwmLENpos_clked1 ;
 assign calcSum3 = calcSum1      + pwmLENpos ;
 assign calcSum4 = 0             - pwmLENpos ;
+assign calcSum5 = calcSum3      + pwmLENpos ;
+assign calcSum6 = 16'h8000 ;
 `define remainLoadAddPos    4'd1
-`define remainLoadZero1     4'd2
-`define remainLoadSum1      4'd3
-`define remainLoadSum2      4'd4
-`define remainLoadSum3      4'd5
-`define remainLoadSum4      4'd6
-`define remainLoadDonTouch  4'd7
+`define remainLoadZero1     4'd3
+`define remainLoadSum1      4'd5
+`define remainLoadSum2      4'd7
+`define remainLoadSum3      4'd9
+`define remainLoadSum4      4'd11
+`define remainLoadSum6      4'd13
+`define remainLoadDonTouch  4'd14
 `define remainLoadInit      4'd15
 always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or calcSum2 or pwmActive1 ) begin
     remainLoad1 <= `remainLoadDonTouch ;
@@ -245,6 +250,7 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
             'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
             //'d32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadZero1  ;   end
             'd32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum4  ;   end
+            'd2  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum6  ;   end
             //default :   begin end
         endcase
     end
@@ -259,8 +265,9 @@ end
 `define posLoadPosSum1          4'd1
 `define posLoadPosSum2          4'd2
 `define posLoadPosSum3          4'd3
-`define posLoadDonTouch         4'd4
-`define posLoadDec1             4'd5
+`define posLoadPosSum5          4'd4
+`define posLoadDonTouch         4'd5
+`define posLoadDec1             4'd6
 `define posLoadZero             4'd15
 always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt 
     or calcSum2 or pwmActive1 or pwmPOScnt or posST1 or pwmCNTreload1 or m3cntLast2 ) begin
@@ -270,6 +277,7 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt
     if ( pwmCNTreload1 )    begin
         case ( posST1 ) 
             'd32 :          begin       posLoad1    <= `posLoadPosSum3 ;    unknowN1[1] <= 1'b0 ;   end
+            'd2  :          begin       posLoad1    <= `posLoadPosSum5 ;    unknowN1[1] <= 1'b0 ;   end
             //default :   begin end
         endcase
     end
@@ -315,6 +323,7 @@ always @ (negedge clk or negedge nRst) begin
             `remainLoadSum2     :   posRemain1              <= calcSum2     ;   
             `remainLoadSum3     :   posRemain1              <= calcSum3     ;   
             `remainLoadSum4     :   posRemain1              <= calcSum4     ;   
+            `remainLoadSum6     :   posRemain1              <= calcSum6     ;   
             `remainLoadAddPos   :   posRemain1              <= calcSum1     ;   
         endcase
         if ( ! pwmActive1 )         posRemain1              <= 16'd0        ;   
@@ -340,6 +349,7 @@ always @ (negedge clk or negedge nRst) begin
             `posLoadPosSum1 :       pwmPOScnt       <=  calcSum1            ;
             `posLoadPosSum2 :       pwmPOScnt       <=  calcSum2            ;
             `posLoadPosSum3 :       pwmPOScnt       <=  calcSum3            ;
+            `posLoadPosSum5 :       pwmPOScnt       <=  calcSum5            ;
         endcase
     end
 end
