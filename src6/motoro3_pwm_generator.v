@@ -66,7 +66,7 @@ wire            [15:0]      calcSum5                ;
 wire            [15:0]      calcSum6                ;	
 reg             [15:0]      calcSumX                ;	
 
-wire            [6:0]       posST1                  ;
+wire            [7:0]       posST1                  ;
 reg             [3:0]       posLoad1                ;
 reg             [3:0]       remainLoad1             ;
 reg             [1:0]       unknowN1                ;
@@ -217,6 +217,7 @@ assign pwmMinNow    = 12'd256;
 // 001: 1 : load Remain + pos
 // 000: 0 : not load
 assign posST1 = {
+    1'b0,
     sR_lastCheckMinX,           // 1 : calcSum1 + 2 * POSlen     >= posMIN
     sR_minCheckMinX,            // 1 : calcSum1      >= posMIN
     sR_minCheckExtX ,           // 1 : posSumExt    >= calcSum1
@@ -248,11 +249,11 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
     unknowN1[0] <= 1'b0 ;
     if ( pwmCNTreload1 ) begin
         case ( posST1 ) 
-            'd20 ,
-            'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
+            8'd20 ,
+            8'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
             //'d32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadZero1  ;   end
-            'd32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum4  ;   end
-            'd2  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum6  ;   end
+            8'd32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum4  ;   end
+            8'd2  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum6  ;   end
             //default :   begin end
         endcase
     end
@@ -278,8 +279,8 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt
     if ( pwmPOScnt )        begin       posLoad1    <= `posLoadDec1 ;       unknowN1[1] <= 1'b0 ;   end
     if ( pwmCNTreload1 )    begin
         case ( posST1 ) 
-            'd32 :          begin       posLoad1    <= `posLoadPosSum3 ;    unknowN1[1] <= 1'b0 ;   end
-            'd2  :          begin       posLoad1    <= `posLoadPosSum5 ;    unknowN1[1] <= 1'b0 ;   end
+            8'd32 :          begin       posLoad1    <= `posLoadPosSum3 ;    unknowN1[1] <= 1'b0 ;   end
+            8'd2  :          begin       posLoad1    <= `posLoadPosSum5 ;    unknowN1[1] <= 1'b0 ;   end
             //default :   begin end
         endcase
     end
