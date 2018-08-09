@@ -66,7 +66,7 @@ wire            [15:0]      calcSum5                ;
 wire            [15:0]      calcSum6                ;	
 reg             [15:0]      calcSumX                ;	
 
-wire            [5:0]       posST1                  ;
+wire            [6:0]       posST1                  ;
 reg             [3:0]       posLoad1                ;
 reg             [3:0]       remainLoad1             ;
 reg             [1:0]       unknowN1                ;
@@ -220,6 +220,7 @@ assign posST1 = {
     sR_lastCheckMinX,           // 1 : calcSum1 + 2 * POSlen     >= posMIN
     sR_minCheckMinX,            // 1 : calcSum1      >= posMIN
     sR_minCheckExtX ,           // 1 : posSumExt    >= calcSum1
+
     sR_Step11C ,                // 1 : during PWM step 11, pull up by C
     sR_Step6B ,                 // 1 : during PWM step 6,  pull up by B
     sR_lastPeriod ,             // 1 : during last 2nd PWM period
@@ -247,6 +248,7 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
     unknowN1[0] <= 1'b0 ;
     if ( pwmCNTreload1 ) begin
         case ( posST1 ) 
+            'd20 ,
             'd0  :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
             //'d32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadZero1  ;   end
             'd32 :      begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum4  ;   end
