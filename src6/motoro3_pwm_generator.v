@@ -251,6 +251,7 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
         case ( posST1 ) 
             8'd20 /*0x14*/,
             8'd64 /*0x40*/,
+            8'd4          ,
             8'd0          : begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
             8'd96 /*0x60*/: begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum4  ;   end
             8'd2          ,
