@@ -99,7 +99,7 @@ wire                        sR_minCheckExtXb        = ( sR_Step6B  && ( posSumEx
 wire                        sR_minCheckExtXc        = ( sR_Step11C && ( posSumExtC >= calcSum1) ) ;
 wire                        sR_minCheckExtX         = sR_minCheckExtXb | sR_minCheckExtXc ;
 wire                        sR_lastPeriod           = ( pwmLastStep1 && (m3cnt < {m3r_pwmLenWant, 1'b0} ))    ;
-wire                        sR_runing0_noRun1       = ( sgStep > 4'd0 && sgStep < 4'd12 )   ;
+wire                        sR_runing0_noRun1       = ( sgStep >= 4'd12 )   ;
 
 wire                        pwmLastStep2            = sR_lastPeriod ;
 
