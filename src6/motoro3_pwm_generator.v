@@ -252,9 +252,9 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
             8'd20 /*0x14*/,
             8'd64 /*0x40*/,
             8'd0          : begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
-            //8'd32 /*0x20*/: begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum4  ;   end
             8'd96 /*0x60*/: begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum4  ;   end
-            8'd2          : begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum6  ;   end
+            8'd2          ,
+            8'd66 /*0x42*/: begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadSum6  ;   end
             //default :   begin end
         endcase
     end
@@ -280,9 +280,9 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt
     if ( pwmPOScnt )        begin       posLoad1    <= `posLoadDec1 ;       unknowN1[1] <= 1'b0 ;   end
     if ( pwmCNTreload1 )    begin
         case ( posST1 ) 
-            //8'd32 /*0x14*/: begin       posLoad1    <= `posLoadPosSum3 ;    unknowN1[1] <= 1'b0 ;   end
             8'd96 /*0x60*/: begin       posLoad1    <= `posLoadPosSum3 ;    unknowN1[1] <= 1'b0 ;   end
-            8'd2          : begin       posLoad1    <= `posLoadPosSum5 ;    unknowN1[1] <= 1'b0 ;   end
+            8'd2          ,
+            8'd66 /*0x42*/: begin       posLoad1    <= `posLoadPosSum5 ;    unknowN1[1] <= 1'b0 ;   end
             //default :   begin end
         endcase
     end
