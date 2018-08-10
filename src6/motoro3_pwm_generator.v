@@ -246,7 +246,7 @@ assign calcSum6 = 16'h8000 ;
 `define remainLoadInit      4'd15
 always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt or calcSum2 or pwmActive1 ) begin
     remainLoad1 <= `remainLoadDonTouch ;
-    unknowN1[0] <= 1'b0 ;
+    unknowN1[0] <= 1'b1 ;
     if ( pwmCNTreload1 ) begin
         case ( posST1 ) 
             8'd20 /*0x14*/,
@@ -265,12 +265,9 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
             //default :   begin end
         endcase
     end
-    if ( m3cntFirst1 )          remainLoad1 <=  `remainLoadSum2     ;
-    if ( m3cntFirst2 )          remainLoad1 <=  `remainLoadZero1    ;
-    if ( !pwmActive1 ) begin
-        remainLoad1 <= `remainLoadInit ;
-        unknowN1[0] <= 1'b0 ;
-    end
+    if ( m3cntFirst1 ) begin    unknowN1[0] <= 1'b0 ;   remainLoad1 <=  `remainLoadSum2     ; end
+    if ( m3cntFirst2 ) begin    unknowN1[0] <= 1'b0 ;   remainLoad1 <=  `remainLoadZero1    ; end
+    if ( !pwmActive1 ) begin    unknowN1[0] <= 1'b0 ;   remainLoad1 <= `remainLoadInit      ; end
 end
 
 `define posLoadPosSum1          4'd1
