@@ -252,6 +252,7 @@ always @( calcSum1 or pwmMinNow or sgStep or posSumExtB or posSumExtC or m3cnt o
             8'd20 /*0x14*/,
             8'd64 /*0x40*/,
             8'd68 /*0x44*/,
+            8'd116 /*0x74*/,
             8'd4          ,
             8'd0          : begin unknowN1[0] <= 1'b0 ;    remainLoad1 <= `remainLoadAddPos ;   end
 
