@@ -101,6 +101,8 @@ assign error13  = ({aLN,bLN,cLN}==3'b001) ;
 assign error14  = ({aLN,bLN,cLN}==3'b000) ;
 assign error19  = error11 | error12 | error13 | error14 ;
 assign error91  = error01 & error19 ;
+//assign error92  = (/motoro301_tb/rtl/m3t/r/lgA/pwmSG/unknowN1)? 1'b1:1'b0 ;
+assign error92  = (rtl.m3t.r.lgA.pwmSG.unknowN1)? 1'b1:1'b0 ;
 
 
 
