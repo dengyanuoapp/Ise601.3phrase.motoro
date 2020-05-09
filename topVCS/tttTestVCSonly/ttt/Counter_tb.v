@@ -32,8 +32,8 @@ module Counter_tb;
     initial
     begin
 
-        $dumpfile("Counter.vcd"); 
-        $dumpvars(0, Counter_tb); 
+        //$dumpfile("Counter.vcd"); 
+        //$dumpvars(0, Counter_tb); 
 
         rst = 1;
         clk = 0;
