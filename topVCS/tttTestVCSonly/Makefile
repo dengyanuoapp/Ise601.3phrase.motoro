@@ -41,15 +41,22 @@ export CMDline:=$(VCS_ARCH_OVERRIDE)                            \
 
 define show_help_text
 
-c clean:
-rvs run_verilog_sim:
-bvs build_verilog_sim:
+c            -->>>    clean 
+rvs          -->>>    run_verilog_sim 
+bvs          -->>>    build_verilog_sim 
+aaa          -->>>    $(aaa)
 
 endef
 export show_help_text
 
 all:
 	@echo "$${show_help_text}"
+
+aaa:=c rvs bvs          
+aaa:$(aaa)
+
+m: Makefile
+	vim $<
 
 c clean:
 	rm -fr                                                      \
