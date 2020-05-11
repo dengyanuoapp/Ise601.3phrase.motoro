@@ -5,8 +5,6 @@ VCS_HOME=/e/eda2321/VCS_2018.09
 #VCS_HOME=/e/eda2321/VCS_2016.06
 VCS_ARCH_OVERRIDE=
 
-DC_HOME=/e/eda2331/DC_201603
-PATHdc:=PATH=$(DC_HOME)/bin:$(DC_HOME)/linux64/bin:$(PATH)
 
 #other_para01:= -LDFLAGS -Wl,--no-as-needed 
 #other_para01:= -cc gcc44 -cpp g++44
@@ -54,6 +52,8 @@ rvs          -->>>    run_verilog_sim
 aaa          -->>>    $(aaa)
 
 dcdc         -->>>    $(dcdc)
+dcdc2        -->>>    $(dcdc)  2018.06 , the last version without CTR SIGN=...
+dcdc3        -->>>    $(dcdc)
 
 endef
 export show_help_text
@@ -65,6 +65,7 @@ all:
 aaa:=c bvs rvs
 aaa:$(aaa)
 
+######################## test VCS :begin
 m: Makefile
 	@echo
 	$(vim) $<
@@ -83,17 +84,31 @@ bvs build_verilog_sim:
 
 rvs run_verilog_sim:
 	./simv 
+######################## test VCS :end
 
-dcdc := run_dc_shell
-dcdc_CMD := \
+
+######################## dcdc dcdc2 dcdc3 :begin
+dcdc  :=/e/eda2331/DC_201603
+dcdc2 :=/e/eda2331/syn_vO-2018.06-SP1/
+dcdc3 :=/e/eda2331/DC_201903/syn/P-2019.03-SP4/
+
+DC_HOME?=$(dcdc)
+dcdc2:dcdc
+dcdc3:dcdc
+dcdc2: DC_HOME=$(dcdc2)
+dcdc3: DC_HOME=$(dcdc3)
+
+PATHdc=PATH=$(DC_HOME)/bin:$(DC_HOME)/linux64/bin:$(PATH)
+dcdc_CMD = \
 	$(LM_LICENSE_FILE)                          \
 	$(PATHdc) \
-	$(DC_HOME)/bin/design_vision-xg
-# dc_shell-t
-# dc_shell
-# dc_shell-xg-t
-# design_vision-xg
-# design_vision
+	$(DC_HOME)/bin/dc_shell-t
+#	$(DC_HOME)/bin/design_vision-xg
+#	$(DC_HOME)/bin/dc_shell
+#	$(DC_HOME)/bin/dc_shell-xg-t
+#	$(DC_HOME)/bin/design_vision-xg
+#	$(DC_HOME)/bin/design_vision
 
 dcdc :
 	$(dcdc_CMD)
+######################## dcdc dcdc2 dcdc3 : end
