@@ -45,6 +45,7 @@ export vcsCMDline:=$(VCS_ARCH_OVERRIDE)         \
 	\
 	ttt/Counter_tb.v                            \
 	ttt/Counter.v 
+
 export verdivcsCMDline:=                        \
 	VERDI_HOME=$(VERDI_HOME)                    \
 	$(vcsCMDline) \
