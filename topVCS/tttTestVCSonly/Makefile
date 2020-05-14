@@ -1,7 +1,9 @@
 
 LM_LICENSE_FILE?=LM_LICENSE_FILE=56789@127.0.0.1
 
-VCS_HOME=/e/eda2321/VCS_2018.09
+VERDI_HOME:=/e/eda2312/verdi_2018.09
+
+VCS_HOME:=/e/eda2321/VCS_2018.09
 #VCS_HOME=/e/eda2321/VCS_2016.06
 VCS_ARCH_OVERRIDE=
 
@@ -30,7 +32,7 @@ endif
 
 
 
-export CMDline:=$(VCS_ARCH_OVERRIDE)            \
+export vcsCMDline:=$(VCS_ARCH_OVERRIDE)         \
 	$(LM_LICENSE_FILE)                          \
 	VCS_HOME=$(VCS_HOME) 			            \
 	\
@@ -43,17 +45,26 @@ export CMDline:=$(VCS_ARCH_OVERRIDE)            \
 	\
 	ttt/Counter_tb.v                            \
 	ttt/Counter.v 
+export verdivcsCMDline:=                        \
+	VERDI_HOME=$(VERDI_HOME)                    \
+	$(vcsCMDline) \
+	+define+VERDI_HOME=$(VERDI_HOME) -lca -debug_access+all
 
 define show_help_text
 
 c            -->>>    clean 
-bvs          -->>>    build_verilog_sim 
-rvs          -->>>    run_verilog_sim 
-aaa          -->>>    $(aaa)
+
+bvs          -->>>    $(bvs)      -->> by vcs only
+rvs          -->>>    $(rvs)      -->> by vcs only
+aaa          -->>>    $(aaa)      -->> by vcs only
+
+bvv          -->>>    $(bvv)      -->> by vcs with verdi
+rvv          -->>>    $(rvv)      -->> by vcs with verdi
+aav          -->>>    $(aav)      -->> by vcs with verdi
 
 dcdc         -->>>    $(dcdc)
-dcdc2        -->>>    $(dcdc)  2018.06 , the last version without CTR SIGN=...
-dcdc3        -->>>    $(dcdc)
+dcdc2        -->>>    $(dcdc2)  2018.06 , the last version without CTR SIGN=...
+dcdc3        -->>>    $(dcdc3)
 
 endef
 export show_help_text
@@ -64,6 +75,11 @@ all:
 
 aaa:=c bvs rvs
 aaa:$(aaa)
+aav:=c bvv rvv
+aav:$(aav)
+
+gs gc ga:
+	cd .. && make $@
 
 ######################## test VCS :begin
 m: Makefile
@@ -73,16 +89,32 @@ m: Makefile
 
 c clean:
 	rm -fr                                                      \
+		novas_dump.log                                          \
+		verdi.fsdb                                              \
+		Counter.vcd                                             \
+		command.log                                             \
+		filenames.log                                           \
 		simv                                                    \
 		simv.daidir/                                            \
 		csrc/                                                   \
 		stack.info.*/                                           \
 		ucli.key                               
 
-bvs build_verilog_sim:
-	$(CMDline) || (echo "${CMDline}" ; exit 33 )
+bvs:=build_verilog_sim
+bvs $(bvs):
+	$(vcsCMDline) || (echo "$${vcsCMDline} : run with error  818381881 " ; exit 33 )
 
-rvs run_verilog_sim:
+bvv:=build_verilog_sim_verdi
+bvv $(bvv):
+	$(verdivcsCMDline) || (echo "$${verdivcsCMDline} : run with error 818381882 " ; exit 33 )
+
+rvs:=run_verilog_sim
+rvs $(rvs):
+	./simv 
+
+rvv:=run_verilog_sim_verdi
+rvv $(rvv):
+	VERDI_HOME=$(VERDI_HOME)                    \
 	./simv 
 ######################## test VCS :end
 

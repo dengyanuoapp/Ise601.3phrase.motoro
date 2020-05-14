@@ -13,46 +13,53 @@
 
 module Counter_tb;
 
-    reg  rst;
-    reg  clk;
+reg  rst;
+reg  clk;
 
-    wire [4:0] c;
+wire [4:0] c;
 
-    Counter DUT(
+Counter DUT(
     .rst(rst),
     .clk(clk),
     .c(c)
-    );
+);
 
-    //initial begin
-    //    $fsdbDumpfile("verdi.fsdb") ;
-    //    $fsdbDumpvars(0,Counter_tb) ;
-    //end
+`ifdef    VERDI_HOME
+initial begin
+    $fsdbDumpfile("verdi.fsdb") ;
+    $fsdbDumpvars(0,Counter_tb) ;
+end
+`endif
 
-    initial
-    begin
+initial
+begin
 
-        //$dumpfile("Counter.vcd"); 
-        //$dumpvars(0, Counter_tb); 
+`ifndef    VERDI_HOME
+    $dumpfile("Counter.vcd"); 
+    $dumpvars(0, Counter_tb); 
+`endif
 
-        rst = 1;
-        clk = 0;
+    rst = 1;
+    clk = 0;
 
-        #40
-        rst = 0;
+    #40
+    rst = 0;
 
-        #600
-        rst = 1;
+    #600
+    rst = 1;
 
-        #40
-        rst = 0;
+    #40
+    rst = 0;
 
-        #600
+    #600
 
-        #20
-        $finish;
+    #20
+    $finish;
 
-    end
-    always
-        #10 clk = !clk;
+end
+
+always begin
+    #10 clk = !clk;
+end
+
 endmodule
