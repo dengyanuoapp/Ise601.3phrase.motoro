@@ -48,7 +48,7 @@ export vcsCMDline:=$(VCS_ARCH_OVERRIDE)         \
 export verdivcsCMDline:=                        \
 	VERDI_HOME=$(VERDI_HOME)                    \
 	$(vcsCMDline) \
-	+define+VERDI_HOME=$(VERDI_HOME) -lca -debug_access+all
+	+define+VERDI_HOME=$(VERDI_HOME) -debug_access+all
 
 define show_help_text
 
@@ -78,7 +78,7 @@ aaa:$(aaa)
 aav:=c bvv rvv
 aav:$(aav)
 
-gs gc ga:
+up gs gc ga:
 	cd .. && make $@
 
 ######################## test VCS :begin
