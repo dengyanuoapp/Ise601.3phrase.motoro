@@ -1,6 +1,11 @@
 
 LM_LICENSE_FILE?=LM_LICENSE_FILE=56789@127.0.0.1
 
+
+INNOVUS_HOME:=/e/eda2141/nowDIR
+INNOVUS_HOMEbin1:=$(INNOVUS_HOME)/bin
+INNOVUS_HOMEbin2:=$(INNOVUS_HOME)/tools.lnx86/bin
+
 VERDI_HOME:=/e/eda2312/verdi_2018.09
 
 VCS_HOME:=/e/eda2321/VCS_2018.09
@@ -63,6 +68,8 @@ bvv          -->>>    $(bvv)      -->> by vcs with verdi
 rvv          -->>>    $(rvv)      -->> by vcs with verdi
 aav          -->>>    $(aav)      -->> by vcs with verdi
 
+inn          -->>>
+
 dcdc         -->>>    $(dcdc)
 dcdc2        -->>>    $(dcdc2)  2018.06 , the last version without CTR SIGN=...
 dcdc3        -->>>    $(dcdc3)
@@ -79,6 +86,12 @@ aaa:$(aaa)
 aav:=c bvv rvv
 aav:$(aav)
 
+inn:
+	OA_UNSUPPORTED_PLAT=linux_rhel60           \
+	OA_HOME=$(INNOVUS_HOME)/share/oa/          \
+	PATH=$(INNOVUS_HOMEbin1):$${PATH}          \
+	$(INNOVUS_HOMEbin1)/innovus
+
 up gs gc ga:
 	cd .. && make $@
 
@@ -90,6 +103,8 @@ m: Makefile
 
 c clean:
 	rm -fr                                                      \
+		innovus.log  innovus.log[0-9]*                          \
+		innovus.logv innovus.logv[0-9]*                         \
 		novas_dump.log                                          \
 		verdi.fsdb                                              \
 		Counter.vcd                                             \
